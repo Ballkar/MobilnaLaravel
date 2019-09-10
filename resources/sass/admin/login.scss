@@ -1,0 +1,17 @@
+#loginContainer{
+    background-color: bisque;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 30px;
+    border-radius: 5px;
+
+
+    .title{
+        font-size: 18px;
+        text-align: center;
+    }
+    .login{
+
+    }
+}

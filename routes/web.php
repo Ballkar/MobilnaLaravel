@@ -18,4 +18,6 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/admin/login', 'Admin\LoginController@index');
+Route::post('/admin/login', 'Admin\LoginController@login');
+Route::get('/admin/logout', 'Admin\LoginController@logout');
 

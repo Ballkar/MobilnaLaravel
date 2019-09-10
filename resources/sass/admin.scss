@@ -6,8 +6,13 @@
 @import 'reset';
 @import 'mixins';
 
+@import 'admin/login';
+
 #adminContainer{
     display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 
