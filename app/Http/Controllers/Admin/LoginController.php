@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +23,7 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function showLoginForm()
     {
 //        dd(Auth::user());
         return view('admin.login');
@@ -48,11 +47,12 @@ class LoginController extends Controller
             return redirect()->back()->withErrors(['Invalid Account type']);
         }
 
-        return redirect()->back();
+        return redirect('/admin/dashboard');
     }
 
     public function logout()
     {
         if (Auth::check()) Auth::logout();
+        return redirect('/');
     }
 }
