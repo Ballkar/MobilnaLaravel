@@ -15,16 +15,16 @@
                     <strong>{{ $errors->first('email') }}</strong>
                 </span>
             @endif
-            <label for="email">Email</label>
-            <input type="text" id="email" name="email">
+            <label for="email" class="label">Email</label>
+            <input type="text" id="email" name="email" class="input">
             @if ($errors->has('password'))
-                <span class="invalid-feedback">
+                <span class="error">
                     <strong>{{ $errors->first('password') }}</strong>
                 </span>
             @endif
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password">
-            <button class="submit">Login</button>
+            <label for="password" class="label">Password</label>
+            <input type="password" id="password" name="password" class="input">
+            <button class="submitBtn">Login</button>
         </div>
     </form>
 

@@ -14,12 +14,12 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->middleware('admin');
+Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/admin/login', 'Admin\LoginController@showLoginForm');
-Route::post('/admin/login', 'Admin\LoginController@login');
-Route::get('/admin/logout', 'Admin\LoginController@logout');
+Route::get('/admin/login', 'Admin\DashboardController@showLoginForm');
+Route::post('/admin/login', 'Admin\DashboardController@login');
+Route::get('/admin/logout', 'Admin\DashboardController@logout');
 
 Route::get('/admin/dashboard', 'Admin\DashboardController@index');
 
