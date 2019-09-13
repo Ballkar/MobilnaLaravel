@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Blog\Post;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -42,5 +43,20 @@ class User extends Authenticatable
     public function setPasswordAttribute($password)
     {
         return $this->attributes['password'] = Hash::make($password);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
     }
 }

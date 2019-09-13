@@ -8,4 +8,7 @@ class Comments extends Model
 {
     protected $table = 'blog_comments';
     protected $guarded = [];
+
+
+
 }
