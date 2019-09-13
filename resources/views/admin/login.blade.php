@@ -4,11 +4,7 @@
     <div class="centerContainer">
         <form action="" method="POST" id="loginContainer">
             @csrf
-            @if ($errors->any())
-                <span class="error">
-                    <strong>{{ $errors->first() }}</strong>
-                </span>
-            @endif
+            @include('parts.errors')
             <div class="title">Admin Login Panel</div>
             @if ($errors->has('email'))
                 <span class="error">
