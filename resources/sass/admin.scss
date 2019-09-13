@@ -7,12 +7,30 @@
 @import 'mixins';
 
 @import 'admin/login';
+@import 'admin/dashboard';
+@import 'admin/menu';
 
+
+*{
+    font-family: "Open Sans", sans-serif;
+}
 #adminContainer{
+    display: flex;
+    flex-flow: column;
+    height: 100vh;
+}
+
+.centerContainer{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100%;
+}
+
+.widthContainer{
+    padding: 0 30px;
+    width: 100%;
+    max-width: 1280px;
 }
 
 

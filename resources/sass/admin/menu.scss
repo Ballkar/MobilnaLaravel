@@ -1,0 +1,64 @@
+$menuHeight: 60px;
+$menuColor: #181824;
+
+.menuContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: $menuColor;
+
+    .menu{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: $menuHeight;
+
+        #logo{
+            color: #ffffff;
+        }
+    }
+}
+
+
+#menuItems{
+    display: flex;
+    flex-flow: row;
+    height: 100%;
+
+    #logout{
+        display: none;
+    }
+    .item{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        cursor: pointer;
+        margin-right: 40px;
+        position: relative;
+        height: 100%;
+        color: #ffffff;
+
+        &:hover{
+            color: #adb5bd;
+
+            .horizontalMenu{
+                visibility: visible;
+            }
+        }
+
+        .horizontalMenu{
+            visibility: hidden;
+            position: absolute;
+            top: $menuHeight;
+            background-color: $menuColor;
+
+
+            .item{
+                margin: 0;
+                width: 100%;
+                padding: 20px;
+            }
+        }
+    }
+}

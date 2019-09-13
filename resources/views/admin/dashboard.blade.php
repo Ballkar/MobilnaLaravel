@@ -1,5 +1,9 @@
 @extends('admin.master')
 
 @section('content')
-dashboard
+
+    @include('admin.menu')
+    <div class="widthContainer">
+        @yield('dashboardContainer')
+    </div>
 @endsection

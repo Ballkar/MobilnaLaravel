@@ -19,7 +19,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/admin/login', 'Admin\DashboardController@showLoginForm');
 Route::post('/admin/login', 'Admin\DashboardController@login');
-Route::get('/admin/logout', 'Admin\DashboardController@logout');
+//Route::get('/admin/logout', 'Admin\DashboardController@logout');
 
 Route::get('/admin/dashboard', 'Admin\DashboardController@index');
 

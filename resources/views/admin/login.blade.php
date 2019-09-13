@@ -1,9 +1,9 @@
 @extends('admin.master')
 
 @section('content')
-    <form action="" method="POST">
-        @csrf
-        <div id="loginContainer">
+    <div class="centerContainer">
+        <form action="" method="POST" id="loginContainer">
+            @csrf
             @if ($errors->any())
                 <span class="error">
                     <strong>{{ $errors->first() }}</strong>
@@ -25,7 +25,7 @@
             <label for="password" class="label">Password</label>
             <input type="password" id="password" name="password" class="input">
             <button class="submitBtn">Login</button>
-        </div>
-    </form>
+        </form>
+    </div>
 
 @endsection
