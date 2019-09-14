@@ -7,8 +7,8 @@
                 <div class="item">Blog
 
                     <div class="horizontalMenu">
-                        <div class="item">Kategorie</div>
-                        <div class="item">Wpisy</div>
+                        <a class="item" href="/admin/blog/category">Kategorie</a>
+                        <a class="item" href="/admin/blog/post">Wpisy</a>
                     </div>
                 </div>
                 <div class="item">Userzy</div>
