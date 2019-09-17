@@ -59,4 +59,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(District::class);
     }
+
+
+    public function isAdmin()
+    {
+        return $this->role_id === 1;
+    }
 }

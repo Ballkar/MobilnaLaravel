@@ -8,6 +8,17 @@ use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +27,8 @@ class CategoryController extends Controller
     public function index()
     {
 
-        $cat = Category::all();
-        dd($cat);
+        $categories = Category::all();
+        return view('admin.blog.category.index', compact('categories'));
     }
 
     /**

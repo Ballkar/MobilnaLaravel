@@ -4,6 +4,8 @@
 
     @include('admin.menu')
     <div class="widthContainer">
-        @yield('dashboardContainer')
+        <div id="dashboardContainer">
+            @yield('dashboardContent')
+        </div>
     </div>
 @endsection
