@@ -1,0 +1,66 @@
+@import "./../variables";
+
+.container{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+
+    .title{
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+
+    .categoriesContainer{
+        padding: 10px;
+
+        .categories{
+            display: flex;
+            flex-flow: column;
+            width: 300px;
+
+            a{
+                color: #000000;
+                text-decoration: none;
+                padding: 10px;
+                width: 100%;
+
+                &:hover{
+                    background-color: #bbbbbb;
+                }
+            }
+        }
+    }
+
+    .addFormContainer{
+        padding: 20px;
+        border: 1px solid #bbbbbb;
+        height: 220px;
+
+        #form{
+
+            .inputContainer{
+                display: flex;
+                flex-flow: column;
+
+                label{
+                    font-size: 16px;
+                    margin-bottom: 10px;
+                }
+                input{
+                    border-radius: 5px;
+                    padding: 5px 10px;
+                    border: 1px solid #bbbbbb;
+                }
+            }
+            input.submit{
+                margin-top: 20px;
+                padding: 10px 20px;
+                border-radius: 10px;
+                border: none;
+                background: cornflowerblue;
+            }
+        }
+    }
+}
