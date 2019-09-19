@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Blog\Category;
+use App\Models\Blog\Post;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\View\View;
 
 class PostController extends Controller
 {
@@ -28,68 +33,77 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * @param Category $category
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
-    public function create()
+    public function create(Category $category)
     {
-        return view('admin.blog.post.create');
+
+//        die(dump($category->name));
+        return view('admin.blog.post.create', compact("category"));
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Category $category
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request, Category $category)
     {
-        //
+        $data = Validator::make($request->all(), [
+            'title' => ['required', 'min:5'],
+            'text' => ['required', 'min:25']
+        ])->validated();
+
+        $post = Post::create([
+            'title' => $data['title'],
+            'text' => $data['text'],
+            'category_id' => $category->id,
+            'user_id' => auth()->id()
+        ]);
+        return redirect('/admin/blog/category/'.$category->id.'/post/'.$post->id );
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @param Post $post
+     * @return Factory|View
      */
-    public function show($id)
+    public function show(Category $category , Post $post)
     {
-        //
+        return view('admin.blog.post.show', compact('post', 'category'));
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @param Post $post
+     * @return Factory|View
      */
-    public function edit($id)
+    public function edit(Category $category , Post $post)
     {
         return view('admin.blog.post.edit');
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Category $category
+     * @param Post $post
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category , Post $post)
     {
         //
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @param Post $post
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Category $category , Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->back();
     }
 }

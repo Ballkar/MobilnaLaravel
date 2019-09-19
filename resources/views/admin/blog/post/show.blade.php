@@ -4,12 +4,9 @@
 
 
 
-    <ul>
-        @foreach($categories as $category)
-            <li>{{$category->name}}</li>
-        @endforeach
-    </ul>
+    <div class="title">{{$post->title}}</div>
 
+    <div class="text">{{$post->text}}</div>
 
 
 @endsection
