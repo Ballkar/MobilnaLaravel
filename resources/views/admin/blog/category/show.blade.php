@@ -18,9 +18,6 @@
                     <div class="postDetails">
 
                         <div class="title">Tytuł posta: <span class="highlight">{{$post->title}}</span></div>
-                        <div class="text">
-                            {{$post->text}}
-                        </div>
                     </div>
                 </a>
             @endforeach

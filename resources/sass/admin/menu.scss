@@ -1,11 +1,12 @@
+@import "./../variables";
 $menuHeight: 60px;
-$menuColor: #181824;
 
 .menuContainer{
     width: 100%;
     display: flex;
     justify-content: center;
-    background: $menuColor;
+    background: $adminMenuColor;
+
 
     .menu{
         display: flex;
@@ -24,6 +25,7 @@ $menuColor: #181824;
     display: flex;
     flex-flow: row;
     height: 100%;
+    z-index: 100;
 
     #logout{
         display: none;
@@ -51,7 +53,7 @@ $menuColor: #181824;
             visibility: hidden;
             position: absolute;
             top: $menuHeight;
-            background-color: $menuColor;
+            background-color: $adminMenuColor;
 
 
             .item{

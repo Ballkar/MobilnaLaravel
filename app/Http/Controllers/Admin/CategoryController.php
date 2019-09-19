@@ -40,6 +40,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $data = Validator::make($request->all(), [
             'name' => ['required', 'string']
         ])->validated();

@@ -1,5 +1,32 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+@import "variables";
+
+@mixin adminSubmit {
+    border: none;
+    font-weight: 500;
+    background: $adminMainBtnColor;
+    padding: 7px 12px;
+    border-radius: 4px;
+    line-height: 1.4;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+}
+@mixin adminInputContainer {
+    display: flex;
+    flex-flow: column;
+
+    label{
+        font-size: 16px;
+    }
+    input{
+        margin-top: 10px;
+        color: #555;
+        border-radius: 4px;
+        font-size: 14px;
+        line-height: 1.4;
+        padding: 6px 12px;
+        background-color: #fff;
+        border: 1px solid $border-color;
+    }
 }

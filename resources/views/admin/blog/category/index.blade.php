@@ -20,7 +20,7 @@
                 @csrf
                 <div class="inputContainer">
                     <label for="name" >Nazwa</label>
-                    <input id="name" type="text" name="name">
+                    <input id="name" type="text" name="name" placeholder="Podaj Nazwe kategorii">
                 </div>
                 <input type="submit" class="submit" value="Dodaj">
             </form>

@@ -8,9 +8,16 @@
         <input id="name" type="text" name="title">
 
 
-        <label for="text">text</label>
-        <textarea id="text" type="text" name="text"></textarea>
+        <label for="summernote">text</label>
+        <textarea id="summernote" name="text"></textarea>
         <input type="submit" value="dodaj">
     </form>
 
+    <script>
+        $('#summernote').summernote({
+            placeholder: 'Hello stand alone ui',
+            tabsize: 2,
+            height: 400
+        });
+    </script>
 @endsection
