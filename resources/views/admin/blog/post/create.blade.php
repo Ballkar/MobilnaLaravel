@@ -2,15 +2,17 @@
 
 @section('dashboardContent')
 
-    <form action="/admin/blog/category/{{$category->id}}/post" method="POST">
+    <form action="/admin/blog/category/{{$category->id}}/post" method="POST" id="addPostForm">
         @csrf
-        <label for="name">Tytuł</label>
-        <input id="name" type="text" name="title">
-
-
-        <label for="summernote">text</label>
-        <textarea id="summernote" name="text"></textarea>
-        <input type="submit" value="dodaj">
+        <div class="inputContainer">
+            <label for="title" >Tytuł</label>
+            <input id="title" type="text" name="Title" placeholder="Tytuł bloga">
+        </div>
+        <div class="inputContainer">
+            <label for="summernote">Text</label>
+            <textarea id="summernote" name="text"></textarea>
+        </div>
+        <input type="submit" value="dodaj" class="submit">
     </form>
 
     <script>

@@ -3,8 +3,7 @@
 
 .container{
     display: flex;
-    flex-flow: row;
-    justify-content: space-between;
+    flex-flow: column;
 
     &.column{
         flex-flow: column;
@@ -13,7 +12,6 @@
     .titleContainer{
         width: 100%;
         padding: 20px 10px;
-        border-bottom: 1px solid $border-color;
     }
 
     .title{
@@ -24,6 +22,10 @@
         }
     }
 
+    .addPostBtn{
+        @include adminSubmit;
+        width: 200px;
+    }
 
     .postsContainer{
         display: flex;
@@ -35,8 +37,9 @@
             flex-flow: row;
             text-decoration: none;
             margin: 30px 0;
-            padding-left: 40px;
+            padding: 20px 0 20px 40px;
             color: #000000;
+            background-color: white;
 
             .imageContainer{
                 margin-right: 50px;
@@ -61,12 +64,18 @@
     }
 
     .categoriesContainer{
+        background-color: white;
         padding: 10px;
+        border: 1px solid $adminMenuColor;
+        margin-bottom: 20px;
 
+        .title{
+            margin-bottom: 30px;
+        }
         .categories{
             display: flex;
             flex-flow: column;
-            width: 300px;
+            width: 100%;
 
             a{
                 color: #000000;
@@ -75,7 +84,7 @@
                 width: 100%;
 
                 &:hover{
-                    background-color: #bbbbbb;
+                    background-color: $adminHoverColor;
                 }
             }
         }
@@ -83,8 +92,9 @@
 
     .addFormContainer{
         padding: 20px;
-        border: 1px solid #bbbbbb;
+        border: 1px solid $adminMenuColor;
         height: 220px;
+        background-color: white;
 
         #form{
 

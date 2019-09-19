@@ -1,4 +1,11 @@
-#dashboardContainer{
+@import "./../variables";
 
+#dashboardContainer{
+    background-color: $adminDashboardColor;
     padding-top: 40px;
+    overflow: auto;
+    min-height: calc(100vh - #{$adminMenuHeight});
+
+    display: flex;
+    justify-content: center;
 }

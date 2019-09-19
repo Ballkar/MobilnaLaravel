@@ -1,5 +1,4 @@
 @import "./../variables";
-$menuHeight: 60px;
 
 .menuContainer{
     width: 100%;
@@ -12,7 +11,7 @@ $menuHeight: 60px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: $menuHeight;
+        height: $adminMenuHeight;
 
         #logo{
             color: #ffffff;
@@ -52,7 +51,7 @@ $menuHeight: 60px;
         .horizontalMenu{
             visibility: hidden;
             position: absolute;
-            top: $menuHeight;
+            top: $adminMenuHeight;
             background-color: $adminMenuColor;
 
 
@@ -60,6 +59,9 @@ $menuHeight: 60px;
                 margin: 0;
                 width: 100%;
                 padding: 20px;
+                &:hover{
+                    background-color: $adminMenuDarkColor;
+                }
             }
         }
     }

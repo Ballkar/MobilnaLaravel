@@ -1,0 +1,17 @@
+@import "./../variables";
+@import "./../mixins";
+
+#addPostForm {
+
+    display: flex;
+    flex-flow: column;
+    .inputContainer{
+        @include adminInputContainer;
+    }
+    .submit{
+        @include adminSubmit;
+        margin-top: 30px;
+        width: 200px;
+        align-self: flex-end;
+    }
+}
