@@ -15,3 +15,86 @@
         align-self: flex-end;
     }
 }
+#addPostSection{
+    @include AdminContainer;
+
+    .addPostBtn{
+        @include adminSubmit;
+        width: 200px;
+    }
+}
+
+#singlePostContainer{
+    @include AdminContainer;
+    position: relative;
+
+    .editBtn{
+        position: absolute;
+        top: 50px;
+        right: 50px;
+        svg{
+            width: 40px;
+        }
+    }
+    .label{
+        font-weight: normal;
+        margin-right: 10px;
+    }
+    .category{
+        font-size: 12px;
+        text-align: end;
+        text-decoration: none;
+        color: #000000;
+
+    }
+    .title{
+        font-size: 16px;
+        font-weight: bold;
+
+    }
+    .textContainer{
+        font-size: 14px;
+        margin-top: 30px;
+
+        .text{
+
+            padding: 10px 20px 0 20px;
+        }
+
+    }
+}
+.postsContainer{
+    display: flex;
+    flex-flow: column;
+    margin-bottom: 20px;
+
+    .post{
+        display: flex;
+        flex-flow: row;
+        text-decoration: none;
+        margin: 30px 0;
+        padding: 20px 0 20px 40px;
+        color: #000000;
+        background-color: white;
+
+        .imageContainer{
+            margin-right: 50px;
+
+            img{
+                width: 50px;
+            }
+        }
+
+        .postDetails{
+            display: flex;
+            flex-flow: column;
+            .title{
+                margin-bottom: 15px;
+            }
+
+            .text{
+
+            }
+        }
+    }
+}

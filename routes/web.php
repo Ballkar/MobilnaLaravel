@@ -29,7 +29,7 @@ Route::namespace('Admin')->prefix('admin/')->group(function () {
 
     Route::prefix('blog')->group(function () {
         Route::resource('category', 'CategoryController');
-        Route::resource('category/{category}/post', 'PostController');
+        Route::resource('/post', 'PostController');
     });
 
 });

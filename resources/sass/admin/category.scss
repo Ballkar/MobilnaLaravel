@@ -10,8 +10,10 @@
     }
 
     .titleContainer{
-        width: 100%;
-        padding: 20px 10px;
+        @include AdminContainer;
+        flex-flow: row;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .title{
@@ -27,46 +29,8 @@
         width: 200px;
     }
 
-    .postsContainer{
-        display: flex;
-        flex-flow: column;
-        margin-bottom: 20px;
-
-        .post{
-            display: flex;
-            flex-flow: row;
-            text-decoration: none;
-            margin: 30px 0;
-            padding: 20px 0 20px 40px;
-            color: #000000;
-            background-color: white;
-
-            .imageContainer{
-                margin-right: 50px;
-
-                img{
-                    width: 50px;
-                }
-            }
-
-            .postDetails{
-                display: flex;
-                flex-flow: column;
-                .title{
-                    margin-bottom: 15px;
-                }
-
-                .text{
-
-                }
-            }
-        }
-    }
-
     .categoriesContainer{
-        background-color: white;
-        padding: 10px;
-        border: 1px solid $adminMenuColor;
+        @include AdminContainer;
         margin-bottom: 20px;
 
         .title{
@@ -91,10 +55,8 @@
     }
 
     .addFormContainer{
-        padding: 20px;
-        border: 1px solid $adminMenuColor;
+        @include AdminContainer;
         height: 220px;
-        background-color: white;
 
         #form{
 

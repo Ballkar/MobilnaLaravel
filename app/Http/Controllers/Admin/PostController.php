@@ -29,79 +29,77 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::all();
+        return view('admin.blog.post.index', compact("posts"));
     }
 
     /**
-     * @param Category $category
      *
      * @return Factory|View
      */
-    public function create(Category $category)
+    public function create()
     {
-
-//        die(dump($category->name));
-        return view('admin.blog.post.create', compact("category"));
+        $categories = Category::all();
+        return view('admin.blog.post.create', compact("categories"));
     }
 
     /**
      * @param Request $request
-     * @param Category $category
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request, Category $category)
+    public function store(Request $request)
     {
         $data = Validator::make($request->all(), [
             'title' => ['required', 'min:5'],
-            'text' => ['required', 'min:25']
+            'text' => ['required', 'min:25'],
+            'category_id' => ['required'],
         ])->validated();
 
         $post = Post::create([
             'title' => $data['title'],
             'text' => $data['text'],
-            'category_id' => $category->id,
+            'category_id' => $data['category_id'],
             'user_id' => auth()->id()
         ]);
-        return redirect('/admin/blog/category/'.$category->id.'/post/'.$post->id );
+
+        return redirect('/admin/blog/post/'.$post->id );
     }
 
     /**
-     * @param Category $category
      * @param Post $post
      * @return Factory|View
      */
-    public function show(Category $category , Post $post)
+    public function show(Post $post)
     {
+        $category =  $post->category;
         return view('admin.blog.post.show', compact('post', 'category'));
     }
 
     /**
-     * @param Category $category
      * @param Post $post
      * @return Factory|View
      */
-    public function edit(Category $category , Post $post)
+    public function edit(Post $post)
     {
-        return view('admin.blog.post.edit');
+        $categories = Category::all();
+        return view('admin.blog.post.edit', compact('post', 'categories'));
     }
 
     /**
      * @param Request $request
-     * @param Category $category
      * @param Post $post
      */
-    public function update(Request $request, Category $category , Post $post)
+    public function update(Request $request, Post $post)
     {
-        //
+
     }
 
     /**
-     * @param Category $category
      * @param Post $post
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy(Category $category , Post $post)
+    public function destroy(Post $post)
     {
         $post->delete();
         return redirect()->back();
