@@ -3,6 +3,7 @@
 
 #addPostForm {
 
+    padding-bottom: 20px;
     display: flex;
     flex-flow: column;
     .inputContainer{
@@ -27,6 +28,31 @@
 #singlePostContainer{
     @include AdminContainer;
     position: relative;
+
+    .state {
+        position: absolute;
+        background-color: white;
+        border-radius: 20px;
+        padding: 10px;
+        right: 150px;
+        color: white;
+        cursor: default;
+        &.active{
+           background-color: forestgreen;
+        }
+        &.inActive{
+            background-color: indianred;
+        }
+    }
+
+    .deleteBtn{
+        position: absolute;
+        top: 50px;
+        right: 100px;
+        svg{
+            width: 31px;
+        }
+    }
 
     .editBtn{
         position: absolute;

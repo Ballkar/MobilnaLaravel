@@ -40,7 +40,6 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         $data = Validator::make($request->all(), [
             'name' => ['required', 'string']
         ])->validated();
@@ -60,8 +59,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        $posts = $category->posts()
-            ->orderBy('created_at','desc')->get();
+        $posts = $category->posts()->where('active', '1')->latest()->get();
 
         return view('admin.blog.category.show', compact('category', 'posts'));
     }

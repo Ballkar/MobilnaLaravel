@@ -29,7 +29,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::where('active', '1')->latest()->get();
         return view('admin.blog.post.index', compact("posts"));
     }
 
@@ -49,16 +49,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $data = Validator::make($request->all(), [
-            'title' => ['required', 'min:5'],
-            'text' => ['required', 'min:25'],
-            'category_id' => ['required'],
-        ])->validated();
+        $data = $this->validator($request);
 
         $post = Post::create([
             'title' => $data['title'],
             'text' => $data['text'],
             'category_id' => $data['category_id'],
+            'active' => '1',
             'user_id' => auth()->id()
         ]);
 
@@ -88,10 +85,15 @@ class PostController extends Controller
     /**
      * @param Request $request
      * @param Post $post
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Post $post)
     {
+        $data = $this->validator($request);
+        $post->update($data);
+        $post->save();
 
+        return redirect('admin/blog/post/'.$post->id);
     }
 
     /**
@@ -101,7 +103,18 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $post->delete();
+        $post->active = '0';
+        $post->save();
+
         return redirect()->back();
+    }
+
+    public function validator(Request $request)
+    {
+        return Validator::make($request->all(), [
+            'title' => ['required', 'min:5'],
+            'text' => ['required', 'min:25'],
+            'category_id' => ['required'],
+        ])->validated();
     }
 }
