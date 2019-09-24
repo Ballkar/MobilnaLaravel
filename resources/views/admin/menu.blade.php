@@ -13,11 +13,7 @@
                 </div>
                 <div class="item">Userzy</div>
 
-                <a class="item" onclick="event.preventDefault(); document.getElementById('logout').submit();">logout</a>
-
-                <form action="/logout" method="POST" id="logout">
-                    @csrf
-                </form>
+                <logout-form-component></logout-form-component>
             </div>
         </div>
     </div>
