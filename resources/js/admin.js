@@ -1,7 +1,5 @@
-import Vue from 'vue';
-const axios = require('axios').default;
-
-
+import './bootstrap';
+import './core/form';
 import logoutFormComponent from "./components/logoutFormComponent";
 
 
