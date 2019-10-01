@@ -1,22 +1,13 @@
 <template>
-    <a class="item" @click.prevent="log">logout</a>
+    <a class="item" @click.prevent="logout">logout</a>
 </template>
 
 <script>
     export default {
-        dat() {
-            return {
-                form: new Form({
-                    name: '',
-                    description: ''
-                })
-            }
-
+        data() {
+            return {}
         },
         methods: {
-            log(){
-                console.log(this.form);
-            },
             logout() {
                 axios.post('/logout', {})
                     .then(function (response) {

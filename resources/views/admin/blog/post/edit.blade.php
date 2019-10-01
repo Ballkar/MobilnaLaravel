@@ -28,12 +28,4 @@
         </div>
         <input type="submit" value="zapisz" class="submit">
     </form>
-
-    <script>
-        $('#summernote').summernote({
-            placeholder: 'Hello stand alone ui',
-            tabsize: 2,
-            height: 350
-        });
-    </script>
 @endsection

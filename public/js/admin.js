@@ -1843,18 +1843,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  dat: function dat() {
-    return {
-      form: new Form({
-        name: '',
-        description: ''
-      })
-    };
+  data: function data() {
+    return {};
   },
   methods: {
-    log: function log() {
-      console.log(this.form);
-    },
     logout: function logout() {
       axios.post('/logout', {}).then(function (response) {
         document.location.href = "/admin";
@@ -2379,7 +2371,7 @@ var render = function() {
       on: {
         click: function($event) {
           $event.preventDefault()
-          return _vm.log($event)
+          return _vm.logout($event)
         }
       }
     },
