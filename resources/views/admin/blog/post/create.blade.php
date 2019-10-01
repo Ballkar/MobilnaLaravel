@@ -17,10 +17,11 @@
             </select>
         </div>
 
-        <div class="inputContainer">
+        <!-- <div class="inputContainer">
             <label for="summernote">Text</label>
             <textarea id="summernote" name="text"></textarea>
-        </div>
+        </div> -->
+        <text-editor></text-editor>
         <input type="submit" value="dodaj" class="submit">
     </form>
 @endsection
