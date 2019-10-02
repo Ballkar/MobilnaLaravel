@@ -49,8 +49,9 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $this->validator($request);
+        // $data = $this->validator($request);
 
+        $data = $request->all();
         $post = Post::create([
             'title' => $data['title'],
             'text' => $data['text'],
@@ -59,7 +60,7 @@ class PostController extends Controller
             'user_id' => auth()->id()
         ]);
 
-        return redirect('/admin/blog/post/'.$post->id );
+        return $post;
     }
 
     /**
@@ -111,7 +112,7 @@ class PostController extends Controller
 
     public function validator(Request $request)
     {
-        return Validator::make($request->all(), [
+        return $this->validate($request, [
             'title' => ['required', 'min:5'],
             'text' => ['required', 'min:25'],
             'category_id' => ['required'],

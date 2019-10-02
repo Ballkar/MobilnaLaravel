@@ -1,21 +1,26 @@
 <template>
-    <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
+    <ckeditor :editor="editor" :value="text" :config="editorConfig" name="text" @input="log($event)"></ckeditor>
 </template>
 
 <script>
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
     export default {
+        props: ['text'],
         data() {
             return {
                 editor: ClassicEditor,
-                editorData: '<p> test </p>',
                 editorConfig: {
                     // plugins: [ Alignment,],
                     // toolbar: [ 'alignment',]
                 }
             }
         },
+        methods: {
+            log(a) {
+                console.log(a)
+            }
+        }
     }
 </script>
 
