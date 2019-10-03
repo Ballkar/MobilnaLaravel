@@ -55,6 +55,11 @@ class User extends Authenticatable
         return $this->belongsTo(City::class);
     }
 
+    public function data()
+    {
+        return $this->hasOne(UserData::class);
+    }
+
     public function district()
     {
         return $this->belongsTo(District::class);

@@ -22,22 +22,9 @@
 <body>
 
     <div id="mainContainer">
-        <p>wartosc to:  @{{ message  }} </p>
-        <input type="text" id="input" v-model="message">
         <main>
             @yield('content')
         </main>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script type="application/javascript">
-        let data = {
-            message: 'hejooasdsa'
-        };
-
-        new Vue({
-            el: '#mainContainer',
-            data: data
-        })
-    </script>
 </body>
 </html>
