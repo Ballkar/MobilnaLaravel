@@ -15,22 +15,22 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Auth::routes();
-
-Route::get('/', 'HomeController@index');
-Route::get('/home', 'HomeController@index')->name('home');
-
-
-Route::namespace('Admin')->prefix('admin/')->group(function () {
-    Route::redirect('/', '/admin/login');
-    Route::get('/login', 'DashboardController@showLoginForm')->name('adminLogin');
-    Route::post('/login', 'DashboardController@login');
-    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-
-    Route::prefix('blog')->group(function () {
-        Route::resource('category', 'CategoryController');
-        Route::resource('/post', 'PostController');
-    });
-
-});
+//Auth::routes();
+//
+//Route::get('/', 'HomeController@index');
+//Route::get('/home', 'HomeController@index')->name('home');
+//
+//
+//Route::namespace('Admin')->prefix('admin/')->group(function () {
+//    Route::redirect('/', '/admin/login');
+//    Route::get('/login', 'DashboardController@showLoginForm')->name('adminLogin');
+//    Route::post('/login', 'DashboardController@login');
+//    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+//
+//    Route::prefix('blog')->group(function () {
+//        Route::resource('category', 'CategoryController');
+//        Route::resource('/post', 'PostController');
+//    });
+//
+//});
 

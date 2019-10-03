@@ -42,6 +42,9 @@ class init extends Command
         $this->call('db:seed');
         $this->info('Seed complete');
 
+        $this->call('passport:install');
+        $this->info('Passport auth activated');
+
         $this->info('Init All DONE');
     }
 }
