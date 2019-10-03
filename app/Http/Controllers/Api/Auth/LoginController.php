@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Auth\LoginRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Carbon\Carbon;
 use http\Env\Request;
@@ -30,48 +31,34 @@ class LoginController extends Controller
                 'message' => 'Unauthorized'
             ], 401);
 
-//        dd($request->user());
-//        $user = User::find(1);
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
 
-        if ($request->remember_me)
-            $token->expires_at = Carbon::now()->addWeeks(1);
+        if ($request->remember_me) $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
+
         return response()->json([
-            'access_token' => $tokenResult->accessToken,
-            'token_type' => 'Bearer',
-            'expires_at' => Carbon::parse(
-                $tokenResult->token->expires_at
-            )->toDateTimeString()
+            'user' => new UserResource($user),
+            'token' => $tokenResult->accessToken,
+            'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
         ]);
 
     }
 
-    private function checkIfUserExists($email, $password)
-    {
-//        $user = User::where('email', $email)->first();
-//
-//        return $user ? $this->hasher->check($password, $user->password) : false;
-    }
-
     public function logout()
     {
-//        JWTAuth::invalidate(JWTAuth::getToken());
-//
-//        return response()->json([
-//            'code' => 200,
-//            'status' => 'success',
-//            'message' => 'User logged out'
-//        ], 200);
+        Auth::user()->token()->revoke();
+        return response()->json([
+            'message' => 'Successfully logged out'
+        ]);
 
     }
 
     public function user()
     {
         return response()->json([
-            'message' => Auth::user()
+            'data' => new UserResource(Auth::user())
         ], 201);
     }
 }

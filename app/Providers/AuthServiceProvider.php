@@ -26,6 +26,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-//        Passport::personalAccessClientId('Mobilna Kosmetyczka Personal Access Client');
+        Passport::personalAccessTokensExpireIn(now()->addHour());
+//        Passport::routes();
     }
 }
