@@ -7,20 +7,14 @@ use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Carbon\Carbon;
-use http\Env\Request;
-use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
     private $hasher;
-    private $auth;
 
     public function __construct()
-    {
-//        $this->hasher = $hasher;
-//        $this->auth = $auth;
-    }
+    {}
 
     public function login(LoginRequest $request)
     {
@@ -32,16 +26,12 @@ class LoginController extends Controller
             ], 401);
 
         $user = $request->user();
-        $tokenResult = $user->createToken('Personal Access Token');
-        $token = $tokenResult->token;
-
-        if ($request->remember_me) $token->expires_at = Carbon::now()->addWeeks(1);
-        $token->save();
+        $token = $user->returnNewToken($request->remember_me);
 
         return response()->json([
             'user' => new UserResource($user),
-            'token' => $tokenResult->accessToken,
-            'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
+            'token' => $token->accessToken,
+            'expires_at' => Carbon::parse($token->token->expires_at)->toDateTimeString()
         ]);
 
     }

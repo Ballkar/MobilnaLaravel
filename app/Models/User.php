@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Blog\Post;
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -67,9 +68,18 @@ class User extends Authenticatable
         return $this->belongsTo(District::class);
     }
 
-
     public function isAdmin()
     {
         return $this->role_id === Config::get('constants.ROLE_ADMIN');
+    }
+
+    public function returnNewToken($remember = false)
+    {
+        $tokenRes = $this->createToken('Personal Access Token');
+        $token = $tokenRes->token;
+
+        if ($remember) $token->expires_at = Carbon::now()->addWeeks(1);
+        $token->save();
+        return $tokenRes;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Requests\Api\Auth\RegisterRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 
 class RegisterController extends Controller
@@ -26,7 +27,7 @@ class RegisterController extends Controller
 
 
         return response()->json([
-            'user' => $user
+            'user' => new UserResource($user)
         ], 201);
     }
 }
