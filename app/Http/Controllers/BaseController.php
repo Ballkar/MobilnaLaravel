@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller as Controller;
+use PhpParser\Node\Expr\Cast\Object_;
+use stdClass;
 
 class BaseController extends Controller
 {
@@ -28,16 +30,18 @@ class BaseController extends Controller
     /**
      * @param string $error
      * @param int $code
-     * @param array $additionalMessage
+     * @param $additionalMessage
      * @return JsonResponse
      */
-    public function sendError(string $error, int $code, array $additionalMessage = [])
+    public function sendError(string $error, int $code, $additionalMessage = null)
     {
         $response = [
-            'code' => $code,
             'message' => $error,
-            'errors' => $additionalMessage
         ];
+
+        if ($additionalMessage !== null) {
+            $response['errors'] = $additionalMessage;
+        }
 
 
         return response()->json($response, $code);
