@@ -14,13 +14,9 @@ use Webpatser\Uuid\Uuid;
 
 class PasswordController extends Controller
 {
-    private $hasher;
-    private $auth;
 
-    public function __construct(Hasher $hasher, Auth $auth)
+    public function __construct()
     {
-        $this->hasher = $hasher;
-        $this->auth = $auth;
     }
 
     public function storeEmail(SendPasswordLinkRequest $request)

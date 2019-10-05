@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Api\Auth\RegisterRequest;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\User as UserResource;
 use App\Models\User;
 
-class RegisterController extends Controller
+class RegisterController extends BaseController
 {
-    private $auth;
 
     public function __construct()
     {
-//        $this->auth = $auth;
+
     }
 
     public function register(RegisterRequest $request)
@@ -25,9 +24,6 @@ class RegisterController extends Controller
             'role_id' => 2
         ]);
 
-
-        return response()->json([
-            'user' => new UserResource($user)
-        ], 201);
+        return $this->sendResponse(new UserResource($user), 'Account created', 201);
     }
 }

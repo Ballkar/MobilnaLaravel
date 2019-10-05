@@ -34,16 +34,6 @@ class PostController extends Controller
     }
 
     /**
-     *
-     * @return Factory|View
-     */
-    public function create()
-    {
-        $categories = Category::all();
-        return view('admin.blog.post.create', compact("categories"));
-    }
-
-    /**
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
