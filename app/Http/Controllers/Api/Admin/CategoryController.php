@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\Blog\StoreCategoryRequest;
+use App\Http\Requests\Api\Blog\UpdateCategoryRequest;
 use App\Http\Resources\Blog\Category as CategoryResource;
 use App\Models\Blog\Category;
 use Exception;
@@ -47,13 +48,14 @@ class CategoryController extends Controller
     }
 
     /**
-     *
-     * @param Request $request
+     * @param UpdateCategoryRequest $request
      * @param Category $category
+     * @return JsonResponse
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $updated = $category->update($request->all());
+        return $this->sendResponse($updated, 'Update Success!', 200);
     }
 
     /**

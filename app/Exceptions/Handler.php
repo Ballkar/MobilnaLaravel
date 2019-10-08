@@ -5,12 +5,15 @@ namespace App\Exceptions;
 use App\Http\Controllers\ApiCommunication;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
@@ -45,24 +48,6 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
-        if ($exception instanceof NotFoundHttpException)
-            return $this->sendError('Route not Found', 404);
-
-        if ($exception instanceof ValidationException)
-            return $this->sendError('Form validation failed', 422, $exception->errors());
-
-        if ($exception instanceof ModelNotFoundException)
-            return $this->sendError('Not found', 404);
-
-        if ($exception instanceof AuthorizationException)
-            return $this->sendError('You are not auth', 403);
-
-        if ($exception instanceof MethodNotAllowedHttpException)
-            return $this->sendError('Method not allowed', 405);
-
-        if ($exception instanceof UnauthorizedHttpException)
-            return $this->sendError('Unauthorized', 401);
-
         parent::report($exception);
     }
 
@@ -73,9 +58,24 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof ModelNotFoundException && $request->wantsJson()) {
-            return $this->sendError('Resource not found', 404);
-        }
+        if ($exception instanceof NotFoundHttpException)
+            return $this->sendError('Route not Found', 404);
+
+        if ($exception instanceof ValidationException)
+            return $this->sendError('Form validation failed', 422, $exception->errors());
+
+        if ($exception instanceof ModelNotFoundException)
+            return $this->sendError('Not found', 404);
+
+        if ($exception instanceof AuthorizationException)
+            return $this->sendError('Access denied', 403);
+
+        if ($exception instanceof MethodNotAllowedHttpException)
+            return $this->sendError('Method not allowed', 405);
+
+        if ($exception instanceof UnauthorizedHttpException)
+            return $this->sendError('Unauthorized', 401);
+
 
         return parent::render($request, $exception);
     }
