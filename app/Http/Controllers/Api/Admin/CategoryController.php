@@ -1,67 +1,49 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api\Admin;
 
+use App\Http\Controllers\ApiCommunication;
+use App\Http\Requests\Api\Blog\StoreCategoryRequest;
+use App\Http\Resources\Blog\Category as CategoryResource;
 use App\Models\Blog\Category;
-use Illuminate\Support\Facades\Validator;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
+    use ApiCommunication;
 
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('admin');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function index()
     {
-
-        $categories = Category::all();
-        return view('admin.blog.category.index', compact('categories'));
+        $categories = Category::paginate(10);
+        return $this->sendResponse(new CategoryResource($categories), 'All categories returned');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreCategoryRequest $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $data = Validator::make($request->all(), [
-            'name' => ['required', 'string']
-        ])->validated();
-
-        Category::create([
-            'name' => $data['name']
+        $category = Category::create([
+            'name' => $request->name
         ]);
 
-        return redirect()->back();
+        return $this->sendResponse(new CategoryResource($category), 'Category created', 201);
     }
 
     /**
-     * Display the specified resource.
-     *
      * @param Category $category
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return JsonResponse
      */
     public function show(Category $category)
     {
-        $posts = $category->posts()->where('active', '1')->latest()->get();
-
-        return view('admin.blog.category.show', compact('category', 'posts'));
+        return $this->sendResponse(new CategoryResource($category), 'Category returned', 200);
     }
 
     /**
@@ -75,11 +57,13 @@ class CategoryController extends Controller
     }
 
     /**
-     *
      * @param Category $category
+     * @return JsonResponse
+     * @throws Exception
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return $this->sendResponse(null, 'Category deleted', 200);
     }
 }

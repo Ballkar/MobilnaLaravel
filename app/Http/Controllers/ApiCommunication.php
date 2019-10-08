@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
-use App\Http\Controllers\Controller as Controller;
-use PhpParser\Node\Expr\Cast\Object_;
-use stdClass;
 
-class BaseController extends Controller
+Trait ApiCommunication
 {
 
     /**

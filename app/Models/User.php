@@ -68,6 +68,11 @@ class User extends Authenticatable
         return $this->belongsTo(District::class);
     }
 
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
     public function isAdmin()
     {
         return $this->role_id === Config::get('constants.ROLE_ADMIN');

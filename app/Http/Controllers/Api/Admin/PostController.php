@@ -1,31 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\Blog\Category;
 use App\Models\Blog\Post;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 
 class PostController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('admin');
-    }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -35,7 +28,7 @@ class PostController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function store(Request $request)
     {
@@ -76,7 +69,7 @@ class PostController extends Controller
     /**
      * @param Request $request
      * @param Post $post
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Request $request, Post $post)
     {
@@ -89,7 +82,7 @@ class PostController extends Controller
 
     /**
      * @param Post $post
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      * @throws \Exception
      */
     public function destroy(Post $post)

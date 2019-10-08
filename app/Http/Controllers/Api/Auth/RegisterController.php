@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\ApiCommunication;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Auth\RegisterRequest;
 use App\Http\Resources\User as UserResource;
 use App\Models\User;
 
-class RegisterController extends BaseController
+class RegisterController extends Controller
 {
+    use ApiCommunication;
 
     public function __construct()
     {
