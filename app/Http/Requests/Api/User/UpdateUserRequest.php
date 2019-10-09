@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Blog;
+namespace App\Http\Requests\Api\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class Post extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class Post extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class Post extends FormRequest
     public function rules()
     {
         return [
-            //
+            'email' => 'required|email|max:255|unique:users,email',
+            'password' => 'required|min:6',
         ];
     }
 }

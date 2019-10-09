@@ -23,7 +23,8 @@ class RegisterController extends Controller
         $user = User::create([
             'email' => $request->email,
             'password' => $request->password,
-            'role_id' => 2
+            'role_id' => 2,
+            'reg' => $request->reg
         ]);
 
         return $this->sendResponse(new UserResource($user), 'Account created', 201);

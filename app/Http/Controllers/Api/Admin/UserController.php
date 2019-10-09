@@ -2,64 +2,75 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\ApiCommunication;
+use App\Http\Requests\Api\User\StoreUserRequest;
+use App\Http\Requests\Api\User\UpdateUserRequest;
+use App\Models\User;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
+    use ApiCommunication;
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return Response
+     * @return JsonResponse
      */
     public function index()
     {
-        //
+        $users = User::paginate(10);
+        return $this->sendResponse($users, 'All users returned!', 200);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return Response
+     * @param StoreUserRequest $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        $user = User::create([
+            'email' => $request->email,
+            'password' => $request->password,
+            'role_id' => $request->role_id,
+            'regs' => false,
+        ]);
+
+        return $this->sendResponse($user, 'User created', 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param User $user
+     * @return JsonResponse
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return $this->sendResponse($user, 'User returned', 201);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return Response
+     * @param UpdateUserRequest $request
+     * @param User $user
+     * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $user->update($request->all());
+
+        return $this->sendResponse($user, 'Update Success!', 200);
+
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * @param User $user
+     * @return JsonResponse
+     * @throws Exception
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return $this->sendResponse(null, 'User deleted', 200);
     }
 }
