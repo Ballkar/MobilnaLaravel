@@ -56,7 +56,7 @@ class CategoryController extends Controller
     {
         $category->update($request->all());
 
-        return $this->sendResponse($category, 'Update Success!', 200);
+        return $this->sendResponse(new CategoryResource($category), 'Update Success!', 200);
     }
 
     /**
