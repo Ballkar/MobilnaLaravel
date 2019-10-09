@@ -58,23 +58,24 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof NotFoundHttpException)
-            return $this->sendError('Route not Found', 404);
-
-        if ($exception instanceof ValidationException)
-            return $this->sendError('Form validation failed', 422, $exception->errors());
-
-        if ($exception instanceof ModelNotFoundException)
-            return $this->sendError('Not found', 404);
 
         if ($exception instanceof AuthorizationException)
             return $this->sendError('Access denied', 403);
 
+        if ($exception instanceof UnauthorizedHttpException)
+            return $this->sendError('Unauthorized', 401);
+
+        if ($exception instanceof NotFoundHttpException)
+            return $this->sendError('Route not found', 404);
+
+        if ($exception instanceof ModelNotFoundException)
+            return $this->sendError('Resource not found', 404);
+
         if ($exception instanceof MethodNotAllowedHttpException)
             return $this->sendError('Method not allowed', 405);
 
-        if ($exception instanceof UnauthorizedHttpException)
-            return $this->sendError('Unauthorized', 401);
+        if ($exception instanceof ValidationException)
+            return $this->sendError('Form validation failed', 422, $exception->errors());
 
 
         return parent::render($request, $exception);

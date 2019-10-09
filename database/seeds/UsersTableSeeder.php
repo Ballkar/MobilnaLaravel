@@ -17,5 +17,11 @@ class UsersTableSeeder extends Seeder
             'password' => 'admin123',
             'role_id' => '1'
         ]);
+
+        User::create([
+            'email' => 'test@o2.pl',
+            'password' => 'test123',
+            'role_id' => '2'
+        ]);
     }
 }

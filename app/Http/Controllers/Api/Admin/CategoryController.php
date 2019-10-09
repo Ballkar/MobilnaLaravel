@@ -54,8 +54,9 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $updated = $category->update($request->all());
-        return $this->sendResponse($updated, 'Update Success!', 200);
+        $category->update($request->all());
+
+        return $this->sendResponse($category, 'Update Success!', 200);
     }
 
     /**
