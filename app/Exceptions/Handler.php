@@ -59,11 +59,12 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
 
-        if ($exception instanceof AuthorizationException)
-            return $this->sendError('Access denied', 403);
 
         if ($exception instanceof UnauthorizedHttpException)
             return $this->sendError('Unauthorized', 401);
+
+        if ($exception instanceof AuthorizationException)
+            return $this->sendError('Access denied', 403);
 
         if ($exception instanceof NotFoundHttpException)
             return $this->sendError('Route not found', 404);
@@ -79,5 +80,12 @@ class Handler extends ExceptionHandler
 
 
         return parent::render($request, $exception);
+    }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        return $request->expectsJson()
+            ? $this->sendError('Unauthorized', 401)
+            : redirect()->guest($exception->redirectTo() ?? route('web.login.get'));
     }
 }
