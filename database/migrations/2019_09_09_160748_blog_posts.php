@@ -17,7 +17,7 @@ class BlogPosts extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->text('text');
-            $table->enum('active', [0, 1])->default(1);
+            $table->enum('active', [0, 1])->default(0);
             $table->bigInteger('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('blog_categories');
             $table->bigInteger('user_id')->unsigned();

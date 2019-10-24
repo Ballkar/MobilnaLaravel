@@ -10,6 +10,7 @@ use App\Models\Blog\Post;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
@@ -17,12 +18,17 @@ class PostController extends Controller
     use ApiCommunication;
 
     /**
+     * @param Request $request
      * @return JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::paginate(10);
-        return $this->sendResponse(new PostResource($posts), 'All posts returned', 200);
+        if ($request->category_id) {
+            $posts = Post::where('category_id', $request->category_id)->latest()->paginate(10);
+        } else {
+            $posts = Post::latest()->paginate(10);
+        }
+        return $this->sendResponse(new PostResource($posts), 'Posts returned', 200);
     }
 
     /**
