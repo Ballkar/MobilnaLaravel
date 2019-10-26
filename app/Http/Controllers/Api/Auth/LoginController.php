@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\ApiCommunication;
+use App\Http\Controllers\Constants\Roles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Http\Resources\User as UserResource;
@@ -24,6 +25,10 @@ class LoginController extends Controller
             return $this->sendError('Invalid credentials',  401);
 
         $user = $request->user();
+
+        if ($request->input('admin') && $user->role_id !== Roles::ROLE_ADMIN)
+            return $this->sendError('Invalid credentials',  401);
+
         $token = $user->returnNewToken($request->remember_me);
 
         return $this->sendResponse($token->accessToken, 'Successfully logged in!', 200);

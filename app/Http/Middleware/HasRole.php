@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Models\Role;
 use Closure;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
