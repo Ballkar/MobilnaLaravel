@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\ApiCommunication;
+use App\Http\Requests\Api\Newsletter\UpdateNewsletterRequest;
 use App\Models\Newsletter;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -24,13 +25,13 @@ class NewsletterController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param UpdateNewsletterRequest $request
      * @param Newsletter $newsletter
      * @return JsonResponse
      */
-    public function update(Request $request, Newsletter $newsletter)
+    public function update(UpdateNewsletterRequest $request, Newsletter $newsletter)
     {
-        $newsletter->update($request->all());
+        $newsletter->update($request->validated());
 
         return $this->sendResponse($newsletter, 'Update Success!', 200);
 

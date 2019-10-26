@@ -38,7 +38,7 @@ class AnnouncementController extends Controller
      */
     public function update(UpdateAnnouncementRequest $request, Announcement $announcement)
     {
-        $announcement->update($request->all());
+        $announcement->update($request->validated());
 
         return $this->sendResponse(new AnnouncementResource($announcement), 'Update Success!', 200);
     }

@@ -64,7 +64,7 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        $post->update($request->all());
+        $post->update($request->validated());
 
         return $this->sendResponse($post, 'Update Success!', 200);
     }
