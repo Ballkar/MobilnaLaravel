@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
-    Route::group(['middleware' => ['auth:api', 'HasRole:admin'], 'namespace' => 'Admin'], function () {
+    Route::group(['prefix' => 'admin','middleware' => ['auth:api', 'HasRole:admin'], 'namespace' => 'Admin'], function () {
         Route::apiResource('categories', 'CategoryController');
         Route::apiResource('posts', 'PostController');
         Route::apiResource('users', 'UserController');
