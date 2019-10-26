@@ -7,7 +7,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::apiResource('categories', 'CategoryController');
         Route::apiResource('posts', 'PostController');
         Route::apiResource('users', 'UserController');
-        Route::apiResource('announcements', 'AnnouncementController');
+        Route::apiResource('announcements', 'AnnouncementController')->except(['store']);
+        Route::apiResource('newsletters', 'NewsletterController')->only(['index', 'update', 'destroy']);
     });
 
     Route::get('user', 'UserController@user')->middleware('auth:api')->name('user');

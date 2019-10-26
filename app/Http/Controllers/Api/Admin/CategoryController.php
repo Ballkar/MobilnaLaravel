@@ -9,7 +9,6 @@ use App\Http\Resources\Blog\Category as CategoryResource;
 use App\Models\Blog\Category;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
