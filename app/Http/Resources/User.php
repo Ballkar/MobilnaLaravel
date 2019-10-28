@@ -21,13 +21,15 @@ class User extends JsonResource
             'reg' => $this->reg,
 
             'name' => $this->name,
+            'surname' => $this->surname,
             'phone' => $this->phone,
             'state' => $this->state,
             'city' => $this->city,
             'road' => $this->road,
             'house_number' => $this->house_number,
             'flat_number' => $this->flat_number,
-            'additional' => $this->additional,
+            'birth_date' => $this->birth_date,
+            'additional_info' => $this->additional_info,
         ];
     }
 }

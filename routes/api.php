@@ -11,7 +11,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::apiResource('newsletters', 'NewsletterController')->only(['index', 'update', 'destroy']);
     });
 
-    Route::get('user', 'UserController@user')->middleware('auth:api')->name('user');
+    Route::group(['namespace' => 'User', 'prefix' => 'user', 'middleware' => ['auth:api']], function () {
+        Route::get('user', 'UserController@user')->name('user');
+        Route::put('{user}/update', 'UserController@update')->name('user.update');
+    });
 
     Route::group(['namespace' => 'Auth'], function () {
         Route::post('login', 'LoginController@login')->name('login');
