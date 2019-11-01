@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\User\UserWasRegistered;
 use App\Models\Blog\Post;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
@@ -40,6 +41,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public static function boot()
+    {
+        static::created(function ($model) {
+            event(new UserWasRegistered($model));
+        });
+
+        parent::boot();
+    }
 
     public function setPasswordAttribute($password)
     {
