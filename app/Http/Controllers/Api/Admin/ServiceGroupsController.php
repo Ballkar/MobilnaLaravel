@@ -1,16 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Admin;
 
-use App\Http\Controllers\ApiCommunication;
-use App\Models\Announcement;
+use App\Models\ServiceGroup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class AnnouncementController extends Controller
+class ServiceGroupsController extends Controller
 {
-    use ApiCommunication;
-
     /**
      * Display a listing of the resource.
      *
@@ -35,10 +32,10 @@ class AnnouncementController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Announcement  $announcement
+     * @param  \App\Models\ServiceGroup  $serviceGroup
      * @return \Illuminate\Http\Response
      */
-    public function show(Announcement $announcement)
+    public function show(ServiceGroup $serviceGroup)
     {
         //
     }
@@ -47,10 +44,10 @@ class AnnouncementController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Announcement  $announcement
+     * @param  \App\Models\ServiceGroup  $serviceGroup
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Announcement $announcement)
+    public function update(Request $request, ServiceGroup $serviceGroup)
     {
         //
     }
@@ -58,10 +55,10 @@ class AnnouncementController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Announcement  $announcement
+     * @param  \App\Models\ServiceGroup  $serviceGroup
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Announcement $announcement)
+    public function destroy(ServiceGroup $serviceGroup)
     {
         //
     }
