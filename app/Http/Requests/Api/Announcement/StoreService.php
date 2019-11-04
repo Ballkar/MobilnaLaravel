@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\Announcement;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAnnouncementRequest extends FormRequest
+class StoreService extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,11 @@ class StoreAnnouncementRequest extends FormRequest
     public function rules()
     {
         return [
+            'group_id' => 'required|exists:announcements,id',
             'name' => 'required|min:3|max:200',
-            'description' => 'required|min:3|max:200',
-            'is_mobile' => 'boolean',
-            'mobile_price' => 'numeric',
-            'mobile_distance' => 'numeric',
+            'price' => 'required|numeric',
+            'time_hours' => 'required|numeric',
+            'time_minutes' => 'required|numeric',
         ];
     }
 }

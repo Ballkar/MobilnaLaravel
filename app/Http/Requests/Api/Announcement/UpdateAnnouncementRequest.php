@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api\Blog;
+namespace App\Http\Requests\Api\Announcement;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,7 +24,11 @@ class UpdateAnnouncementRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:200'
+            'name' => 'required|min:3|max:200',
+            'description' => 'required|min:3|max:200',
+            'is_mobile' => 'boolean',
+            'mobile_price' => 'numeric',
+            'mobile_distance' => 'numeric',
         ];
     }
 }

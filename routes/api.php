@@ -16,6 +16,11 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::put('{user}/update', 'UserController@update')->name('user.update');
     });
 
+    Route::group(['namespace' => 'Announcement', 'middleware' => ['auth:api']], function () {
+        Route::apiResource('announcement', 'AnnouncementController');
+        Route::apiResource('announcement/{announcement}/service', 'ServiceController');
+    });
+
     Route::group(['namespace' => 'Auth'], function () {
         Route::post('login', 'LoginController@login')->name('login');
         Route::post('register', 'RegisterController@register')->name('register');

@@ -19,9 +19,9 @@ class AnnouncementsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('name')->nullable();
             $table->text('description');
-            $table->boolean('is_mobile');
-            $table->integer('mobile_price');
-            $table->integer('mobile_distance');
+            $table->boolean('is_mobile')->default(false);
+            $table->integer('mobile_price')->default(0);
+            $table->integer('mobile_distance')->nullable();
             $table->timestamps();
         });
     }

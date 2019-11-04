@@ -66,7 +66,7 @@ class PostController extends Controller
     {
         $post->update($request->validated());
 
-        return $this->sendResponse($post, 'Update Success!', 200);
+        return $this->sendResponse(new PostResource($post), 'Update Success!', 200);
     }
 
     /**

@@ -2,64 +2,74 @@
 
 namespace App\Http\Controllers\Api\Announcement;
 
+use App\Http\Controllers\ApiCommunication;
+use App\Http\Requests\Api\Announcement\UpdateService;
+use App\Http\Resources\AnnouncementService as ServiceResources;
+use App\Models\Announcement;
 use App\Models\AnnouncementService;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Http\Requests\Api\Announcement\StoreService;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 
 class ServiceController extends Controller
 {
+    use ApiCommunication;
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Announcement $announcement
+     * @return JsonResponse
      */
-    public function index()
+    public function index(Announcement $announcement)
     {
-        //
+        $service = AnnouncementService::where('announcement_id', $announcement->id)->paginate(10);
+        return $this->sendResponse(new ServiceResources($service), 'All services from announcement returned!');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreService $request
+     * @param Announcement $announcement
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(StoreService $request, Announcement $announcement)
     {
-        //
+        $service = AnnouncementService::create(array_merge($request->validated(), ['announcement_id' => $announcement->id]));
+        return $this->sendResponse(new ServiceResources($service), 'Services added!');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\AnnouncementService  $announcementService
-     * @return \Illuminate\Http\Response
+     * @param Announcement $announcement
+     * @param AnnouncementService $service
+     * @return JsonResponse
      */
-    public function show(AnnouncementService $announcementService)
+    public function show(Announcement $announcement, AnnouncementService $service)
     {
-        //
+        return $this->sendResponse(new ServiceResources($service), 'Service returned!', 200);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\AnnouncementService  $announcementService
-     * @return \Illuminate\Http\Response
+     * @param UpdateService $request
+     * @param Announcement $announcement
+     * @param AnnouncementService $service
+     * @return JsonResponse
      */
-    public function update(Request $request, AnnouncementService $announcementService)
+    public function update(UpdateService $request, Announcement $announcement, AnnouncementService $service)
     {
-        //
+        $service->update($request->validated());
+        return $this->sendResponse(new ServiceResources($service), 'Service updated', 200);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\AnnouncementService  $announcementService
-     * @return \Illuminate\Http\Response
+     * @param Announcement $announcement
+     * @param AnnouncementService $service
+     * @return JsonResponse
+     * @throws Exception
      */
-    public function destroy(AnnouncementService $announcementService)
+    public function destroy(Announcement $announcement, AnnouncementService $service)
     {
-        //
+        $service->delete();
+        return $this->sendResponse(null, 'Service deleted', 200);
     }
 }
