@@ -7,7 +7,6 @@ use App\Http\Requests\Api\Newsletter\UpdateNewsletterRequest;
 use App\Models\Newsletter;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class NewsletterController extends Controller

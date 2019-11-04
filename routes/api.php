@@ -29,5 +29,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         });
     });
 
-
+    Route::post('newsletter', 'NewsletterController@store')->name('newsletter.store');
+    Route::delete('newsletter/{newsletter}', 'NewsletterController@destroy')->name('newsletter.destroy');
 });
