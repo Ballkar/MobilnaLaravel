@@ -29,6 +29,12 @@ class StoreAnnouncementRequest extends FormRequest
             'is_mobile' => 'boolean',
             'mobile_price' => 'numeric',
             'mobile_distance' => 'numeric',
+
+            'state' => 'required|string|min:4',
+            'city' => 'required|string|min:4',
+            'road' => 'string|min:4',
+            'house_number' => 'string|min:1',
+            'flat_number' => 'string|min:1',
         ];
     }
 }
