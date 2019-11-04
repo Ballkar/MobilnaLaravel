@@ -24,6 +24,6 @@ class SendEmailAfterRegistration
      */
     public function handle(UserWasRegistered $event)
     {
-        die(dump($event->user->id));
+        //
     }
 }

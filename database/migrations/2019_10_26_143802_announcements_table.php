@@ -15,14 +15,18 @@ class AnnouncementsTable extends Migration
     {
         Schema::create('announcements', function(Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->nullable();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->string('name')->nullable();
+            $table->text('description');
+            $table->boolean('is_mobile');
+            $table->integer('mobile_price');
+            $table->integer('mobile_distance');
             $table->timestamps();
         });
     }
 
-    /**
+    /**`
      * Reverse the migrations.
      *
      * @return void
