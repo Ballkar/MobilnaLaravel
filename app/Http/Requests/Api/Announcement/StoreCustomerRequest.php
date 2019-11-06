@@ -24,9 +24,9 @@ class StoreCustomerRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string|min:4',
+            'name' => 'required_without:user_id|string|min:4',
             'surname' => 'string|min:4',
-            'phone' => 'string|min:4',
+            'phone' => 'required_without:user_id|string|min:4',
             'state' => 'string|min:4',
             'city' => 'string|min:4',
             'road' => 'string|min:4',
@@ -35,7 +35,7 @@ class StoreCustomerRequest extends FormRequest
             'additional_info' => 'string|min:4',
             'birth_date' => 'date|nullable',
 
-            'user_id' => 'exists:users,id',
+            'user_id' => 'required_without_all:name,phone|exists:users,id',
         ];
     }
 }
