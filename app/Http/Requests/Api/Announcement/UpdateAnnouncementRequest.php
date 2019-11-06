@@ -29,6 +29,7 @@ class UpdateAnnouncementRequest extends FormRequest
             'is_mobile' => 'boolean',
             'mobile_price' => 'numeric',
             'mobile_distance' => 'numeric',
+            'type_id' => 'required|exists:announcement_types,id',
 
             'state' => 'required|string|min:4',
             'city' => 'required|string|min:4',

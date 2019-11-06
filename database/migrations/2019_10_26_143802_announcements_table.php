@@ -17,6 +17,8 @@ class AnnouncementsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->bigInteger('type_id')->unsigned();
+            $table->foreign('type_id')->references('id')->on('announcement_types');
             $table->string('name')->nullable();
             $table->text('description');
             $table->boolean('is_mobile')->default(false);
