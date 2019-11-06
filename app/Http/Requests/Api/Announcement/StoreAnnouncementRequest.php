@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\Announcement;
 
+use App\Http\Controllers\Constants\AnnouncementTypes;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreAnnouncementRequest extends FormRequest
@@ -29,7 +30,7 @@ class StoreAnnouncementRequest extends FormRequest
             'is_mobile' => 'boolean',
             'mobile_price' => 'numeric',
             'mobile_distance' => 'numeric',
-            'type_id' => 'required|exists:announcement_types,id',
+            'type_id' => 'required|in:'.implode(',', AnnouncementTypes::returnAll()),
 
             'state' => 'required|string|min:4',
             'city' => 'required|string|min:4',
