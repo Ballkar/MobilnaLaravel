@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BaseAction extends Model
+class Calendar extends Model
 {
-
+    //
 }

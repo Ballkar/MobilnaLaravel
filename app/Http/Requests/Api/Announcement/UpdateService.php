@@ -24,7 +24,7 @@ class UpdateService extends FormRequest
     public function rules()
     {
         return [
-            'group_id' => 'required|exists:announcements,id',
+            'service_group_id' => 'required|exists:announcements,id',
             'name' => 'required|min:3|max:200',
             'price' => 'required|numeric',
             'time_hours' => 'required|numeric',

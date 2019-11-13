@@ -17,6 +17,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
     });
 
     Route::group(['namespace' => 'Announcement', 'middleware' => ['auth:api']], function () {
+        Route::get('announcement/{announcement}/calendar', 'CalendarController@show');
         Route::apiResource('announcement', 'AnnouncementController');
         Route::apiResource('announcement.service', 'ServiceController');
         Route::apiResource('announcement.actionPeriodic', 'ActionPeriodicController');
