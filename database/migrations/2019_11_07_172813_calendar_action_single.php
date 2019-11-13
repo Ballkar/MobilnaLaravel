@@ -25,6 +25,7 @@ class CalendarActionSingle extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
+            $table->timestamps();
         });
     }
 

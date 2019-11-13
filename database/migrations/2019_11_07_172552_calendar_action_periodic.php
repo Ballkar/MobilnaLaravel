@@ -26,6 +26,7 @@ class CalendarActionPeriodic extends Migration
             $table->unsignedInteger('start_minute');
             $table->unsignedInteger('end_hour');
             $table->unsignedInteger('end_minute');
+            $table->timestamps();
         });
     }
 

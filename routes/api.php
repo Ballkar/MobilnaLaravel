@@ -18,7 +18,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
 
     Route::group(['namespace' => 'Announcement', 'middleware' => ['auth:api']], function () {
         Route::apiResource('announcement', 'AnnouncementController');
-        Route::apiResource('announcement/{announcement}/service', 'ServiceController');
+        Route::apiResource('announcement.service', 'ServiceController');
+        Route::apiResource('announcement.actionPeriodic', 'ActionPeriodicController');
+        Route::apiResource('announcement.actionSingle', 'ActionSingleController');
         Route::apiResource('customer', 'CustomerController');
     });
 

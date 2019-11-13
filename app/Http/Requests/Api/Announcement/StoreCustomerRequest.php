@@ -33,7 +33,7 @@ class StoreCustomerRequest extends FormRequest
             'house_number' => 'string|min:1',
             'flat_number' => 'string|min:1',
             'additional_info' => 'string|min:4',
-            'birth_date' => 'date|nullable',
+            'birth_date' => 'date|nullable',//
 
             'user_id' => 'required_without_all:name,phone|exists:users,id',
         ];
