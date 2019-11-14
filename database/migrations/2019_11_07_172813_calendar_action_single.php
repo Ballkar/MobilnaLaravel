@@ -15,14 +15,20 @@ class CalendarActionSingle extends Migration
     {
         Schema::create('calendar_action_single', function(Blueprint $table) {
             $table->bigIncrements('id');
+
             $table->bigInteger('type_id')->unsigned();
             $table->foreign('type_id')->references('id')->on('calendar_action_types');
+
             $table->bigInteger('announcement_id')->unsigned();
+
             $table->bigInteger('customer_id')->unsigned();
             $table->foreign('customer_id')->references('id')->on('customers');
+
             $table->foreign('announcement_id')->references('id')->on('announcements');
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->bigInteger('owner_id')->unsigned();
+            $table->foreign('owner_id')->references('id')->on('users');
+
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
             $table->timestamps();

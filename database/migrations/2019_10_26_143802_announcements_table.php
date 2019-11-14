@@ -15,8 +15,8 @@ class AnnouncementsTable extends Migration
     {
         Schema::create('announcements', function(Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->bigInteger('owner_id')->unsigned();
+            $table->foreign('owner_id')->references('id')->on('users');
             $table->bigInteger('type_id')->unsigned();
             $table->string('name')->nullable();
             $table->text('description');

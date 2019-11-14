@@ -15,6 +15,8 @@ class CalendarController extends Controller
 
     public function show(Announcement $announcement)
     {
+        $test = $announcement->user;
+        die(dump($test));
         $calendar = new Calendar();
         return $this->sendResponse($calendar, 'calendar returned');
     }

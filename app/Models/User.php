@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Events\User\UserWasRegistered;
+use App\Http\Controllers\Constants\Roles;
 use App\Models\Blog\Post;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
@@ -60,29 +61,14 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
-    public function city()
+    public function announcements()
     {
-        return $this->belongsTo(City::class);
-    }
-
-    public function data()
-    {
-        return $this->hasOne(UserData::class);
-    }
-
-    public function district()
-    {
-        return $this->belongsTo(District::class);
-    }
-
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
+        return $this->hasMany(Announcement::class, 'owner_id', 'id');
     }
 
     public function isAdmin()
     {
-        return $this->role_id === Config::get('constants.ROLE_ADMIN');
+        return $this->role_id === Roles::ROLE_ADMIN;
     }
 
     public function returnNewToken($remember = false)
