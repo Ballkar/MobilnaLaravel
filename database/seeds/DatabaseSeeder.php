@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PostsTableSeeder::class);
         $this->call(ServiceGroupsTableSeeder::class);
         $this->call(CalendarActionTypesSeeder::class);
-        $this->call(InitializationSeeder::class);
+        $this->call(AnnouncementsSeeder::class);
+        $this->call(CustomerSeeder::class);
+        $this->call(ActionsSeeder::class);
     }
 }
