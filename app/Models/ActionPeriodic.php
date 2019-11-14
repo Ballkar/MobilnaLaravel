@@ -22,12 +22,4 @@ class ActionPeriodic extends BaseAction
     {
         return $this->belongsTo(User::class);
     }
-
-    /**
-     * Get the announcement that owns the action.
-     */
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class);
-    }
 }

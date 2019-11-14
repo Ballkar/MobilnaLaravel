@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Events\User\UserWasRegistered;
 use App\Http\Controllers\Constants\Roles;
+use App\Models\Blog\Comment as BlogComments;
 use App\Models\Blog\Post;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
@@ -56,7 +57,12 @@ class User extends Authenticatable
         return $this->attributes['password'] = Hash::make($password);
     }
 
-    public function posts()
+    public function blogComments()
+    {
+        return $this->hasMany(BlogComments::class);
+    }
+
+    public function blogPosts()
     {
         return $this->hasMany(Post::class);
     }
@@ -64,6 +70,21 @@ class User extends Authenticatable
     public function announcements()
     {
         return $this->hasMany(Announcement::class, 'owner_id', 'id');
+    }
+
+    public function customers()
+    {
+        return $this->hasMany(Customer::class);
+    }
+
+    public function actions_single()
+    {
+        return $this->hasMany(ActionSingle::class, 'owner_id', 'id');
+    }
+
+    public function actions_periodic()
+    {
+        return $this->hasMany(ActionPeriodic::class, 'owner_id', 'id');
     }
 
     public function isAdmin()

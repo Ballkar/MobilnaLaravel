@@ -6,6 +6,7 @@ use App\Http\Controllers\ApiCommunication;
 use App\Models\Announcement;
 use App\Http\Controllers\Controller;
 use App\Models\Calendar;
+use App\Models\User;
 
 class CalendarController extends Controller
 {
@@ -15,8 +16,8 @@ class CalendarController extends Controller
 
     public function show(Announcement $announcement)
     {
-        $test = $announcement->user;
-        die(dump($test));
+//        $test = User::where('id', 2)->first()->actions_periodic;
+//        die(dump($test));
         $calendar = new Calendar();
         return $this->sendResponse($calendar, 'calendar returned');
     }
