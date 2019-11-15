@@ -29,7 +29,7 @@ class ActionSingleController extends Controller
      */
     public function store(ActionSingleRequest $request)
     {
-        $action = ActionSingle::create(array_merge($request->validated(), ['user_id' => Auth::id()]));
+        $action = ActionSingle::create(array_merge($request->validated(), ['owner_id' => Auth::id()]));
         return $this->sendResponse($action, 'All actions returned');
     }
 

@@ -31,7 +31,7 @@ class ActionPeriodicController extends Controller
      */
     public function store(Announcement $announcement, ActionPeriodicRequest $request)
     {
-        $action = ActionPeriodic::create(array_merge($request->validated(), ['user_id' => Auth::id()]));
+        $action = ActionPeriodic::create(array_merge($request->validated(), ['owner_id' => Auth::id()]));
         return $this->sendResponse($action, 'All actions returned');
     }
 

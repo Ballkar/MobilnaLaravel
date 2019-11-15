@@ -30,4 +30,9 @@ class ActionSingle extends BaseAction
     {
         return $this->belongsTo(Customer::class);
     }
+
+    public function scopeBetweenDates($query, $startDate, $endDate)
+    {
+        return $query->where('start_date', '<', $endDate)->where('end_date', '>', $startDate);
+    }
 }
