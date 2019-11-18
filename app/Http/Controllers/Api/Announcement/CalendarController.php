@@ -18,13 +18,7 @@ class CalendarController extends Controller
 
     public function show(GetCalendarRequest $request, Announcement $announcement)
     {
-
-        $user = User::where('id', Auth::id())->first();
-//        die(dump($request->get('end_date')));
-
-        $singleActions = $user->actions_single()->betweenDates($request->get('start_date'), $request->get('end_date'))->get();
-        $periodicActions = $user->actions_periodic()->betweenDates($request->get('start_date'), $request->get('end_date'))->get();
-        $calendar = new Calendar();
+        $calendar = new Calendar($request->get('start_date'), $request->get('end_date'), Auth::id());
         return $this->sendResponse($calendar, 'calendar returned');
     }
 
