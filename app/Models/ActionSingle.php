@@ -6,6 +6,7 @@ class ActionSingle extends BaseAction
 {
     protected $table = 'calendar_action_single';
     protected $guarded = [];
+    protected $dates = ['start_date', 'end_date'];
 
     /**
      * Get the announcement that owns the action.

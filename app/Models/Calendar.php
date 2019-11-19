@@ -17,7 +17,7 @@ class Calendar extends Model
     {
         $this->start = Carbon::make($start_date);
         $this->end = Carbon::make($end_date);
-//        $this->daysDifference = $end->diffInDays($start)
+        $this->daysDifference = $this->start->diffInDays($this->end);
 
         $user = User::where('id', $user_id)->first();
 
@@ -27,7 +27,54 @@ class Calendar extends Model
 
     public function getActions()
     {
-        return collect([$this->single_actions, $this->periodic_actions]);
+        $calendar = [];
+
+        for ($dayCount = 0; $dayCount <= $this->daysDifference; $dayCount++) {
+            $calendar[$dayCount] = [];
+            $actions = [];
+
+            $date = clone($this->start);
+            $date->addDays($dayCount);
+
+            $singleActions = $this->single_actions->filter(function ($value) use ($date) {
+                return $value['start_date']->toDateString() === $date->toDateString();
+            });
+            $periodicActions = $this->periodic_actions->filter(function ($value) use ($date) {
+                return $value['week_day'] == $date->dayOfWeekIso;
+            });
+
+            foreach ($periodicActions as $action) {
+                array_push($actions, [
+                    'id' => $action['id'],
+                    'periodic' => true,
+                    'start_hour' => $action['start_hour'],
+                    'start_minute' => $action['start_minute'],
+                    'end_hour' => $action['end_hour'],
+                    'end_minute' => $action['end_minute'],
+                    'type_id' => $action['type_id'],
+                ]);
+            }
+            foreach ($singleActions as $action) {
+                array_push($actions, [
+                    'id' => $action['id'],
+                    'periodic' => false,
+                    'start_hour' => $action['start_date']->hour,
+                    'start_minute' => $action['start_date']->minute,
+                    'end_hour' => $action['end_date']->hour,
+                    'end_minute' => $action['end_date']->minute,
+                    'type_id' => $action['type_id'],
+                ]);
+            }
+
+            $day = [
+                'week_day' => $date->dayOfWeekIso,
+                'date' => $date->toDateString(),
+                'actions' => $actions
+            ];
+            $calendar[$dayCount] = $day;
+        }
+
+        return $calendar;
     }
 
 }
