@@ -19,7 +19,7 @@ class CalendarController extends Controller
     public function show(GetCalendarRequest $request, Announcement $announcement)
     {
         $calendar = new Calendar($request->get('start_date'), $request->get('end_date'), Auth::id());
-        return $this->sendResponse($calendar, 'calendar returned');
+        return $this->sendResponse($calendar->getActions(), 'calendar returned');
     }
 
 }

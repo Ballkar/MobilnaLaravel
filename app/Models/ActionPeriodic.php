@@ -29,13 +29,19 @@ class ActionPeriodic extends BaseAction
     {
         $start = Carbon::make($startDate);
         $end = Carbon::make($endDate);
+        $diff = $end->diffInDays($start);
+        $days = [];
+        $day = $end->dayOfWeekIso;
+        for ($i = 0; $i <= $diff; $i++) {
+            array_push($days, $day);
+            $day++;
 
-//        return $query->where('week_day', $start->dayOfWeekIso)
-//            ->where('start_hour', '<', $start->hour)
-//            ->where('start_minute', '>', $start->minute)
-//            ->where('end_hour', '<', $end->hour)
-//            ->where('end_minute', '>', $end->minute);
-        return $query->where('week_day', $start->dayOfWeekIso)
+            if ($day === 7) {
+                $day = 1;
+            }
+        }
+        die(dump($days));
+        return $query->whereBetween('week_day', [$start->dayOfWeekIso, $end->dayOfWeekIso])
             ->where(function ($query) use ($end) {
                 $query->where('start_hour', '<', $end->hour)
                     ->orWhere('start_hour', '=', $end->hour)

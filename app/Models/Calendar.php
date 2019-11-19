@@ -22,4 +22,10 @@ class Calendar extends Model
         $this->periodic_actions = $user->actions_periodic()->betweenDates($this->start, $this->end)->get();
     }
 
+    public function getActions()
+    {
+        dd($this->single_actions);
+        return $this->periodic_actions->merge($this->single_actions);
+    }
+
 }
