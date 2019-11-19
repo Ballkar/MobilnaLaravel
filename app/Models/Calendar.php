@@ -72,11 +72,10 @@ class Calendar extends Model
                 }
                 return $prev['start_hour'] < $next['start_hour'] ? -1 : 1;
             });
-
             $day = [
                 'week_day' => $date->dayOfWeekIso,
                 'date' => $date->toDateString(),
-                'actions' => $actions
+                'actions' => $actions->values()
             ];
             $calendar[$dayCount] = $day;
         }
