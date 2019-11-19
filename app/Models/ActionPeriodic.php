@@ -25,23 +25,18 @@ class ActionPeriodic extends BaseAction
         return $this->belongsTo(User::class);
     }
 
-    public function scopeBetweenDates($query, $startDate, $endDate)
+    public function scopeBetweenDates($query, Carbon $start, Carbon $end)
     {
-        $start = Carbon::make($startDate);
-        $end = Carbon::make($endDate);
         $diff = $end->diffInDays($start);
         $days = [];
-        $day = $end->dayOfWeekIso;
+        $day = $start->dayOfWeekIso;
         for ($i = 0; $i <= $diff; $i++) {
-            array_push($days, $day);
+            if (!in_array($day, $days)) array_push($days, $day);
             $day++;
-
-            if ($day === 7) {
-                $day = 1;
-            }
+            if ($day === 8) $day = 1;
         }
-        die(dump($days));
-        return $query->whereBetween('week_day', [$start->dayOfWeekIso, $end->dayOfWeekIso])
+
+        return $query->whereIn('week_day', $days)
             ->where(function ($query) use ($end) {
                 $query->where('start_hour', '<', $end->hour)
                     ->orWhere('start_hour', '=', $end->hour)

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Calendar extends Model
@@ -10,11 +11,13 @@ class Calendar extends Model
     public $end;
     public $single_actions;
     public $periodic_actions;
+    public $daysDifference;
 
-    public function __construct($start_date, $end_date, $user_id)
+    public function __construct(string $start_date, string $end_date, $user_id)
     {
-        $this->start = $start_date;
-        $this->end = $end_date;
+        $this->start = Carbon::make($start_date);
+        $this->end = Carbon::make($end_date);
+//        $this->daysDifference = $end->diffInDays($start)
 
         $user = User::where('id', $user_id)->first();
 
@@ -24,8 +27,7 @@ class Calendar extends Model
 
     public function getActions()
     {
-        dd($this->single_actions);
-        return $this->periodic_actions->merge($this->single_actions);
+        return collect([$this->single_actions, $this->periodic_actions]);
     }
 
 }
