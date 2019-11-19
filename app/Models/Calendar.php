@@ -31,8 +31,7 @@ class Calendar extends Model
 
         for ($dayCount = 0; $dayCount <= $this->daysDifference; $dayCount++) {
             $calendar[$dayCount] = [];
-            $actions = [];
-
+            $actions = collect([]);
             $date = clone($this->start);
             $date->addDays($dayCount);
 
@@ -44,7 +43,7 @@ class Calendar extends Model
             });
 
             foreach ($periodicActions as $action) {
-                array_push($actions, [
+                $actions->push([
                     'id' => $action['id'],
                     'periodic' => true,
                     'start_hour' => $action['start_hour'],
@@ -55,7 +54,7 @@ class Calendar extends Model
                 ]);
             }
             foreach ($singleActions as $action) {
-                array_push($actions, [
+                $actions->push([
                     'id' => $action['id'],
                     'periodic' => false,
                     'start_hour' => $action['start_date']->hour,
@@ -65,6 +64,14 @@ class Calendar extends Model
                     'type_id' => $action['type_id'],
                 ]);
             }
+
+            $actions = $actions->sort(function($prev, $next) {
+                if($prev['start_hour'] === $next['start_hour']) {
+                    if($prev['start_minute'] === $next['start_minute']) return 0;
+                    return $prev['start_minute'] < $next['start_minute'] ? -1 : 1;
+                }
+                return $prev['start_hour'] < $next['start_hour'] ? -1 : 1;
+            });
 
             $day = [
                 'week_day' => $date->dayOfWeekIso,
