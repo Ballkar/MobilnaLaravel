@@ -24,9 +24,9 @@ class UpdateUserDetailsRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string|min:4',
+            'name' => 'required|string|min:4',
             'surname' => 'string|min:4',
-            'phone' => 'string|min:4',
+            'phone' => 'required|string|min:4',
             'state' => 'string|min:4',
             'city' => 'string|min:4',
             'road' => 'string|min:4',
@@ -34,6 +34,7 @@ class UpdateUserDetailsRequest extends FormRequest
             'flat_number' => 'string|min:1',
             'additional_info' => 'string|min:4',
             'birth_date' => 'date|nullable',
+            'avatar' => 'image|nullable',
         ];
     }
 }
