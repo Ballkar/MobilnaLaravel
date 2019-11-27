@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\Auth;
 
+use App\Http\Controllers\Constants\Roles;
 use App\Http\Requests\ApiFormRequest;
 
 class RegisterRequest extends ApiFormRequest
@@ -27,6 +28,7 @@ class RegisterRequest extends ApiFormRequest
             'email' => 'required|email|max:255|unique:users,email',
             'reg' => 'accepted',
             'password' => 'required|min:6',
+            'acc_type' => 'required|in:'.implode(',', Roles::returnSafe()),
         ];
     }
 

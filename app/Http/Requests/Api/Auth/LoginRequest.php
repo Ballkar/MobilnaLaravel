@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\Auth;
 
+use App\Http\Controllers\Constants\Roles;
 use App\Http\Requests\ApiFormRequest;
 
 class LoginRequest extends ApiFormRequest
@@ -25,7 +26,8 @@ class LoginRequest extends ApiFormRequest
     {
         return [
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
+            'acc_type' => 'required|in:'.implode(',', Roles::returnAll()),
         ];
     }
 }
