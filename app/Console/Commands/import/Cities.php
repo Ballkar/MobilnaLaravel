@@ -2,23 +2,25 @@
 
 namespace App\Console\Commands;
 
+use App\Imports\CitiesImport as CitiesImport;
 use Illuminate\Console\Command;
+use Maatwebsite\Excel\Facades\Excel;
 
-class init extends Command
+class Cities extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'init';
+    protected $signature = 'import:cities';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Initialization command';
+    protected $description = 'Command importing cities into database';
 
     /**
      * Create a new command instance.
@@ -36,18 +38,7 @@ class init extends Command
      */
     public function handle()
     {
-        $this->call('migrate:fresh');
-        $this->info('Migration complete');
 
-        $this->call('import:cities');
-        $this->info('Importing cities complete');
-
-        $this->call('db:seed');
-        $this->info('Seed complete');
-
-        $this->call('passport:install');
-        $this->info('Passport auth activated');
-
-        $this->info('Init All DONE');
+        Excel::import(new CitiesImport, 'cities.csv');
     }
 }

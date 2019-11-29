@@ -23,7 +23,7 @@ class ImportController extends Controller
 //     */
 //    public function export()
 //    {
-//        return Excel::download(new CitiesImport(), 'users.xlsx');
+//        return Excel::download(new Cities(), 'users.xlsx');
 //    }
 
     /**

@@ -16,7 +16,7 @@ class CreateCitiesTable extends Migration
         Schema::create('cities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('commune');
+            $table->string('district');
             $table->string('voivodeship');
             $table->string('lat')->nullable();
             $table->string('lon')->nullable();
@@ -31,6 +31,6 @@ class CreateCitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cities');
+        Schema::dropIfExists('citiesImport');
     }
 }
