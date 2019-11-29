@@ -15,3 +15,6 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+Route::get('export', 'ImportController@export')->name('export');
+Route::get('file', 'ImportController@importExportView');
+Route::post('import', 'ImportController@import')->name('import');

@@ -48,8 +48,8 @@
                 console.log(this.form)
             },
             onSubmit() {
-            this.form.post('/admin/blog/post')
-                .then(response => window.location.href = '/admin/blog/post/'+response.id);
+            this.form.post('/admin/files/post')
+                .then(response => window.location.href = '/admin/files/post/'+response.id);
             }
         },
         components: {

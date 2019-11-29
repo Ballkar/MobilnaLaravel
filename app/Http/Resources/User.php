@@ -23,7 +23,7 @@ class User extends JsonResource
             'name' => $this->name,
             'surname' => $this->surname,
             'phone' => $this->phone,
-            'state' => $this->state,
+            'voivodeship' => $this->voivodeship,
             'city' => $this->city,
             'road' => $this->road,
             'house_number' => $this->house_number,
