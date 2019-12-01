@@ -17,7 +17,6 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('avatar')->nullable();
             $table->boolean('reg')->default(false);
             $table->string('name')->nullable();
             $table->string('surname')->nullable();
@@ -29,6 +28,10 @@ class CreateUsersTable extends Migration
             $table->string('flat_number')->nullable();
             $table->text('additional_info')->nullable();
             $table->timestamp('birth_date')->nullable();
+
+            $table->string('avatar')->nullable();
+            $table->string('avatar_thumbnail')->nullable();
+
 
             $table->rememberToken();
             $table->timestamp('email_verified_at')->nullable();

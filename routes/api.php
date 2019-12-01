@@ -16,6 +16,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
     Route::group(['namespace' => 'User', 'prefix' => 'user', 'middleware' => ['auth:api']], function () {
         Route::get('user', 'UserController@user')->name('user');
         Route::put('{user}/update', 'UserController@update')->name('user.update');
+        Route::post('{user}/avatar', 'ImagesController@store')->name('avatar.store');
     });
 
     Route::group(['namespace' => 'Announcement', 'middleware' => ['auth:api']], function () {

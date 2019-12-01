@@ -52,6 +52,16 @@ class User extends Authenticatable
         parent::boot();
     }
 
+//    public function getAvatarAttribute($avatar)
+//    {
+//        return env('APP_URL').$avatar;
+//    }
+//
+//    public function getAvatarThumbnailAttribute($thumbnail)
+//    {
+//        return env('APP_URL').$thumbnail;
+//    }
+
     public function setPasswordAttribute($password)
     {
         return $this->attributes['password'] = Hash::make($password);
