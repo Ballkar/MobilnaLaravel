@@ -30,6 +30,8 @@ class User extends JsonResource
             'flat_number' => $this->flat_number,
             'birth_date' => $this->birth_date,
             'additional_info' => $this->additional_info,
+            'avatar' => env('APP_URL').'/storage/users/'.$this->id.'/avatar/'.$this->avatar,
+            'avatar_thumbnail' => env('APP_URL').'/storage/users/'.$this->id.'/avatar/'.$this->avatar_thumbnail,
         ];
     }
 }

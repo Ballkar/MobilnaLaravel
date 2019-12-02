@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\ApiCommunication;
+use App\Http\Resources\User as UserResource;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -18,33 +20,33 @@ class ImagesController extends Controller
     public function store(Request $request, User $user)
     {
         $request->validate(['avatar' => 'required|image']);
-
-        if($user->avatar) {
-//            $a = Storage::get('public\users\2\avatar\OkDm8LW3EL6kYR1iPxGTrFhPOgoXemplokSFYxSr.jpeg');
-            Storage::delete('public\users\2\avatar\lT0y3EuPFJ5XqRRLvukinVrh2eFAnLebOxFKdnPI.jpeg');
-//            Storage::delete($user->avatar_thumbnail);
-        }
-        $path = 'users/'.Auth::id().'/avatar';
+        $path = 'users/'.$user->id.'/avatar/';
         $avatar = $request->file('avatar');
-        $file = Storage::put('public/'.$path, $avatar);
-
-        $filename = pathinfo($avatar->getClientOriginalName(), PATHINFO_FILENAME);
         $extension = $avatar->getClientOriginalExtension();
+        $avatarName = time().'.'.$extension;
+        $thumbnailName = time().'_small.'.$extension;
 
-        $thumbnailName = $filename.'_small.'.$extension;
-        $thumbnail = $avatar->storeAs('public/'.$path, $thumbnailName);
+        try {
+            if($user->avatar) {
+                Storage::delete('public/'.$path.$user->avatar);
+                Storage::delete('public/'.$path.$user->avatar_thumbnail);
+            }
 
-        $thumbnailPath = public_path('storage/'.$path.'/'.$thumbnailName);
-        $this->createThumbnail($thumbnailPath, 150, 93);
+            $photo = Image::make($avatar);
+            Storage::put('public/'.$path.$avatarName, (string) $photo->encode());
+            Storage::put('public/'.$path.$thumbnailName, (string) $photo->encode());
 
-        $user->update([
-            'avatar' => Storage::url($file),
-            'avatar_thumbnail' => Storage::url($thumbnail),
-        ]);
+            $thumbnailPath = public_path('storage/'.$path.'/'.$thumbnailName);
+            $this->createThumbnail($thumbnailPath, 150, 93);
 
-
-
-        return $this->sendResponse($user, 200);
+            $user->update([
+                'avatar' => $avatarName,
+                'avatar_thumbnail' => $thumbnailName,
+            ]);
+            return $this->sendResponse(new UserResource($user), 200);
+        } catch (Exception $e) {
+            return $this->sendResponse(false, $e->getMessage());
+        }
     }
 
     public function createThumbnail($path, $width, $height)
