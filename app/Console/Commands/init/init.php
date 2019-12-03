@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use CitiesTableSeeder;
+use DatabaseSeeder;
 use Illuminate\Console\Command;
 
 class init extends Command
@@ -11,7 +13,7 @@ class init extends Command
      *
      * @var string
      */
-    protected $signature = 'init';
+    protected $signature = 'init {--cities}';
 
     /**
      * The console command description.
@@ -36,12 +38,21 @@ class init extends Command
      */
     public function handle()
     {
+        $this->info('Migration start');
         $this->call('migrate:fresh');
         $this->info('Migration complete');
 
-        $this->call('import:cities');
-        $this->info('Importing cities complete');
+        if($this->option('cities')) {
+            $this->call('import:cities');
+            $this->info('Importing cities complete');
+            $this->call('location:cities');
+            $this->info('Locating cities complete');
+        } else {
+            $seeder = new DatabaseSeeder();
+            $seeder->call(CitiesTableSeeder::class);
+        }
 
+        $this->info('Seeding start');
         $this->call('db:seed');
         $this->info('Seed complete');
 
