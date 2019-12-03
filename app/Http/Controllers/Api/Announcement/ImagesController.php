@@ -6,6 +6,7 @@ use App\Http\Controllers\ApiCommunication;
 use App\Http\Resources\Announcement as AnnouncementResources;
 use App\Http\Resources\User as UserResource;
 use App\Models\Announcement;
+use App\Models\AnnouncementImage;
 use App\Models\Image as ImageModel;
 use Exception;
 use Illuminate\Http\Request;
@@ -20,10 +21,7 @@ class ImagesController extends Controller
 
     public function index(Announcement $announcement)
     {
-        $images = $announcement->images->map(function ($item) {
-            $item['imageName'] = env('APP_URL').'/storage/announcements/'.$item->id.'/'.$item->imageName;
-            return $item;
-        });
+        $images = $announcement->images;
         return $this->sendResponse($images, 200);
     }
 
@@ -37,19 +35,16 @@ class ImagesController extends Controller
 
         try {
             $image = Image::make($photo);
-            Storage::put('public/'.$path.$photoName, (string) $image->encode());
+            Storage::disk('public')->put('public/'.$path.$photoName, (string) $image->encode());
 
-            $image = ImageModel::create([
-                'imageName' => $photoName,
-                'imageable_id' => $announcement->id,
-                'imageable_type' => Announcement::class,
+            AnnouncementImage::create([
+                'name' => $photoName,
+                'announcement_id' => $announcement->id,
+                'main' => $announcement->images->isEmpty() ? true : false,
             ]);
 
-            if(!$announcement->main_image) {
-                $announcement->main_image = $image->id;
-                $announcement->save();
-            }
-            return $this->sendResponse($image, 200);
+            $announcement = $announcement->find($announcement->id);
+            return $this->sendResponse($announcement, 200);
         } catch (Exception $e) {
             return $this->sendError( $e->getMessage(), 500);
         }
@@ -57,21 +52,32 @@ class ImagesController extends Controller
 
     public function changeMainImage(Request $request, Announcement $announcement)
     {
-        $request->validate(['main_id' => 'required|exists:images,id']);
+        $request->validate(['main_id' => 'required|exists:announcement_images,id']);
 
-        $announcement->main_image = $request->get('main_id');
-        $announcement->save();
+        if($old = $announcement->images->where('main', 1)->first()) {
+            $old->update(['main' => false]);
+        }
+
+        $image = AnnouncementImage::where('id', $request->get('main_id'))->first();
+        $image->update(['main' => true]);
+
+        $announcement = $announcement->find($announcement->id);
         return $this->sendResponse(new AnnouncementResources($announcement), 200);
     }
 
-    public function delete(Request $request, Announcement $announcement, ImageModel $image)
+    public function delete(Request $request, Announcement $announcement, AnnouncementImage $image)
     {
         try {
-            Storage::delete('public/announcements/'.$announcement->id.'/'.$image->imageName);
+            Storage::disk('public')->delete('public/announcements/'.$announcement->id.'/'.$image->name);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage(), 500);
         }
         $image->delete();
+        if($image->main && $differentImage = $announcement->images[0]) {
+            $differentImage->update([
+                'main' => true,
+            ]);
+        }
 
         return $this->sendResponse(true, 200);
     }

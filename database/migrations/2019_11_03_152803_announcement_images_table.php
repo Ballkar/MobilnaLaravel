@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ImageTable extends Migration
+class AnnouncementImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class ImageTable extends Migration
      */
     public function up()
     {
-        Schema::create('images', function(Blueprint $table) {
+        Schema::create('announcement_images', function(Blueprint $table) {
             $table->bigIncrements('id');
-
-
-            $table->string('imageName');
-            $table->string('thumbnailName')->nullable();
-
-            $table->integer('imageable_id')->unsigned();
-            $table->string('imageable_type');
+            $table->string('name');
+            $table->boolean('main')->default(0);
+            $table->bigInteger('announcement_id')->unsigned();
+            $table->foreign('announcement_id')->references('id')->on('announcements');
             $table->timestamps();
         });
     }

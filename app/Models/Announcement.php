@@ -3,14 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Announcement extends Model
 {
     protected $guarded = [];
+    protected $appends = ['image'];
 
-    public function getMainImageAttribute($value)
+    public function getImageAttribute($value)
     {
-        return env('APP_URL').'/storage/announcements/'.$this->id.'/'.Image::where('id', $value)->first()['imageName'];
+        if($imageMain = $this->images->where('main', 1)->first()) {
+            $url = $imageMain->path;
+        } else {
+            $url = Storage::disk('public')->url('default.jpg');
+        }
+        return $url;
     }
 
     /**
@@ -19,6 +26,14 @@ class Announcement extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'owner_id');
+    }
+
+    /**
+     * Get the services for the announcement.
+     */
+    public function images()
+    {
+        return $this->hasMany(AnnouncementImage::class);
     }
 
     /**
@@ -43,11 +58,6 @@ class Announcement extends Model
     public function actions_periodic()
     {
         return $this->hasMany(ActionPeriodic::class);
-    }
-
-    public function images()
-    {
-        return $this->morphMany(Image::class, 'imageable');
     }
 
 }
