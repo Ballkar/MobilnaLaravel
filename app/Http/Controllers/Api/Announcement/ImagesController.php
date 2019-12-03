@@ -22,7 +22,7 @@ class ImagesController extends Controller
     public function index(Announcement $announcement)
     {
         $images = $announcement->images;
-        return $this->sendResponse($images, 200);
+        return $this->sendResponse($images, 'Images returned');
     }
 
     public function store(Request $request, Announcement $announcement)
@@ -44,7 +44,7 @@ class ImagesController extends Controller
             ]);
 
             $announcement = $announcement->find($announcement->id);
-            return $this->sendResponse($announcement, 200);
+            return $this->sendResponse($announcement->images, 'New image added');
         } catch (Exception $e) {
             return $this->sendError( $e->getMessage(), 500);
         }
@@ -62,7 +62,7 @@ class ImagesController extends Controller
         $image->update(['main' => true]);
 
         $announcement = $announcement->find($announcement->id);
-        return $this->sendResponse(new AnnouncementResources($announcement), 200);
+        return $this->sendResponse(new AnnouncementResources($announcement), 'Main image changed');
     }
 
     public function delete(Request $request, Announcement $announcement, AnnouncementImage $image)

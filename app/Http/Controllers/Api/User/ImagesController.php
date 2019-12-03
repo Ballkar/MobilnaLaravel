@@ -28,13 +28,13 @@ class ImagesController extends Controller
 
         try {
             if($user->avatar) {
-                Storage::delete('public/'.$path.$user->avatar);
-                Storage::delete('public/'.$path.$user->avatar_thumbnail);
+                Storage::disk('public')->delete('public/'.$path.$user->avatar);
+                Storage::disk('public')->delete('public/'.$path.$user->avatar_thumbnail);
             }
 
             $photo = Image::make($avatar);
-            Storage::put('public/'.$path.$avatarName, (string) $photo->encode());
-            Storage::put('public/'.$path.$thumbnailName, (string) $photo->encode());
+            Storage::disk('public')->put('public/'.$path.$avatarName, (string) $photo->encode());
+            Storage::disk('public')->put('public/'.$path.$thumbnailName, (string) $photo->encode());
 
             $thumbnailPath = public_path('storage/'.$path.'/'.$thumbnailName);
             $this->createThumbnail($thumbnailPath, 150, 93);

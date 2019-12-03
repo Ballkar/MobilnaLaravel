@@ -9,14 +9,12 @@ class Announcement extends Model
 {
     protected $guarded = [];
     protected $appends = ['image'];
+    protected $hidden = ['images'];
 
-    public function getImageAttribute($value)
+    public function getImageAttribute()
     {
-        if($imageMain = $this->images->where('main', 1)->first()) {
-            $url = $imageMain->path;
-        } else {
-            $url = Storage::disk('public')->url('default.jpg');
-        }
+        $imageMain = $this->images->where('main', 1)->first();
+        $url = $imageMain ? $imageMain->path : Storage::disk('public')->url('default.jpg');
         return $url;
     }
 
