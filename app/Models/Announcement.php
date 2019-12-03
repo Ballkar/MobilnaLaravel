@@ -8,6 +8,11 @@ class Announcement extends Model
 {
     protected $guarded = [];
 
+    public function getMainImageAttribute($value)
+    {
+        return env('APP_URL').'/storage/announcements/'.$this->id.'/'.Image::where('id', $value)->first()['imageName'];
+    }
+
     /**
      * Get the user that owns the announcement.
      */
@@ -39,4 +44,10 @@ class Announcement extends Model
     {
         return $this->hasMany(ActionPeriodic::class);
     }
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
+
 }

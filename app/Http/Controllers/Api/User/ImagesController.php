@@ -45,7 +45,7 @@ class ImagesController extends Controller
             ]);
             return $this->sendResponse(new UserResource($user), 200);
         } catch (Exception $e) {
-            return $this->sendResponse(false, $e->getMessage());
+            return $this->sendError($e->getMessage(), 500);
         }
     }
 

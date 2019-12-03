@@ -24,6 +24,8 @@ class AnnouncementsTable extends Migration
             $table->integer('mobile_price')->default(0);
             $table->integer('mobile_distance')->nullable();
 
+            $table->bigInteger('main_image')->unsigned()->nullable();
+            $table->foreign('main_image')->references('id')->on('images');
             $table->string('state');
             $table->string('city');
             $table->string('road')->nullable();
