@@ -15,8 +15,7 @@ class AnnouncementsSeeder extends Seeder
         Announcement::create([
             'name' => 'testowe ogłoszenie',
             'description' => 'testowy opis ogłoszenia',
-            'state' => 'Małopolska',
-            'city' => 'Nowy sącz',
+            'city_id' => '821',
             'type_id' => '2',
             'owner_id' => '2',
         ]);
@@ -24,8 +23,7 @@ class AnnouncementsSeeder extends Seeder
         Announcement::create([
             'name' => 'testowe ogłoszenie nr.2',
             'description' => 'testowy opis ogłoszenia',
-            'state' => 'Małopolska',
-            'city' => 'Nowy sącz',
+            'city_id' => '823',
             'type_id' => '3',
             'owner_id' => '2',
         ]);

@@ -14,7 +14,7 @@ class CityController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'cities' => 'required'
+            'city' => 'required'
         ]);
         $cities = City::where('name', 'LIKE', "{$request->city}%")->limit(10)->get();
 

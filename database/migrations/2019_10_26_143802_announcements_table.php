@@ -23,8 +23,8 @@ class AnnouncementsTable extends Migration
             $table->boolean('is_mobile')->default(false);
             $table->integer('mobile_price')->default(0);
             $table->integer('mobile_distance')->nullable();
-            $table->string('state');
-            $table->string('city');
+            $table->bigInteger('city_id')->unsigned();
+            $table->foreign('city_id')->references('id')->on('cities');
             $table->string('road')->nullable();
             $table->string('house_number')->nullable();
             $table->string('flat_number')->nullable();

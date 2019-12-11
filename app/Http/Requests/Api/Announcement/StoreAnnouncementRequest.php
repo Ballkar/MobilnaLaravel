@@ -32,8 +32,7 @@ class StoreAnnouncementRequest extends FormRequest
             'mobile_distance' => 'numeric',
             'type_id' => 'required|in:'.implode(',', AnnouncementTypes::returnAll()),
 
-            'state' => 'required|string|min:4',
-            'city' => 'required|string|min:4',
+            'city_id' => 'required|exists:cities,id',
             'road' => 'string|min:4',
             'house_number' => 'string|min:1',
             'flat_number' => 'string|min:1',

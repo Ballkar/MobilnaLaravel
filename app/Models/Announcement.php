@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Storage;
 class Announcement extends Model
 {
     protected $guarded = [];
-    protected $appends = ['image'];
-    protected $hidden = ['images'];
+    protected $appends = ['image', 'city_name'];
+    protected $hidden = ['images', 'city'];
 
     public function getImageAttribute()
     {
@@ -18,6 +18,10 @@ class Announcement extends Model
         return $url;
     }
 
+    public function getCityNameAttribute()
+    {
+        return $this->city->name;
+    }
     /**
      * Get the user that owns the announcement.
      */
@@ -26,6 +30,13 @@ class Announcement extends Model
         return $this->belongsTo(User::class, 'owner_id');
     }
 
+    /**
+     * Get the city that owns the announcement.
+     */
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
     /**
      * Get the services for the announcement.
      */
