@@ -27,7 +27,7 @@ class Calendar extends Model
 
     public function getActions()
     {
-        $calendar = [];
+        $calendar = collect([]);
 
         for ($dayCount = 0; $dayCount <= $this->daysDifference; $dayCount++) {
             $calendar[$dayCount] = [];
@@ -46,6 +46,10 @@ class Calendar extends Model
                 $actions->push([
                     'id' => $action['id'],
                     'periodic' => true,
+                    'start_date' => Carbon::create($date->year, $date->month, $date->day, $action['start_hour'], $action['start_minute'])->toDateTimeString(),
+                    'end_date' => Carbon::create($date->year, $date->month, $date->day, $action['end_hour'], $action['end_minute'])->toDateTimeString(),
+                    'start_timestamp' => Carbon::create($date->year, $date->month, $date->day, $action['start_hour'], $action['start_minute'])->timestamp,
+                    'end_timestamp' => Carbon::create($date->year, $date->month, $date->day, $action['end_hour'], $action['end_minute'])->timestamp,
                     'start_hour' => $action['start_hour'],
                     'start_minute' => $action['start_minute'],
                     'end_hour' => $action['end_hour'],
@@ -57,6 +61,10 @@ class Calendar extends Model
                 $actions->push([
                     'id' => $action['id'],
                     'periodic' => false,
+                    'start_date' => $action['start_date']->toDateTimeString(),
+                    'end_date' => $action['end_date']->toDateTimeString(),
+                    'start_timestamp' => $action['start_date']->timestamp,
+                    'end_timestamp' => $action['end_date']->timestamp,
                     'start_hour' => $action['start_date']->hour,
                     'start_minute' => $action['start_date']->minute,
                     'end_hour' => $action['end_date']->hour,
@@ -66,21 +74,41 @@ class Calendar extends Model
             }
 
             $actions = $actions->sort(function($prev, $next) {
-                if($prev['start_hour'] === $next['start_hour']) {
-                    if($prev['start_minute'] === $next['start_minute']) return 0;
-                    return $prev['start_minute'] < $next['start_minute'] ? -1 : 1;
+                return $prev['start_timestamp'] < $next['start_timestamp'] ? -1 : 1;
+            })->values();
+
+            $conflictCount = 0;
+            foreach ($actions as $number=>&$action) {
+                $action['conflict_with'] = collect([]);
+                $action['conflict'] = false;
+
+                for($next = $number + 1; $next < $actions->count(); $next++) {
+                    $conflict = $action['end_timestamp'] > $actions[$next]['start_timestamp'];
+                    if($conflict) $action['conflict_with']->push(['id' => $actions[$next]['id'], 'periodic' => $actions[$next]['periodic']]);
+                    if($conflict) $conflictCount++;
+                    if(!$conflict) break;
                 }
-                return $prev['start_hour'] < $next['start_hour'] ? -1 : 1;
-            });
+
+                for($prev = $number - 1; $prev >= 0; $prev--) {
+                    $conflict = $action['start_timestamp'] < $actions[$prev]['end_timestamp'];
+                    if($conflict) $action['conflict_with']->push(['id' => $actions[$prev]['id'], 'periodic' => $actions[$prev]['periodic']]);
+                    if(!$conflict) break;
+                }
+
+                $actions[$number] = $action;
+                $action['conflict'] = isset($action['conflict_with'][0]);
+            }
+
             $day = [
                 'week_day' => $date->dayOfWeekIso,
                 'date' => $date->toDateString(),
-                'actions' => $actions->values()
+                'actions' => $actions->values(),
+                'conflicts' => $conflictCount,
             ];
             $calendar[$dayCount] = $day;
         }
 
-        return $calendar;
+        return ['days' => $calendar, 'conflicts' => $calendar->sum('conflicts')];
     }
 
 }
