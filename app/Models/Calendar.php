@@ -95,8 +95,8 @@ class Calendar extends Model
                     if(!$conflict) break;
                 }
 
+                $action['conflict'] = !$action['conflict_with']->isEmpty();
                 $actions[$number] = $action;
-                $action['conflict'] = isset($action['conflict_with'][0]);
             }
 
             $day = [
