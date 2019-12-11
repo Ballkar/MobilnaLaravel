@@ -27,8 +27,8 @@ class StoreCustomerRequest extends FormRequest
             'name' => 'required_without:user_id|string|min:4',
             'surname' => 'string|min:4',
             'phone' => 'required_without:user_id|string|min:4',
-            'state' => 'string|min:4',
-            'city' => 'string|min:4',
+
+            'city_id' => 'exists:cities,id',
             'road' => 'string|min:4',
             'house_number' => 'string|min:1',
             'flat_number' => 'string|min:1',

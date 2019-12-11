@@ -27,8 +27,8 @@ class UpdateUserDetailsRequest extends FormRequest
             'name' => 'required|string|min:4',
             'surname' => 'string|min:4',
             'phone' => 'required|string|min:4',
-            'voivodeship' => 'string|min:4',
-            'city' => 'string|min:4',
+
+            'city_id' => 'required|exists:cities,id',
             'road' => 'string|min:4',
             'house_number' => 'string|min:1',
             'flat_number' => 'string|min:1',

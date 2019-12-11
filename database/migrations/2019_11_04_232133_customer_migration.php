@@ -22,8 +22,8 @@ class CustomerMigration extends Migration
             $table->string('surname')->nullable();
             $table->string('phone')->nullable();
 
-            $table->string('state')->nullable();
-            $table->string('city')->nullable();
+            $table->bigInteger('city_id')->unsigned()->nullable();
+            $table->foreign('city_id')->references('id')->on('cities');
             $table->string('road')->nullable();
             $table->string('house_number')->nullable();
             $table->string('flat_number')->nullable();
