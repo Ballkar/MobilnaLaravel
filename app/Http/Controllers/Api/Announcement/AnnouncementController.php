@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\Announcement;
 
 use App\Http\Controllers\ApiCommunication;
+use App\Http\Requests\Api\Announcement\SearchAnnouncement;
+use App\Http\Requests\Api\Announcement\SearchAnnouncementRequest;
 use App\Http\Requests\Api\Announcement\StoreAnnouncementRequest;
 use App\Http\Requests\Api\Announcement\UpdateAnnouncementRequest;
 use App\Http\Resources\Announcement as AnnouncementResource;
@@ -17,11 +19,16 @@ class AnnouncementController extends Controller
     use ApiCommunication;
 
     /**
+     * @param SearchAnnouncementRequest $request
      * @return JsonResponse
      */
-    public function index()
+    public function index(SearchAnnouncementRequest $request)
     {
-        $announcements = Announcement::paginate(10);
+        if($request->city_id) {
+            $announcements = Announcement::where('city_id', $request->city_id)->paginate(10);
+        } else {
+            $announcements = Announcement::paginate(10);
+        }
         return $this->sendResponse(new AnnouncementResource($announcements), 'All announcement returned');
     }
 
