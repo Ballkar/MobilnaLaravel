@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Announcement\Service;
 
+use App\Models\Announcement\Announcement;
 use Illuminate\Database\Eloquent\Model;
 
-class AnnouncementService extends Model
+class Service extends Model
 {
     protected $guarded = [];
+    protected $table = 'announcement_services';
 
     /**
      * Get the announcement that owns the service.
@@ -21,6 +23,6 @@ class AnnouncementService extends Model
      */
     public function service_type()
     {
-        return $this->belongsTo(AnnouncementServiceType::class);
+        return $this->belongsTo(ServiceType::class);
     }
 }

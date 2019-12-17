@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Announcement;
 
+use App\Models\Announcement\Calendar\ActionSingle;
+use App\Models\User\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model

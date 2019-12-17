@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Customer;
+use App\Models\Announcement\Customer;
 use Illuminate\Database\Seeder;
 
 class CustomerSeeder extends Seeder

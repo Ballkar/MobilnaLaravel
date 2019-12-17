@@ -7,7 +7,7 @@ use App\Http\Resources\Announcement as AnnouncementResources;
 use App\Http\Resources\User as UserResource;
 use App\Models\Announcement;
 use App\Models\AnnouncementImage;
-use App\Models\Image as ImageModel;
+use App\Models\BaseImage as ImageModel;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

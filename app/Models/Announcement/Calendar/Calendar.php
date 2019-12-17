@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Announcement\Calendar;
 
+use App\Models\User\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 

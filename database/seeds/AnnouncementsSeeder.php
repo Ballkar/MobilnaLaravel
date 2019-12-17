@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Announcement;
-use App\Models\AnnouncementService;
-use App\Models\AnnouncementServiceGroup;
-use App\Models\AnnouncementServiceType;
+use App\Models\Announcement\Announcement;
+use App\Models\Announcement\Service\Service;
+use App\Models\Announcement\Service\ServiceGroup;
+use App\Models\Announcement\Service\ServiceType;
 use Illuminate\Database\Seeder;
 
 class AnnouncementsSeeder extends Seeder
@@ -29,26 +29,26 @@ class AnnouncementsSeeder extends Seeder
             'owner_id' => '2',
         ]);
 
-        AnnouncementServiceGroup::create([
+        ServiceGroup::create([
             'name' => 'Paznokcie'
         ]);
-        AnnouncementServiceGroup::create([
+        ServiceGroup::create([
             'name' => 'Kosmetyka'
         ]);
-        AnnouncementServiceGroup::create([
+        ServiceGroup::create([
             'name' => 'Rzęsy'
         ]);
 
-        AnnouncementServiceType::create([
+        ServiceType::create([
             'group_id' => 1,
             'name' => 'Hybryda'
         ]);
-        AnnouncementServiceType::create([
+        ServiceType::create([
             'group_id' => 1,
             'name' => 'Żelowe'
         ]);
 
-        AnnouncementService::create([
+        Service::create([
             'announcement_id' => 1,
             'type_id' => 1,
             'additional_name' => 'dodatkowy tytuł',
@@ -56,7 +56,7 @@ class AnnouncementsSeeder extends Seeder
             'time_hours' => 1,
             'time_minutes' => 30,
         ]);
-        AnnouncementService::create([
+        Service::create([
             'announcement_id' => 1,
             'type_id' => 1,
             'price' => 12,

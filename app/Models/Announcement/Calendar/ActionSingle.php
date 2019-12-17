@@ -1,6 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Announcement\Calendar;
+
+use App\Models\Announcement\Announcement;
+use App\Models\BaseAction;
+use App\Models\Announcement\Customer;
+use App\Models\User\User;
 
 class ActionSingle extends BaseAction
 {

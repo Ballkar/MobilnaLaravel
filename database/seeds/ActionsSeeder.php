@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\ActionPeriodic;
-use App\Models\ActionSingle;
+use App\Models\Announcement\Calendar\ActionPeriodic;
+use App\Models\Announcement\Calendar\ActionSingle;
 use Illuminate\Database\Seeder;
 
 class ActionsSeeder extends Seeder

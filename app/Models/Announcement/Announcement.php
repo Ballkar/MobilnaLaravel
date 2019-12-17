@@ -1,7 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Announcement;
 
+use App\Models\Announcement\Calendar\ActionPeriodic;
+use App\Models\Announcement\Calendar\ActionSingle;
+use App\Models\Announcement\Service\Service;
+use App\Models\City;
+use App\Models\User\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
@@ -48,7 +53,7 @@ class Announcement extends Model
      */
     public function images()
     {
-        return $this->hasMany(AnnouncementImage::class);
+        return $this->hasMany(Image::class);
     }
 
     /**
@@ -56,7 +61,7 @@ class Announcement extends Model
      */
     public function services()
     {
-        return $this->hasMany(AnnouncementService::class);
+        return $this->hasMany(Service::class);
     }
 
     /**

@@ -1,9 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\User;
 
 use App\Events\User\UserWasRegistered;
 use App\Http\Controllers\Constants\Roles;
+use App\Models\Announcement\Announcement;
+use App\Models\Announcement\Calendar\ActionPeriodic;
+use App\Models\Announcement\Calendar\ActionSingle;
+use App\Models\Announcement\Customer;
 use App\Models\Blog\Comment as BlogComments;
 use App\Models\Blog\Post;
 use Carbon\Carbon;

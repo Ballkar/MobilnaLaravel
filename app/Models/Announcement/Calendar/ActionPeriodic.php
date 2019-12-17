@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Announcement\Calendar;
 
+use App\Models\Announcement\Announcement;
+use App\Models\BaseAction;
+use App\Models\User\User;
 use Carbon\Carbon;
 
 class ActionPeriodic extends BaseAction

@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Announcement;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseImage;
 use Illuminate\Support\Facades\Storage;
 
-class AnnouncementImage extends Image
+class Image extends BaseImage
 {
     protected $guarded = [];
     protected $appends = ['path'];
+    protected $table = 'announcement_images';
 
     public function getPathAttribute()
     {
