@@ -9,6 +9,7 @@ class Announcement extends Model
 {
     protected $guarded = [];
     protected $appends = ['image', 'city_name'];
+    protected $with = ['services'];
     protected $hidden = ['images', 'city'];
 
     public function getImageAttribute()
@@ -22,6 +23,11 @@ class Announcement extends Model
     {
         return $this->city->name;
     }
+//
+//    public function getServicesAttribute()
+//    {
+//        return $this->services;
+//    }
     /**
      * Get the user that owns the announcement.
      */

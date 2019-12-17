@@ -17,9 +17,9 @@ class AnnouncementServices extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('announcement_id')->unsigned();
             $table->foreign('announcement_id')->references('id')->on('announcements');
-            $table->bigInteger('service_group_id')->unsigned();
-            $table->foreign('service_group_id')->references('id')->on('service_groups');
-            $table->string('name')->nullable();
+            $table->bigInteger('type_id')->unsigned();
+            $table->foreign('type_id')->references('id')->on('announcement_service_types');
+            $table->string('additional_name')->nullable();
             $table->integer('price');
             $table->integer('time_hours');
             $table->integer('time_minutes');

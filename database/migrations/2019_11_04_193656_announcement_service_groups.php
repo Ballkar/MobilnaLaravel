@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ServiceGroups extends Migration
+class AnnouncementServiceGroups extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class ServiceGroups extends Migration
      */
     public function up()
     {
-        Schema::create('service_groups', function(Blueprint $table) {
+        Schema::create('announcement_service_groups', function(Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
         });

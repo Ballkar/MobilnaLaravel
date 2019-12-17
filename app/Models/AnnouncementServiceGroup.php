@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ServiceGroup extends Model
+class AnnouncementServiceGroup extends Model
 {
-
+    public $timestamps = false;
+    protected $guarded = [];
 
     public function services()
     {

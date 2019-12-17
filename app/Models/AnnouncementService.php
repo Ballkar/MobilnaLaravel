@@ -19,8 +19,8 @@ class AnnouncementService extends Model
     /**
      * Get the service group associated with service.
      */
-    public function service_group()
+    public function service_type()
     {
-        return $this->belongsTo(ServiceGroup::class);
+        return $this->belongsTo(AnnouncementServiceType::class);
     }
 }

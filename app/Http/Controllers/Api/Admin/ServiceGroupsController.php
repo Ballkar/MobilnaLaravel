@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Models\ServiceGroup;
+use App\Models\AnnouncementServiceGroup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -32,10 +32,10 @@ class ServiceGroupsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ServiceGroup  $serviceGroup
+     * @param  \App\Models\AnnouncementServiceGroup  $serviceGroup
      * @return \Illuminate\Http\Response
      */
-    public function show(ServiceGroup $serviceGroup)
+    public function show(AnnouncementServiceGroup $serviceGroup)
     {
         //
     }
@@ -44,10 +44,10 @@ class ServiceGroupsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ServiceGroup  $serviceGroup
+     * @param  \App\Models\AnnouncementServiceGroup  $serviceGroup
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ServiceGroup $serviceGroup)
+    public function update(Request $request, AnnouncementServiceGroup $serviceGroup)
     {
         //
     }
@@ -55,10 +55,10 @@ class ServiceGroupsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ServiceGroup  $serviceGroup
+     * @param  \App\Models\AnnouncementServiceGroup  $serviceGroup
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ServiceGroup $serviceGroup)
+    public function destroy(AnnouncementServiceGroup $serviceGroup)
     {
         //
     }
