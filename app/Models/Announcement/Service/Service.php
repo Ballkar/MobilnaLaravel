@@ -21,8 +21,8 @@ class Service extends Model
     /**
      * Get the service group associated with service.
      */
-    public function service_type()
+    public function service_group()
     {
-        return $this->belongsTo(ServiceType::class);
+        return $this->belongsTo(ServiceGroup::class);
     }
 }

@@ -33,32 +33,24 @@ class AnnouncementsSeeder extends Seeder
             'name' => 'Paznokcie'
         ]);
         ServiceGroup::create([
-            'name' => 'Kosmetyka'
+            'name' => 'Make-up'
         ]);
         ServiceGroup::create([
             'name' => 'Rzęsy'
         ]);
 
-        ServiceType::create([
-            'group_id' => 1,
-            'name' => 'Hybryda'
-        ]);
-        ServiceType::create([
-            'group_id' => 1,
-            'name' => 'Żelowe'
-        ]);
-
         Service::create([
             'announcement_id' => 1,
-            'type_id' => 1,
-            'additional_name' => 'dodatkowy tytuł',
+            'group_id' => 1,
+            'name' => 'Hybryda',
             'price' => 12,
             'time_hours' => 1,
             'time_minutes' => 30,
         ]);
         Service::create([
             'announcement_id' => 1,
-            'type_id' => 1,
+            'group_id' => 1,
+            'name' => 'Przedłużanie na żelu',
             'price' => 12,
             'time_hours' => 1,
             'time_minutes' => 30,
