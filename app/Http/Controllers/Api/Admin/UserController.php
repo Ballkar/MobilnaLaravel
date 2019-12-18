@@ -47,7 +47,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return $this->sendResponse($user, 'User returned', 201);
+        return $this->sendResponse($user, 'User returned');
     }
 
     /**
@@ -72,6 +72,6 @@ class UserController extends Controller
     {
         // TODO: soft delete albo zwykły
         $user->delete();
-        return $this->sendResponse(null, 'User deleted', 200);
+        return $this->sendResponse(null, 'User deleted', 204);
     }
 }

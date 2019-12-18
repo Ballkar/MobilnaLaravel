@@ -66,7 +66,7 @@ class PostController extends Controller
     {
         $post->update($request->validated());
 
-        return $this->sendResponse(new PostResource($post), 'Update Success!', 200);
+        return $this->sendResponse(new PostResource($post), 'Update post Success!', 200);
     }
 
     /**
@@ -77,6 +77,6 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
-        return $this->sendResponse(null, 'Post deleted', 200);
+        return $this->sendResponse(null, 'Post deleted successfully', 204);
     }
 }

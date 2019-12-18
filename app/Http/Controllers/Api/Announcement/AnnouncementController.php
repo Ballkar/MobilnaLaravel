@@ -38,7 +38,7 @@ class AnnouncementController extends Controller
     public function store(StoreAnnouncementRequest $request)
     {
         $announcements = Announcement::create(array_merge($request->validated(), ['owner_id' => Auth::id()]));
-        return $this->sendResponse(new AnnouncementResource($announcements), 'Announcement created');
+        return $this->sendResponse(new AnnouncementResource($announcements), 'Announcement created', 201);
     }
 
     /**
@@ -47,7 +47,7 @@ class AnnouncementController extends Controller
      */
     public function show(Announcement $announcement)
     {
-        return $this->sendResponse(new AnnouncementResource($announcement), 'Category returned', 200);
+        return $this->sendResponse(new AnnouncementResource($announcement), 'Category returned');
     }
 
     /**
@@ -69,6 +69,6 @@ class AnnouncementController extends Controller
     public function destroy(Announcement $announcement)
     {
         $announcement->delete();
-        return $this->sendResponse(null, 'Category deleted', 200);
+        return $this->sendResponse(null, 'Category deleted', 204);
     }
 }

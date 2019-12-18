@@ -21,7 +21,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::paginate(10);
-        return $this->sendResponse(new CategoryResource($categories), 'All categories returned');
+        return $this->sendResponse(new CategoryResource($categories), 'All categories returned', 200);
     }
 
     /**
@@ -55,7 +55,7 @@ class CategoryController extends Controller
     {
         $category->update($request->validated());
 
-        return $this->sendResponse(new CategoryResource($category), 'Update Success!', 200);
+        return $this->sendResponse(new CategoryResource($category), 'Update category Success!', 200);
     }
 
     /**
@@ -66,6 +66,6 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return $this->sendResponse(null, 'Category deleted', 200);
+        return $this->sendResponse(null, 'Category deleted', 204);
     }
 }

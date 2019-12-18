@@ -19,7 +19,7 @@ class AnnouncementController extends Controller
     public function index()
     {
         $announcements = Announcement::paginate(10);
-        return $this->sendResponse(new AnnouncementResource($announcements), 'All announcement returned');
+        return $this->sendResponse(new AnnouncementResource($announcements), 'All announcement returned', 200);
     }
 
     /**
@@ -51,6 +51,6 @@ class AnnouncementController extends Controller
     public function destroy(Announcement $announcement)
     {
         $announcement->delete();
-        return $this->sendResponse(null, 'Category deleted', 200);
+        return $this->sendResponse(null, 'Category deleted', 204);
     }
 }

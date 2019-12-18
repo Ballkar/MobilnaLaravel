@@ -20,7 +20,7 @@ class ActionSingleController extends Controller
     public function index()
     {
         $actions = ActionSingle::paginate(10);
-        return $this->sendResponse($actions, 'All actions returned');
+        return $this->sendResponse($actions, 'All single actions returned!');
     }
 
     /**
@@ -30,7 +30,7 @@ class ActionSingleController extends Controller
     public function store(ActionSingleRequest $request)
     {
         $action = ActionSingle::create(array_merge($request->validated(), ['owner_id' => Auth::id()]));
-        return $this->sendResponse($action, 'All actions returned');
+        return $this->sendResponse($action, 'Single actions created!', 201);
     }
 
     /**
@@ -40,7 +40,7 @@ class ActionSingleController extends Controller
      */
     public function show(Announcement $announcement, ActionSingle $actionSingle)
     {
-        return $this->sendResponse($actionSingle, 'Action returned');
+        return $this->sendResponse($actionSingle, 'Single action returned');
     }
 
     /**
@@ -52,7 +52,7 @@ class ActionSingleController extends Controller
     public function update(ActionSingleRequest $request, Announcement $announcement,  ActionSingle $actionSingle)
     {
         $actionSingle->update($request->validated());
-        return $this->sendResponse($actionSingle, 'All actions returned');
+        return $this->sendResponse($actionSingle, 'Single action updated');
     }
 
     /**
@@ -64,6 +64,6 @@ class ActionSingleController extends Controller
     public function destroy(Announcement $announcement, ActionSingle $actionSingle)
     {
         $actionSingle->delete();
-        return $this->sendResponse(null, 'Action deleted');
+        return $this->sendResponse(null, 'Single action deleted', 204);
     }
 }

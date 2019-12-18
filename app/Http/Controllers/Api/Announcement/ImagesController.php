@@ -43,7 +43,7 @@ class ImagesController extends Controller
             ]);
 
             $announcement = $announcement->find($announcement->id);
-            return $this->sendResponse($announcement->images, 'New image added');
+            return $this->sendResponse($announcement->images, 'New image added', 201);
         } catch (Exception $e) {
             return $this->sendError( $e->getMessage(), 500);
         }
@@ -78,7 +78,7 @@ class ImagesController extends Controller
             ]);
         }
 
-        return $this->sendResponse(true, 200);
+        return $this->sendResponse(true, 'Announcement image deleted!', 204);
     }
 
     public function createThumbnail($path, $width, $height)

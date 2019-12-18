@@ -16,7 +16,7 @@ class UserController extends Controller
     public function user()
     {
 //        return $this->sendResponse(Auth::user(), 'User data');
-        return $this->sendResponse(new UserResource(Auth::user()), 'User data');
+        return $this->sendResponse(new UserResource(Auth::user()), 'User data returned');
     }
 
     public function index()

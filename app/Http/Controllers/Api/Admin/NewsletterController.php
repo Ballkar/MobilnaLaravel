@@ -19,7 +19,7 @@ class NewsletterController extends Controller
     public function index()
     {
         $announcements = Newsletter::paginate(10);
-        return $this->sendResponse($announcements, 'All newsletters returned');
+        return $this->sendResponse($announcements, 'All newsletters returned', 200);
 
     }
 
@@ -32,7 +32,7 @@ class NewsletterController extends Controller
     {
         $newsletter->update($request->validated());
 
-        return $this->sendResponse($newsletter, 'Update Success!', 200);
+        return $this->sendResponse($newsletter, 'Update newsletter Success!', 200);
 
     }
 
@@ -44,6 +44,6 @@ class NewsletterController extends Controller
     public function destroy(Newsletter $newsletter)
     {
         $newsletter->delete();
-        return $this->sendResponse(null, 'Newsletter deleted deleted', 200);
+        return $this->sendResponse(null, 'Newsletter deleted success!', 204);
     }
 }

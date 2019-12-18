@@ -43,7 +43,7 @@ class ImagesController extends Controller
                 'avatar' => $avatarName,
                 'avatar_thumbnail' => $thumbnailName,
             ]);
-            return $this->sendResponse(new UserResource($user), 200);
+            return $this->sendResponse(new UserResource($user),  'New avatar added',201);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage(), 500);
         }
@@ -66,7 +66,7 @@ class ImagesController extends Controller
         $user->update(['avatar' => null, 'avatar_thumbnail' => null]);
 
 
-        return $this->sendResponse($user, 200);
+        return $this->sendResponse($user, 'Avatar deleted', 200);
     }
 
     public function createThumbnail($path, $width, $height)

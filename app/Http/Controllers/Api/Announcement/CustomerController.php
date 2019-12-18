@@ -31,7 +31,7 @@ class CustomerController extends Controller
     public function store(StoreCustomerRequest $request)
     {
         $customer = Customer::create($request->validated());
-        return $this->sendResponse(new CustomerResource($customer), 'Customer Added');
+        return $this->sendResponse(new CustomerResource($customer), 'Customer Added', 201);
     }
 
     /**
@@ -62,6 +62,6 @@ class CustomerController extends Controller
     public function destroy(Customer $customer)
     {
         $customer->delete();
-        return $this->sendResponse(null, 'Category deleted', 200);
+        return $this->sendResponse(null, 'Category deleted', 204);
     }
 }

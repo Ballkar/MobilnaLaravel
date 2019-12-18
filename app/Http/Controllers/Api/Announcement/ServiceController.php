@@ -34,7 +34,7 @@ class ServiceController extends Controller
     public function store(StoreService $request, Announcement $announcement)
     {
         $service = Service::create(array_merge($request->validated(), ['announcement_id' => $announcement->id]));
-        return $this->sendResponse(new ServiceResources($service), 'Services added!');
+        return $this->sendResponse(new ServiceResources($service), 'Services added!', 203);
     }
 
     /**
@@ -44,7 +44,7 @@ class ServiceController extends Controller
      */
     public function show(Announcement $announcement, Service $service)
     {
-        return $this->sendResponse(new ServiceResources($service), 'Service returned!', 200);
+        return $this->sendResponse(new ServiceResources($service), 'Service returned!');
     }
 
     /**
@@ -56,7 +56,7 @@ class ServiceController extends Controller
     public function update(UpdateService $request, Announcement $announcement, Service $service)
     {
         $service->update($request->validated());
-        return $this->sendResponse(new ServiceResources($service), 'Service updated', 200);
+        return $this->sendResponse(new ServiceResources($service), 'Service updated');
     }
 
     /**
@@ -68,6 +68,6 @@ class ServiceController extends Controller
     public function destroy(Announcement $announcement, Service $service)
     {
         $service->delete();
-        return $this->sendResponse(null, 'Service deleted', 200);
+        return $this->sendResponse(null, 'Service deleted', 204);
     }
 }

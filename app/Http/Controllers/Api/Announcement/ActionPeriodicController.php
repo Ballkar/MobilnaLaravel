@@ -21,7 +21,7 @@ class ActionPeriodicController extends Controller
     public function index()
     {
         $actions = ActionPeriodic::paginate(10);
-        return $this->sendResponse($actions, 'All actions returned');
+        return $this->sendResponse($actions, 'All periodic actions returned!');
     }
 
     /**
@@ -32,7 +32,7 @@ class ActionPeriodicController extends Controller
     public function store(Announcement $announcement, ActionPeriodicRequest $request)
     {
         $action = ActionPeriodic::create(array_merge($request->validated(), ['owner_id' => Auth::id()]));
-        return $this->sendResponse($action, 'All actions returned');
+        return $this->sendResponse($action, 'Periodic action created', 201);
     }
 
     /**
@@ -42,7 +42,7 @@ class ActionPeriodicController extends Controller
      */
     public function show(Announcement $announcement, ActionPeriodic $actionPeriodic)
     {
-        return $this->sendResponse($actionPeriodic, 'All actions returned');
+        return $this->sendResponse($actionPeriodic, 'Periodic action returned');
     }
 
     /**
@@ -54,7 +54,7 @@ class ActionPeriodicController extends Controller
     public function update(Announcement $announcement, ActionPeriodicRequest $request, ActionPeriodic $actionPeriodic)
     {
         $actionPeriodic->update($request->validated());
-        return $this->sendResponse($actionPeriodic, 'All actions returned');
+        return $this->sendResponse($actionPeriodic, 'Periodic action updated!');
     }
 
     /**
@@ -66,6 +66,6 @@ class ActionPeriodicController extends Controller
     public function destroy(Announcement $announcement, ActionPeriodic $actionPeriodic)
     {
         $actionPeriodic->delete();
-        return $this->sendResponse(null, 'All actions returned');
+        return $this->sendResponse(null, 'Periodic actions deleted successfully!', 204);
     }
 }

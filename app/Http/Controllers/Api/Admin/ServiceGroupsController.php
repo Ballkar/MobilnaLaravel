@@ -81,6 +81,6 @@ class ServiceGroupsController extends Controller
     public function destroy(ServiceGroup $serviceGroup)
     {
         $serviceGroup->delete();
-        return $this->sendResponse(null, 'Announcement service group deleted!');
+        return $this->sendResponse(null, 'Announcement service group deleted!', 204);
     }
 }
