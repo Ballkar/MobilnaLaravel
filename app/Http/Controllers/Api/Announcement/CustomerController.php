@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Announcement;
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\Announcement\StoreCustomerRequest;
 use App\Http\Requests\Api\Announcement\UpdateCustomerRequest;
-use App\Http\Resources\Customer as CustomerResource;
+use App\Http\Resources\Announcement\Customer as CustomerResource;
 use App\Models\Announcement\Customer;
 use Exception;
 use Illuminate\Http\JsonResponse;

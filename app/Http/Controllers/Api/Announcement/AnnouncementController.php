@@ -6,7 +6,7 @@ use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\Announcement\SearchAnnouncementRequest;
 use App\Http\Requests\Api\Announcement\StoreAnnouncementRequest;
 use App\Http\Requests\Api\Announcement\UpdateAnnouncementRequest;
-use App\Http\Resources\Announcement as AnnouncementResource;
+use App\Http\Resources\Announcement\Announcement as AnnouncementResource;
 use App\Models\Announcement\Announcement;
 use Exception;
 use Illuminate\Http\JsonResponse;
