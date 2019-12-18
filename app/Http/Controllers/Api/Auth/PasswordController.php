@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Auth\SendPasswordLinkRequest;
 use App\Http\Requests\Api\Auth\StoreNewPasswordRequest;
-use App\Jobs\Users\GenerateUserTokenForPasswordLink;
-use App\Models\Users\User;
+//use App\Jobs\Users\GenerateUserTokenForPasswordLink;
+use App\Models\User\User;
 use Illuminate\Contracts\Hashing\Hasher;
-use Tymon\JWTAuth\JWTAuth as Auth;
-use Tymon\JWTAuth\Facades\JWTAuth;
-use Webpatser\Uuid\Uuid;
+//use Tymon\JWTAuth\JWTAuth as Auth;
+//use Tymon\JWTAuth\Facades\JWTAuth;
+//use Webpatser\Uuid\Uuid;
 
 class PasswordController extends Controller
 {

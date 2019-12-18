@@ -61,9 +61,9 @@ class User extends Authenticatable
 //        return env('APP_URL').$avatar;
 //    }
 //
-//    public function getAvatarThumbnailAttribute($thumbnail)
+//    public function getCityAttribute()
 //    {
-//        return env('APP_URL').$thumbnail;
+//        return $this->cit;
 //    }
 
     public function setPasswordAttribute($password)

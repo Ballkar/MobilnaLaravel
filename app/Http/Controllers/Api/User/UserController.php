@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\User;
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\User\UpdateUserDetailsRequest;
 use App\Http\Resources\User as UserResource;
-use App\Models\User;
+use App\Models\User\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 

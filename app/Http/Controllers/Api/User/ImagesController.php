@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Resources\User as UserResource;
-use App\Models\User;
+use App\Models\User\User;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -51,6 +51,7 @@ class ImagesController extends Controller
 
     public function createThumbnail($path, $width, $height)
     {
+        // FIXME: cos jest poniżej zjebane
         $img = Image::make($path)->resize($width, $height, function ($constraint) {
             $constraint->aspectRatio();
         });

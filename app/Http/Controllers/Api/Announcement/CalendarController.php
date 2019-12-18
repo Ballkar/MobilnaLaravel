@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api\Announcement;
 
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\Announcement\GetCalendarRequest;
-use App\Models\Announcement;
+use App\Models\Announcement\Announcement;
 use App\Http\Controllers\Controller;
-use App\Models\Calendar;
+use App\Models\Announcement\Calendar\Calendar;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 

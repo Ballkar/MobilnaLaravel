@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Models\AnnouncementServiceGroup;
+use App\Models\Announcement\Service\ServiceGroup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 
 class ServiceGroupsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function index()
     {
@@ -21,8 +22,8 @@ class ServiceGroupsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return void
      */
     public function store(Request $request)
     {
@@ -32,10 +33,10 @@ class ServiceGroupsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\AnnouncementServiceGroup  $serviceGroup
-     * @return \Illuminate\Http\Response
+     * @param ServiceGroup $serviceGroup
+     * @return void
      */
-    public function show(AnnouncementServiceGroup $serviceGroup)
+    public function show(ServiceGroup $serviceGroup)
     {
         //
     }
@@ -43,11 +44,11 @@ class ServiceGroupsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\AnnouncementServiceGroup  $serviceGroup
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param ServiceGroup $serviceGroup
+     * @return void
      */
-    public function update(Request $request, AnnouncementServiceGroup $serviceGroup)
+    public function update(Request $request, ServiceGroup $serviceGroup)
     {
         //
     }
@@ -55,10 +56,10 @@ class ServiceGroupsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\AnnouncementServiceGroup  $serviceGroup
-     * @return \Illuminate\Http\Response
+     * @param ServiceGroup $serviceGroup
+     * @return void
      */
-    public function destroy(AnnouncementServiceGroup $serviceGroup)
+    public function destroy(ServiceGroup $serviceGroup)
     {
         //
     }

@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Api\Announcement;
 
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Resources\Announcement as AnnouncementResources;
-use App\Http\Resources\User as UserResource;
-use App\Models\Announcement;
-use App\Models\AnnouncementImage;
+use App\Models\Announcement\Announcement;
+use App\Models\Announcement\Image as AnnouncementImage;
 use App\Models\BaseImage as ImageModel;
 use Exception;
 use Illuminate\Http\Request;

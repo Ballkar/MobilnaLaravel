@@ -22,8 +22,7 @@ class HasRole
     public function handle(Request $request, Closure $next, $role)
     {
         $user = $request->user();
-
-        if ($user->role->name !== $role) {
+        if ($user->role_id !== +$role) {
             return $this->sendError("You are not allowed to make this action", 403);
         }
 

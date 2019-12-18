@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Announcement;
 
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\Announcement\ActionSingle as ActionSingleRequest;
-use App\Models\Announcement;
-use App\Models\ActionSingle;
+use App\Models\Announcement\Announcement;
+use App\Models\Announcement\Calendar\ActionSingle;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\User\StoreUserRequest;
 use App\Http\Requests\Api\User\UpdateUserRequest;
-use App\Models\User;
+use App\Models\User\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
@@ -33,7 +33,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => $request->password,
             'role_id' => $request->role_id,
-            'regs' => false,
+            'reg' => false,
         ]);
 
         return $this->sendResponse($user, 'User created', 201);
@@ -57,7 +57,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        $user->update($request->validated());
+        $user->update($request->validated()); // TODO: dodać dane usera do możliwości update dla admina
 
         return $this->sendResponse($user, 'Update Success!', 200);
 
@@ -70,6 +70,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        // TODO: soft delete albo zwykły
         $user->delete();
         return $this->sendResponse(null, 'User deleted', 200);
     }

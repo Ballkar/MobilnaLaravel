@@ -1,12 +1,13 @@
 <?php
 
+use App\Http\Controllers\Constants\Roles;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
     Route::get('cities', 'City\CityController@index')->name('cities');
     Route::get('citiesLan', 'City\CityController@getByLan')->name('cities');
 
-    Route::group(['prefix' => 'admin','middleware' => ['auth:api', 'HasRole:admin'], 'namespace' => 'Admin'], function () {
+    Route::group(['prefix' => 'admin','middleware' => ['auth:api', 'HasRole:'. Roles::ROLE_ADMIN], 'namespace' => 'Admin'], function () {
         Route::apiResource('categories', 'CategoryController');
         Route::apiResource('posts', 'PostController');
         Route::apiResource('users', 'UserController');

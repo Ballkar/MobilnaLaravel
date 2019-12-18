@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Api\Announcement;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Api\Announcement\SearchAnnouncement;
 use App\Http\Requests\Api\Announcement\SearchAnnouncementRequest;
 use App\Http\Requests\Api\Announcement\StoreAnnouncementRequest;
 use App\Http\Requests\Api\Announcement\UpdateAnnouncementRequest;
 use App\Http\Resources\Announcement as AnnouncementResource;
-use App\Models\Announcement;
+use App\Models\Announcement\Announcement;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;

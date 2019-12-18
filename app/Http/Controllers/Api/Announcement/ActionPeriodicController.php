@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Announcement;
 
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\Announcement\ActionPeriodic as ActionPeriodicRequest;
-use App\Models\ActionPeriodic;
-use App\Models\Announcement;
+use App\Models\Announcement\Calendar\ActionPeriodic;
+use App\Models\Announcement\Announcement;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;

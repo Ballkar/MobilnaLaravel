@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Api\Blog\UpdateAnnouncementRequest;
+use App\Http\Requests\Api\Announcement\UpdateAnnouncementRequest;
 use App\Http\Resources\Announcement as AnnouncementResource;
-use App\Models\Announcement;
+use App\Models\Announcement\Announcement;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 
