@@ -21,8 +21,8 @@ class ImagesController extends Controller
     {
         $request->validate(['avatar' => 'required|image']);
         $path = 'users/'.$user->id.'/avatar/';
-        $avatar = $request->file('avatar');
-        $extension = $avatar->getClientOriginalExtension();
+        $photo = $request->file('avatar');
+        $extension = $photo->getClientOriginalExtension();
         $avatarName = time().'.'.$extension;
         $thumbnailName = time().'_small.'.$extension;
 
@@ -32,9 +32,9 @@ class ImagesController extends Controller
                 Storage::disk('public')->delete('public/'.$path.$user->avatar_thumbnail);
             }
 
-            $photo = Image::make($avatar);
-            Storage::disk('public')->put('public/'.$path.$avatarName, (string) $photo->encode());
-            Storage::disk('public')->put('public/'.$path.$thumbnailName, (string) $photo->encode());
+            $image = Image::make($photo);
+            Storage::disk('local')->put('public/'.$path.$avatarName, (string) $image->encode());
+            Storage::disk('local')->put('public/'.$path.$thumbnailName, (string) $image->encode());
 
             $thumbnailPath = public_path('storage/'.$path.'/'.$thumbnailName);
             $this->createThumbnail($thumbnailPath, 150, 93);
@@ -49,9 +49,29 @@ class ImagesController extends Controller
         }
     }
 
+    public function delete(Request $request, User $user)
+    {
+        $arr1 = explode(',', $user->avatar);
+        $arr2 = explode(',', $user->avatar_thumbnail);
+        $avatarName = end($arr1);
+        $thumbnailName = end($arr2);
+
+        try {
+            Storage::disk('local')->delete('public/users/'.$user->id.'/avatar/'.$avatarName);
+            Storage::disk('local')->delete('public/users/'.$user->id.'/avatar/'.$thumbnailName);
+        } catch (Exception $e) {
+            return $this->sendError($e->getMessage(), 500);
+        }
+
+        $user->update(['avatar' => null, 'avatar_thumbnail' => null]);
+
+
+        return $this->sendResponse($user, 200);
+    }
+
     public function createThumbnail($path, $width, $height)
     {
-        // FIXME: cos jest poniżej zjebane
+
         $img = Image::make($path)->resize($width, $height, function ($constraint) {
             $constraint->aspectRatio();
         });

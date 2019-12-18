@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Announcement;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Resources\Announcement as AnnouncementResources;
+use App\Http\Resources\Announcement\Announcement as AnnouncementResources;
 use App\Models\Announcement\Announcement;
 use App\Models\Announcement\Image as AnnouncementImage;
 use App\Models\BaseImage as ImageModel;
@@ -34,7 +34,7 @@ class ImagesController extends Controller
 
         try {
             $image = Image::make($photo);
-            Storage::disk('public')->put('public/'.$path.$photoName, (string) $image->encode());
+            Storage::disk('local')->put('public/'.$path.$photoName, (string) $image->encode());
 
             AnnouncementImage::create([
                 'name' => $photoName,
@@ -67,7 +67,7 @@ class ImagesController extends Controller
     public function delete(Request $request, Announcement $announcement, AnnouncementImage $image)
     {
         try {
-            Storage::disk('public')->delete('public/announcements/'.$announcement->id.'/'.$image->name);
+            Storage::disk('local')->delete('public/announcements/'.$announcement->id.'/'.$image->name);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage(), 500);
         }
