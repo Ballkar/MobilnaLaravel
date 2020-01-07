@@ -26,7 +26,7 @@ class LoginController extends Controller
 
         $user = $request->user();
 
-        if ($request->acc_type != $user->role_id)
+        if ($request->acc_type == Roles::ROLE_ADMIN && $user->role_id != Roles::ROLE_ADMIN || $request->acc_type != Roles::ROLE_ADMIN && $user->role_id == Roles::ROLE_ADMIN)
             return $this->sendError('Invalid credentials',  401);
 
         $token = $user->returnNewToken($request->remember_me);
