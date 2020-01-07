@@ -31,7 +31,7 @@ class LoginController extends Controller
 
         $token = $user->returnNewToken($request->remember_me);
 
-        return $this->sendResponse($token->accessToken, 'Successfully logged in!', 200);
+        return $this->sendResponse(['token' => $token->accessToken, 'type' => $user->role_id], 'Successfully logged in!', 200);
     }
 
     public function logout()
