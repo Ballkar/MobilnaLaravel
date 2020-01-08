@@ -21,7 +21,7 @@ class CityController extends Controller
         return $this->sendResponse($cities, 'Cities returned!');
     }
 
-    public function getByLan(Request $request)
+    public function getByCoordinates(Request $request)
     {
         $cities = City::location($request->lat, $request->lon, $request->distance)->get();
 
