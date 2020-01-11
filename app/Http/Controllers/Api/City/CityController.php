@@ -16,14 +16,14 @@ class CityController extends Controller
         $request->validate([
             'city' => 'required'
         ]);
-        $cities = City::where('name', 'LIKE', "{$request->city}%")->limit(10)->get();
+        $cities = ['data' => City::where('name', 'LIKE', "{$request->city}%")->limit(10)->get()];
 
         return $this->sendResponse($cities, 'Cities returned!');
     }
 
     public function getByCoordinates(Request $request)
     {
-        $cities = City::location($request->lat, $request->lon, $request->distance)->get();
+        $cities = ['data' => City::location($request->lat, $request->lon, $request->distance)->get()];
 
         return $this->sendResponse($cities, 'Cities returned!');
     }
