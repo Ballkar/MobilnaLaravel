@@ -8,9 +8,12 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
     Route::get('citiesCoordinates', 'City\CityController@getByLan')->name('cities');
 
     Route::group(['prefix' => 'admin','middleware' => ['auth:api', 'HasRole:'. Roles::ROLE_ADMIN], 'namespace' => 'Admin'], function () {
-        Route::apiResource('categories', 'CategoryController');
-        Route::apiResource('posts', 'PostController');
+        Route::post('posts/{post}/image', 'PostImagesController@store');
+        Route::post('posts/{post}/changeMainImage', 'PostImagesController@changeMainImage');
+        Route::delete('posts/{post}/image/{image}', 'PostImagesController@delete');
         Route::apiResource('users', 'UserController');
+        Route::apiResource('posts', 'PostController')->except('index', 'show');
+        Route::apiResource('categories', 'CategoryController')->except('index', 'show');
         Route::apiResource('announcements', 'AnnouncementController')->except(['store']);
         Route::apiResource('newsletters', 'NewsletterController')->only(['index', 'update', 'destroy']);
     });
@@ -20,6 +23,13 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::put('{user}/update', 'UserController@update')->name('user.update');
         Route::post('{user}/avatar', 'ImagesController@store')->name('avatar.store');
         Route::delete('{user}/avatar', 'ImagesController@delete')->name('avatar.delete');
+    });
+
+    Route::group(['namespace' => 'Blog', 'prefix' => 'blog'], function () {
+        Route::get('posts/{post}/image', 'PostImagesController@index');
+        Route::get('posts/{post}/image/{image}', 'PostImagesController@show');
+        Route::apiResource('posts', 'PostController')->only('index', 'show');
+        Route::apiResource('categories', 'CategoryController')->only('index', 'show');
     });
 
     Route::group(['namespace' => 'Announcement', 'middleware' => ['auth:api']], function () {

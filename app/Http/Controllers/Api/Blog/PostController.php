@@ -2,64 +2,37 @@
 
 namespace App\Http\Controllers\Api\Blog;
 
+use App\Http\Controllers\ApiCommunication;
+use App\Http\Resources\Blog\Post as PostResource;
 use App\Models\Blog\Post;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class PostController extends Controller
 {
+    use ApiCommunication;
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->category_id) {
+            $posts = Post::where('category_id', $request->category_id)->latest()->paginate(10);
+        } else {
+            $posts = Post::latest()->paginate(10);
+        }
+        return $this->sendResponse(new PostResource($posts), 'Posts returned', 200);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Blog\Post  $post
-     * @return \Illuminate\Http\Response
+     * @param Post $post
+     * @return JsonResponse
      */
     public function show(Post $post)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Blog\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Post $post)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Blog\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Post $post)
-    {
-        //
+        return $this->sendResponse(new PostResource($post), 'Post returned', 200);
     }
 }

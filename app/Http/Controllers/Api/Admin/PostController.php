@@ -16,21 +16,6 @@ use Illuminate\Support\Facades\Auth;
 class PostController extends Controller
 {
     use ApiCommunication;
-
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function index(Request $request)
-    {
-        if ($request->category_id) {
-            $posts = Post::where('category_id', $request->category_id)->latest()->paginate(10);
-        } else {
-            $posts = Post::latest()->paginate(10);
-        }
-        return $this->sendResponse(new PostResource($posts), 'Posts returned', 200);
-    }
-
     /**
      * @param StorePostRequest $request
      * @return JsonResponse
@@ -46,15 +31,6 @@ class PostController extends Controller
         ]);
 
         return $this->sendResponse(new PostResource($post), 'Post created', 201);
-    }
-
-    /**
-     * @param Post $post
-     * @return JsonResponse
-     */
-    public function show(Post $post)
-    {
-        return $this->sendResponse(new PostResource($post), 'Post returned', 200);
     }
 
     /**
