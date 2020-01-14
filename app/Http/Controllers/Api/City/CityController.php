@@ -16,7 +16,7 @@ class CityController extends Controller
         $request->validate([
             'city' => 'required'
         ]);
-        $cities = ['data' => City::where('name', 'LIKE', "{$request->city}%")->limit(10)->get()];
+        $cities = ['data' => City::where('name', 'LIKE', "{$request->city}%")->limit(5)->get()];
 
         return $this->sendResponse($cities, 'Cities returned!');
     }
