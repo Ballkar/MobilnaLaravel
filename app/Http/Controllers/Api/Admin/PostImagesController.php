@@ -15,6 +15,12 @@ class PostImagesController extends Controller
 {
     use ApiCommunication;
 
+    public function index(Post $post)
+    {
+        $images = $post->images;
+        return $this->sendResponse($images, 'Images returned');
+    }
+
     public function store(Request $request, Post $post)
     {
         $request->validate(['photo' => 'required|image']);

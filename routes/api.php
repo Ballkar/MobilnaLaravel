@@ -12,7 +12,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::post('posts/{post}/changeMainImage', 'PostImagesController@changeMainImage');
         Route::delete('posts/{post}/image/{image}', 'PostImagesController@delete');
         Route::apiResource('users', 'UserController');
-        Route::apiResource('posts', 'PostController')->except('index', 'show');
+        Route::apiResource('posts', 'PostController')->except( 'show');
         Route::apiResource('categories', 'CategoryController')->except('index', 'show');
         Route::apiResource('announcements', 'AnnouncementController')->except(['store']);
         Route::apiResource('newsletters', 'NewsletterController')->only(['index', 'update', 'destroy']);
