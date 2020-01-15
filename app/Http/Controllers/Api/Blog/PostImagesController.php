@@ -15,7 +15,7 @@ class PostImagesController extends Controller
 
     public function index(Post $post)
     {
-        $images = $post->images()->where('active', '1')->get();
+        $images = $post->images;
         return $this->sendResponse($images, 'Images returned');
     }
 

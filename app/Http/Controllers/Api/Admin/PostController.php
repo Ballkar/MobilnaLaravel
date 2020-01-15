@@ -16,10 +16,13 @@ use Illuminate\Support\Facades\Auth;
 class PostController extends Controller
 {
     use ApiCommunication;
-    /**
-     * @param StorePostRequest $request
-     * @return JsonResponse
-     */
+
+    public function index()
+    {
+        $posts = Post::paginate(10);
+        return $this->sendResponse($posts, 'Posts returned');
+    }
+
     public function store(StorePostRequest $request)
     {
         $post = Post::create([
