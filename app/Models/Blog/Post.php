@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Storage;
 class Post extends Model
 {
     protected $table = 'blog_posts';
-    protected $appends = ['image'];
-    protected $hidden = ['images'];
+    protected $appends = ['image', 'category_name'];
+    protected $hidden = ['images', 'category'];
     protected $guarded = [];
 
     public function getImageAttribute()
@@ -18,6 +18,11 @@ class Post extends Model
         $imageMain = $this->images->where('main', 1)->first();
         $url = $imageMain ? $imageMain->path : Storage::disk('public')->url('default.jpg');
         return $url;
+    }
+
+    public function getCategoryNameAttribute()
+    {
+        return $this->category->name;
     }
 
     public function category()
