@@ -19,7 +19,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::paginate(10);
+        $posts = Post::latest()->paginate(10);
         return $this->sendResponse($posts, 'Posts returned');
     }
 
