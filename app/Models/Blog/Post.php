@@ -34,4 +34,14 @@ class Post extends Model
     {
         return $this->hasMany(Image::class);
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('active', '1');
+    }
+
+    public function scopeInactive($query)
+    {
+        return $query->where('active', '0');
+    }
 }

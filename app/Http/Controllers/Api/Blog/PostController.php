@@ -20,9 +20,9 @@ class PostController extends Controller
     public function index(Request $request)
     {
         if ($request->category_id) {
-            $posts = Post::where('category_id', $request->category_id)->where('active', '0')->latest()->paginate(10);
+            $posts = Post::where('category_id', $request->category_id)->active()->latest()->paginate(10);
         } else {
-            $posts = Post::latest()->where('active', '0')->paginate(10);
+            $posts = Post::latest()->active()->paginate(10);
         }
         return $this->sendResponse(new PostResource($posts), 'Posts returned', 200);
     }
