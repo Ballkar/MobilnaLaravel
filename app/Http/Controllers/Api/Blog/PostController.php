@@ -19,10 +19,16 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
+        $request->validate([
+            'category_id' => 'exists:blog_categories,id',
+            'limit' => 'integer',
+        ]);
+        $limit = $request->limit || 10;
+
         if ($request->category_id) {
-            $posts = Post::where('category_id', $request->category_id)->active()->latest()->paginate(10);
+            $posts = Post::where('category_id', $request->category_id)->active()->latest()->paginate($limit);
         } else {
-            $posts = Post::latest()->active()->paginate(10);
+            $posts = Post::latest()->active()->paginate($limit);
         }
         return $this->sendResponse(new PostResource($posts), 'Posts returned', 200);
     }
