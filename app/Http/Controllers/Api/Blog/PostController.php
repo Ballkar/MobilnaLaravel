@@ -21,7 +21,7 @@ class PostController extends Controller
     {
         $request->validate([
             'category_id' => 'exists:blog_categories,id',
-            'limit' => 'nullable',
+            'limit' => 'nullable|integer',
         ]);
         $limit = $request->limit || 10;
 
