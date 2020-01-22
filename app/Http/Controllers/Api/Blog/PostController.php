@@ -23,7 +23,7 @@ class PostController extends Controller
             'category_id' => 'exists:blog_categories,id',
             'limit' => 'nullable|integer',
         ]);
-        $limit = $request->limit || 10;
+        $limit = $request->limit ? $request->limit : 10;
 
         if ($request->category_id) {
             $posts = Post::where('category_id', $request->category_id)->active()->latest()->paginate($limit);
