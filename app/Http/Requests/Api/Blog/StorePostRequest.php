@@ -25,7 +25,7 @@ class StorePostRequest extends FormRequest
     {
         return [
             'title' => 'required|min:5|max:200',
-            'text' => 'required|min:30|max:5000',
+            'text' => 'required|min:30',
             'active' => 'required|boolean',
             'category_id' => 'required|exists:blog_categories,id',
 //            'user_id' => 'required|exists:users,id',
