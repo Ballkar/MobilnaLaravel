@@ -47,7 +47,7 @@ class AnnouncementController extends Controller
      */
     public function show(Announcement $announcement)
     {
-        return $this->sendResponse(new AnnouncementResource($announcement), 'Category returned');
+        return $this->sendResponse(new AnnouncementResource($announcement), 'Announcement returned');
     }
 
     /**
@@ -69,6 +69,6 @@ class AnnouncementController extends Controller
     public function destroy(Announcement $announcement)
     {
         $announcement->delete();
-        return $this->sendResponse(null, 'Category deleted', 204);
+        return $this->sendResponse(null, 'Announcement deleted', 204);
     }
 }

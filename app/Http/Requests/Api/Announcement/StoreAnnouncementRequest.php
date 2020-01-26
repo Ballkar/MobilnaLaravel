@@ -28,9 +28,9 @@ class StoreAnnouncementRequest extends FormRequest
             'name' => 'required|min:3|max:200',
             'description' => 'required|min:3|max:200',
             'is_mobile' => 'boolean',
+            'is_local' => 'boolean',
             'mobile_price' => 'numeric',
             'mobile_distance' => 'numeric',
-            'type_id' => 'required|in:'.implode(',', AnnouncementTypes::returnAll()),
 
             'city_id' => 'required|exists:cities,id',
             'road' => 'string|min:4',
