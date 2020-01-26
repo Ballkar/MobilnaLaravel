@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
     Route::get('cities', 'City\CityController@index')->name('cities');
     Route::get('citiesCoordinates', 'City\CityController@getByLan')->name('cities');
+    Route::get('service', 'ServiceController@index');
 
     Route::group(['prefix' => 'admin','middleware' => ['auth:api', 'HasRole:'. Roles::ROLE_ADMIN], 'namespace' => 'Admin'], function () {
         Route::post('posts/{post}/image', 'PostImagesController@store');
