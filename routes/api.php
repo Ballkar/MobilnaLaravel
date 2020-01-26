@@ -38,11 +38,14 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::delete('announcement/{announcement}/image/{image}', 'ImagesController@delete');
         Route::post('announcement/{announcement}/changeMainImage', 'ImagesController@changeMainImage');
         Route::get('announcement/{announcement}/calendar', 'CalendarController@show');
+        Route::apiResource('customer', 'CustomerController');
+    });
+
+    Route::group(['namespace' => 'Announcement'], function () {
         Route::apiResource('announcement', 'AnnouncementController');
         Route::apiResource('announcement.service', 'ServiceController');
         Route::apiResource('announcement.actionPeriodic', 'ActionPeriodicController');
         Route::apiResource('announcement.actionSingle', 'ActionSingleController');
-        Route::apiResource('customer', 'CustomerController');
     });
 
     Route::group(['namespace' => 'Auth'], function () {
