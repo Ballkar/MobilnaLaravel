@@ -23,6 +23,13 @@ class AnnouncementsSeeder extends Seeder
         ]);
 
         Announcement::create([
+            'name' => 'Ogłoszene nr.2',
+            'description' => 'testowy opis ogłoszenia',
+            'city_id' => '821',
+            'owner_id' => '2',
+        ]);
+
+        Announcement::create([
             'name' => 'testowe ogłoszenie nr.2',
             'description' => 'testowy opis ogłoszenia',
             'city_id' => '823',

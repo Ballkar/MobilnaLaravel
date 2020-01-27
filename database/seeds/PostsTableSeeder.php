@@ -17,14 +17,53 @@ class PostsTableSeeder extends Seeder
 
         Post::create([
             'title' => 'Pierwsze Kroki',
-            'text' => $faker->text(100),
+            'text' => $faker->text(200),
             'user_id' => 1,
             'category_id' => 1
         ]);
 
         Post::create([
             'title' => 'Drugi wpis',
-            'text' => $faker->text(100),
+            'text' => $faker->text(200),
+            'user_id' => 1,
+            'category_id' => 1
+        ]);
+
+        Post::create([
+            'title' => 'Trzeci wpis',
+            'text' => $faker->text(200),
+            'user_id' => 1,
+            'category_id' => 3
+        ]);
+
+        Post::create([
+            'title' => 'Czwarty wpis',
+            'text' => $faker->text(200),
+            'user_id' => 1,
+            'category_id' => 2
+        ]);
+        Post::create([
+            'title' => 'piąty',
+            'text' => $faker->text(200),
+            'user_id' => 1,
+            'category_id' => 3
+        ]);
+        Post::create([
+            'title' => 'six',
+            'text' => $faker->text(250),
+            'user_id' => 1,
+            'category_id' => 2
+        ]);
+        Post::create([
+            'title' => 'sieeeedem',
+            'text' => $faker->text(350),
+            'user_id' => 1,
+            'category_id' => 2
+        ]);
+
+        Post::create([
+            'title' => 'Ostatni',
+            'text' => $faker->text(200),
             'user_id' => 1,
             'category_id' => 1
         ]);
