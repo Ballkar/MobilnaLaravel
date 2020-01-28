@@ -32,7 +32,11 @@ class AnnouncementPolicy
      */
     public function view(?User $user, Announcement $announcement)
     {
-        return Response::allow();
+        if($announcement->is_active || $user->id === $announcement->owner_id) {
+            return Response::allow();
+        } else {
+            return Response::deny();
+        }
     }
 
     /**
@@ -43,7 +47,7 @@ class AnnouncementPolicy
      */
     public function create(User $user)
     {
-        if($user->role_id === Roles::ROLE_CLIENT) {
+        if($user->role_id === Roles::ROLE_USER) {
             return Response::allow();
         } else {
             return Response::deny();

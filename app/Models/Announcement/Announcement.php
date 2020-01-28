@@ -13,15 +13,20 @@ use Illuminate\Support\Facades\Storage;
 class Announcement extends Model
 {
     protected $guarded = [];
-    protected $appends = ['image', 'city_name'];
+    protected $appends = ['image', 'city_name', 'owner_name'];
     protected $with = ['services'];
-    protected $hidden = ['images', 'city'];
+    protected $hidden = ['images', 'city', 'user'];
 
     public function getImageAttribute()
     {
         $imageMain = $this->images->where('main', 1)->first();
         $url = $imageMain ? $imageMain->path : Storage::disk('public')->url('default.jpg');
         return $url;
+    }
+
+    public function getOwnerNameAttribute()
+    {
+        return $this->user->name;
     }
 
     public function getCityNameAttribute()
@@ -78,6 +83,11 @@ class Announcement extends Model
     public function actions_periodic()
     {
         return $this->hasMany(ActionPeriodic::class);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', '1');
     }
 
 }

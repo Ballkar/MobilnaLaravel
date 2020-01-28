@@ -29,9 +29,9 @@ class AnnouncementController extends Controller
     public function index(SearchAnnouncementRequest $request)
     {
         if($request->city_id) {
-            $announcements = Announcement::where('city_id', $request->city_id)->paginate(10);
+            $announcements = Announcement::where('city_id', $request->city_id)->active()->paginate(10);
         } else {
-            $announcements = Announcement::paginate(10);
+            $announcements = Announcement::active()->paginate(10);
         }
         return $this->sendResponse(new AnnouncementResource($announcements), 'All announcement returned');
     }
