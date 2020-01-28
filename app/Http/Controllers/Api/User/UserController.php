@@ -30,6 +30,12 @@ class UserController extends Controller
         return $this->sendResponse(new UserResource($user), 'User data returned');
     }
 
+    public function getPhone(User $user)
+    {
+
+        return $this->sendResponse($user->phone, "User's phone number returned");
+    }
+
     public function update(UpdateUserDetailsRequest $request, User $user)
     {
         $user->update($request->validated());
