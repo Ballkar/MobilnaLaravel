@@ -21,12 +21,13 @@ class UserController extends Controller
 
     public function index()
     {
-        //
+        $users = User::all();
+        return $this->sendResponse(new UserResource($users), 'All users returned!');
     }
 
     public function show(User $user)
     {
-        //
+        return $this->sendResponse(new UserResource($user), 'User data returned');
     }
 
     public function update(UpdateUserDetailsRequest $request, User $user)

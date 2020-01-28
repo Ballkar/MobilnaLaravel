@@ -61,6 +61,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         });
     });
 
+    Route::get('user/user/{user}', 'User\UserController@show');
     Route::get('cities', 'City\CityController@index')->name('cities');
     Route::get('citiesCoordinates', 'City\CityController@getByLan')->name('cities');
     Route::post('newsletter', 'NewsletterController@store')->name('newsletter.store');

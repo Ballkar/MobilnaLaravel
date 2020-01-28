@@ -28,7 +28,8 @@ class UsersTableSeeder extends Seeder
                 'email' => 'test@o2.pl',
                 'password' => Hash::make('test123'),
                 'role_id' => Roles::ROLE_USER,
-                'name' => 'kosmetyczka'
+                'name' => 'kosmetyczka',
+                'phone' => '508994856',
             ]
         );
 
@@ -37,7 +38,8 @@ class UsersTableSeeder extends Seeder
                 'email' => 'test2@o2.pl',
                 'password' => Hash::make('test123'),
                 'role_id' => Roles::ROLE_USER,
-                'name' => 'kosmetyczka 2'
+                'name' => 'kosmetyczka 2',
+                'phone' => '508994856',
             ]
         );
         DB::table('users')->insert(
@@ -45,7 +47,8 @@ class UsersTableSeeder extends Seeder
                 'email' => 'klient@o2.pl',
                 'password' => Hash::make('test123'),
                 'role_id' => Roles::ROLE_CLIENT,
-                'name' => ''
+                'name' => '',
+                'phone' => '508994856',
             ]
         );
     }

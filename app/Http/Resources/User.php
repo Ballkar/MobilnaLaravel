@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class User extends JsonResource
@@ -9,7 +10,7 @@ class User extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
@@ -22,7 +23,7 @@ class User extends JsonResource
 
             'name' => $this->name,
             'surname' => $this->surname,
-            'phone' => $this->phone,
+            'phone' => substr($this->phone, 0, 3).preg_replace("/[0-9]/", '*', substr($this->phone, 3)),
             'city' => $this->city,
             'road' => $this->road,
             'house_number' => $this->house_number,
