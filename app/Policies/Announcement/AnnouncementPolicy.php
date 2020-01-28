@@ -2,6 +2,7 @@
 
 namespace App\Policies\Announcement;
 
+use App\Http\Controllers\Constants\Roles;
 use App\Models\Announcement\Announcement;
 use App\Models\User\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -17,7 +18,7 @@ class AnnouncementPolicy
      * @param User $user
      * @return mixed
      */
-    public function viewAny(User $user)
+    public function viewAny(?User $user)
     {
         return Response::allow();
     }
@@ -29,7 +30,7 @@ class AnnouncementPolicy
      * @param Announcement $announcement
      * @return mixed
      */
-    public function view(User $user, Announcement $announcement)
+    public function view(?User $user, Announcement $announcement)
     {
         return Response::allow();
     }
@@ -42,7 +43,11 @@ class AnnouncementPolicy
      */
     public function create(User $user)
     {
-        return Response::allow();
+        if($user->role_id === Roles::ROLE_CLIENT) {
+            return Response::allow();
+        } else {
+            return Response::deny();
+        }
     }
 
     /**
@@ -54,7 +59,11 @@ class AnnouncementPolicy
      */
     public function update(User $user, Announcement $announcement)
     {
-        return Response::allow();
+        if($user->id === $announcement->owner_id) {
+            return Response::allow();
+        } else {
+            return Response::deny();
+        }
     }
 
     /**
@@ -66,7 +75,11 @@ class AnnouncementPolicy
      */
     public function delete(User $user, Announcement $announcement)
     {
-        return Response::allow();
+        if($user->id === $announcement->owner_id) {
+            return Response::allow();
+        } else {
+            return Response::deny();
+        }
     }
 
     /**

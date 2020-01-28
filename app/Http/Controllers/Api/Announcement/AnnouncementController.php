@@ -28,7 +28,6 @@ class AnnouncementController extends Controller
      */
     public function index(SearchAnnouncementRequest $request)
     {
-//        $this->authorize('viewAny', Announcement::class);
         if($request->city_id) {
             $announcements = Announcement::where('city_id', $request->city_id)->paginate(10);
         } else {
@@ -43,7 +42,6 @@ class AnnouncementController extends Controller
      */
     public function store(StoreAnnouncementRequest $request)
     {
-//        $this->authorize('create', Announcement::class);
         $announcements = Announcement::create(array_merge($request->validated(), ['owner_id' => Auth::id()]));
         return $this->sendResponse(new AnnouncementResource($announcements), 'Announcement created', 201);
     }
@@ -54,7 +52,6 @@ class AnnouncementController extends Controller
      */
     public function show(Announcement $announcement)
     {
-//        $this->authorize('view', $announcement);
         return $this->sendResponse(new AnnouncementResource($announcement), 'Announcement returned');
     }
 
@@ -65,7 +62,6 @@ class AnnouncementController extends Controller
      */
     public function update(UpdateAnnouncementRequest $request, Announcement $announcement)
     {
-//        $this->authorize('update', $announcement);
         $announcement->update($request->validated());
         return $this->sendResponse(new AnnouncementResource($announcement), 'Announcement updated');
     }
