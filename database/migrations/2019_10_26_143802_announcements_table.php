@@ -20,6 +20,7 @@ class AnnouncementsTable extends Migration
             $table->text('description');
             $table->bigInteger('city_id')->unsigned();
             $table->foreign('city_id')->references('id')->on('cities');
+            $table->boolean('is_active')->default(false);
             $table->boolean('is_local')->default(false);
             $table->boolean('is_mobile')->default(false);
             $table->integer('mobile_price')->default(0);

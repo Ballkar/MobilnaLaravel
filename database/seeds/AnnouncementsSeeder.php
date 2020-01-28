@@ -26,6 +26,7 @@ chętnie doradzam swoim klientom.
 ',
             'city_id' => '821',
             'owner_id' => '2',
+            'is_active' => '1',
             'is_mobile' => '1',
             'mobile_price' => '10',
             'mobile_distance' => '100',
@@ -42,6 +43,7 @@ chętnie doradzam swoim klientom.
 ',
             'city_id' => '821',
             'owner_id' => '2',
+            'is_active' => '1',
             'is_local' => '1',
             'road' => 'szmaciarksa',
             'house_number' => '12',
@@ -57,6 +59,7 @@ były nie zadowolone. Odezwij się a na pewno razem znajdziemy
 pomysł na twoje paznokcie, ponieważ także
 chętnie doradzam swoim klientom.
 ',
+            'is_active' => '1',
             'city_id' => '823',
             'owner_id' => '2',
         ]);

@@ -45,7 +45,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::apiResource('announcement.actionSingle', 'ActionSingleController')->except('index', 'show');
     });
 
-    Route::group(['namespace' => 'Announcement'], function () {
+    Route::group(['namespace' => 'Announcement', 'middleware' => ['auth:api']], function () {
         Route::apiResource('announcement', 'AnnouncementController')->only('index', 'show');
         Route::apiResource('announcement.service', 'ServiceController')->only('index', 'show');
         Route::apiResource('announcement.actionPeriodic', 'ActionPeriodicController')->only('index', 'show');
