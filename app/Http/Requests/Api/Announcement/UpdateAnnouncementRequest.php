@@ -25,16 +25,17 @@ class UpdateAnnouncementRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:200',
             'description' => 'required|min:3|max:200',
-            'is_mobile' => 'boolean',
-            'mobile_price' => 'numeric',
-            'mobile_distance' => 'numeric',
-            'type_id' => 'required|in:'.implode(',', AnnouncementTypes::returnAll()),
+
+            'is_mobile' => 'required_without:is_local|boolean',
+            'is_local' => 'required_without:is_mobile|boolean',
+
+            'mobile_price' => 'required_with:is_mobile|numeric',
+            'mobile_distance' => 'required_with:is_mobile|numeric',
 
             'city_id' => 'required|exists:cities,id',
-            'road' => 'string|min:4',
-            'house_number' => 'string|min:1',
+            'road' => 'required_with:is_local|string|min:4',
+            'house_number' => 'required_with:is_local|string|min:1',
             'flat_number' => 'string|min:1',
         ];
     }

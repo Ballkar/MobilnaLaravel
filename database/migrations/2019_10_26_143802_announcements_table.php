@@ -17,7 +17,6 @@ class AnnouncementsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('owner_id')->unsigned();
             $table->foreign('owner_id')->references('id')->on('users');
-            $table->string('name')->nullable();
             $table->text('description');
             $table->bigInteger('city_id')->unsigned();
             $table->foreign('city_id')->references('id')->on('cities');

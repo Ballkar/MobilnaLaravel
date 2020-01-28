@@ -16,7 +16,6 @@ class AnnouncementsSeeder extends Seeder
     public function run()
     {
         Announcement::create([
-            'name' => 'testowe ogłoszenie',
             'description' => 'Jestem młodą i zajebistą kosmetyczkąChętnie ogarnę ci paznokietki tak że 
 będziesz mega zadowolona. Pracuje w ten 
 sposób już ponad 3 lata i przez ten czas nie
@@ -27,10 +26,12 @@ chętnie doradzam swoim klientom.
 ',
             'city_id' => '821',
             'owner_id' => '2',
+            'is_mobile' => '1',
+            'mobile_price' => '10',
+            'mobile_distance' => '100',
         ]);
 
         Announcement::create([
-            'name' => 'Ogłoszene nr.2',
             'description' => 'Jestem młodą i zajebistą kosmetyczkąChętnie ogarnę ci paznokietki tak że 
 będziesz mega zadowolona. Pracuje w ten 
 sposób już ponad 3 lata i przez ten czas nie
@@ -41,6 +42,9 @@ chętnie doradzam swoim klientom.
 ',
             'city_id' => '821',
             'owner_id' => '2',
+            'is_local' => '1',
+            'road' => 'szmaciarksa',
+            'house_number' => '12',
         ]);
 
         Announcement::create([
