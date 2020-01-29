@@ -10,7 +10,7 @@ use App\Models\Blog\Post;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Resources\BaseResourceCollection;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
@@ -20,7 +20,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::latest()->paginate(10);
-        return $this->sendResponse($posts, 'Posts returned');
+        return $this->sendResponse(new BaseResourceCollection($posts), 'Posts returned');
     }
 
     public function store(StorePostRequest $request)

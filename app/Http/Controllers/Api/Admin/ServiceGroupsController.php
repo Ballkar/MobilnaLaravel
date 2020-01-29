@@ -8,7 +8,8 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Response;
+use App\Http\Resources\BaseResourceCollection;
+use App\Http\Resources\Announcement\Service\ServiceGroup as ServiceGroupResource;
 
 class ServiceGroupsController extends Controller
 {
@@ -22,7 +23,7 @@ class ServiceGroupsController extends Controller
     public function index()
     {
         $groups = ServiceGroup::paginate(10);
-        return $this->sendResponse($groups, 'All announcement service groups returned');
+        return $this->sendResponse(new BaseResourceCollection($groups), 'All announcement service groups returned');
     }
 
     /**
@@ -39,7 +40,7 @@ class ServiceGroupsController extends Controller
             'name' => $request->name,
         ]);
 
-        return $this->sendResponse($group, 'Announcement service group added!');
+        return $this->sendResponse(new ServiceGroupResource($group), 'Announcement service group added!');
     }
 
     /**
@@ -50,7 +51,7 @@ class ServiceGroupsController extends Controller
      */
     public function show(ServiceGroup $serviceGroup)
     {
-        return $this->sendResponse($serviceGroup, 'Announcement service group returned');
+        return $this->sendResponse(new ServiceGroupResource($group), 'Announcement service group returned');
     }
 
     /**
@@ -68,7 +69,7 @@ class ServiceGroupsController extends Controller
             'name' => $request->name,
         ]);
 
-        return $this->sendResponse($group, 'Announcement service group updated!');
+        return $this->sendResponse(new ServiceGroupResource($group), 'Announcement service group updated!');
     }
 
     /**

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api\Announcement;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Resources\Announcement\Announcement as AnnouncementResources;
 use App\Models\Announcement\Announcement;
 use App\Models\Announcement\Image as AnnouncementImage;
-use App\Models\BaseImage as ImageModel;
+use App\Http\Resources\BaseResourceCollection;
+use App\Http\Resources\Announcement\Image as ImageResource;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,8 +20,8 @@ class ImagesController extends Controller
 
     public function index(Announcement $announcement)
     {
-        $images = $announcement->images;
-        return $this->sendResponse($images, 'Images returned');
+        $images = $announcement->images()->paginate(10);
+        return $this->sendResponse(new BaseResourceCollection($images), 'Images returned');
     }
 
     public function store(Request $request, Announcement $announcement)
@@ -43,7 +43,7 @@ class ImagesController extends Controller
             ]);
 
             $announcement = $announcement->find($announcement->id);
-            return $this->sendResponse($announcement->images, 'New image added', 201);
+            return $this->sendResponse(new BaseResourceCollection($announcement->images()->paginate(10)), 'New image added', 201);
         } catch (Exception $e) {
             return $this->sendError( $e->getMessage(), 500);
         }
@@ -61,7 +61,7 @@ class ImagesController extends Controller
         $image->update(['main' => true]);
 
         $announcement = $announcement->find($announcement->id);
-        return $this->sendResponse(new AnnouncementResources($announcement), 'Main image changed');
+        return $this->sendResponse(new BaseResourceCollection($announcement->images()->paginate(10)), 'Main image changed');
     }
 
     public function delete(Request $request, Announcement $announcement, AnnouncementImage $image)

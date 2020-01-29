@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\Announcement;
 
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\Announcement\ActionPeriodic as ActionPeriodicRequest;
+use App\Http\Resources\BaseResourceCollection;
+use App\Http\Resources\Announcement\Calendar\ActionPeriodic as ActionResource;
 use App\Models\Announcement\Calendar\ActionPeriodic;
 use App\Models\Announcement\Announcement;
 use Exception;
@@ -21,7 +23,7 @@ class ActionPeriodicController extends Controller
     public function index()
     {
         $actions = ActionPeriodic::paginate(10);
-        return $this->sendResponse($actions, 'All periodic actions returned!');
+        return $this->sendResponse(new BaseResourceCollection($actions), 'All periodic actions returned!');
     }
 
     /**
@@ -31,8 +33,8 @@ class ActionPeriodicController extends Controller
      */
     public function store(Announcement $announcement, ActionPeriodicRequest $request)
     {
-        $action = ActionPeriodic::create(array_merge($request->validated(), ['owner_id' => Auth::id()]));
-        return $this->sendResponse($action, 'Periodic action created', 201);
+        $actionPeriodic = ActionPeriodic::create(array_merge($request->validated(), ['owner_id' => Auth::id()]));
+        return $this->sendResponse(new ActionResource($actionPeriodic), 'Periodic action created', 201);
     }
 
     /**
@@ -42,7 +44,7 @@ class ActionPeriodicController extends Controller
      */
     public function show(Announcement $announcement, ActionPeriodic $actionPeriodic)
     {
-        return $this->sendResponse($actionPeriodic, 'Periodic action returned');
+        return $this->sendResponse(new ActionResource($actionPeriodic), 'Periodic action returned');
     }
 
     /**
@@ -54,7 +56,7 @@ class ActionPeriodicController extends Controller
     public function update(Announcement $announcement, ActionPeriodicRequest $request, ActionPeriodic $actionPeriodic)
     {
         $actionPeriodic->update($request->validated());
-        return $this->sendResponse($actionPeriodic, 'Periodic action updated!');
+        return $this->sendResponse(new ActionResource($actionPeriodic), 'Periodic action updated!');
     }
 
     /**

@@ -8,6 +8,7 @@ use App\Http\Resources\Announcement\Announcement as AnnouncementResource;
 use App\Models\Announcement\Announcement;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BaseResourceCollection;
 
 class AnnouncementController extends Controller
 {
@@ -19,7 +20,7 @@ class AnnouncementController extends Controller
     public function index()
     {
         $announcements = Announcement::paginate(10);
-        return $this->sendResponse(new AnnouncementResource($announcements), 'All announcement returned', 200);
+        return $this->sendResponse(new BaseResourceCollection($announcements), 'All announcement returned', 200);
     }
 
     /**

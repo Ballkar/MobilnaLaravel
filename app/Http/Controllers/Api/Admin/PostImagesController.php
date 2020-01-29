@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use App\Http\Resources\BaseResourceCollection;
+use App\Http\Resources\Blog\Image as ImageResource;
+use App\Http\Resources\Blog\Post as PostResource;
 
 class PostImagesController extends Controller
 {
@@ -35,7 +38,7 @@ class PostImagesController extends Controller
             ]);
 
             $post = $post->find($post->id);
-            return $this->sendResponse($post->images, 'New image added', 201);
+            return $this->sendResponse(new ImageResource($post->images), 'New image added', 201);
         } catch (Exception $e) {
             return $this->sendError( $e->getMessage(), 500);
         }
@@ -53,7 +56,7 @@ class PostImagesController extends Controller
         $image->update(['main' => true]);
 
         $post = $post->find($post->id);
-        return $this->sendResponse($post, 'Main image changed');
+        return $this->sendResponse(new PostResource($post), 'Main image changed');
     }
 
     public function delete(Request $request, Post $post, PostImage $image)

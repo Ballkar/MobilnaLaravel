@@ -9,6 +9,8 @@ use App\Models\User\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\User\User as UserResources;
+use App\Http\Resources\BaseResourceCollection;
 
 class UserController extends Controller
 {
@@ -20,7 +22,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::paginate(10);
-        return $this->sendResponse($users, 'All users returned!', 200);
+        return $this->sendResponse(new BaseResourceCollection($users), 'All users returned!', 200);
     }
 
     /**
@@ -36,7 +38,7 @@ class UserController extends Controller
             'reg' => false,
         ]);
 
-        return $this->sendResponse($user, 'User created', 201);
+        return $this->sendResponse(new UserResources($user), 'User created', 201);
     }
 
     /**
@@ -47,7 +49,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return $this->sendResponse($user, 'User returned');
+        return $this->sendResponse(new UserResources($user), 'User returned');
     }
 
     /**
@@ -59,7 +61,7 @@ class UserController extends Controller
     {
         $user->update($request->validated()); // TODO: dodać dane usera do możliwości update dla admina
 
-        return $this->sendResponse($user, 'Update Success!', 200);
+        return $this->sendResponse(new UserResources($user), 'Update Success!', 200);
 
     }
 

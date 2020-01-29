@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Announcement;
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\Announcement\StoreCustomerRequest;
 use App\Http\Requests\Api\Announcement\UpdateCustomerRequest;
+use App\Http\Resources\BaseResourceCollection;
 use App\Http\Resources\Announcement\Customer as CustomerResource;
 use App\Models\Announcement\Customer;
 use Exception;
@@ -21,7 +22,7 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::paginate(15);
-        return $this->sendResponse(new CustomerResource($customers), 'All customers returned');
+        return $this->sendResponse(new BaseResourceCollection($customers), 'All customers returned');
     }
 
     /**

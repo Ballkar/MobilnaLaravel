@@ -7,7 +7,6 @@ use App\Http\Requests\Api\Announcement\SearchAnnouncementRequest;
 use App\Http\Requests\Api\Announcement\StoreAnnouncementRequest;
 use App\Http\Requests\Api\Announcement\UpdateAnnouncementRequest;
 use App\Http\Resources\Announcement\Announcement as AnnouncementResource;
-use App\Http\Resources\Announcement\AnnouncementCollection;
 use App\Http\Resources\BaseResourceCollection;
 use App\Models\Announcement\Announcement;
 use Exception;

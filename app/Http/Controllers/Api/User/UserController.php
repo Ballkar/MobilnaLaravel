@@ -4,25 +4,26 @@ namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\User\UpdateUserDetailsRequest;
-use App\Http\Resources\User as UserResource;
+use App\Http\Resources\User\User as UserResource;
 use App\Models\User\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\BaseResourceCollection;
 
 class UserController extends Controller
 {
     use ApiCommunication;
 
+    public function index()
+    {
+        $users = User::all();
+        return $this->sendResponse(new BaseResourceCollection($users), 'All users returned!');
+    }
+
     public function user()
     {
 //        return $this->sendResponse(Auth::user(), 'User data');
         return $this->sendResponse(new UserResource(Auth::user()), 'User data returned');
-    }
-
-    public function index()
-    {
-        $users = User::all();
-        return $this->sendResponse(new UserResource($users), 'All users returned!');
     }
 
     public function show(User $user)

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\Announcement;
 
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\Announcement\ActionSingle as ActionSingleRequest;
+use App\Http\Resources\BaseResourceCollection;
+use App\Http\Resources\Announcement\Calendar\ActionSingle as ActionResource;
 use App\Models\Announcement\Announcement;
 use App\Models\Announcement\Calendar\ActionSingle;
 use Exception;
@@ -20,7 +22,7 @@ class ActionSingleController extends Controller
     public function index()
     {
         $actions = ActionSingle::paginate(10);
-        return $this->sendResponse($actions, 'All single actions returned!');
+        return $this->sendResponse(new BaseResourceCollection($actions), 'All single actions returned!');
     }
 
     /**
@@ -29,8 +31,8 @@ class ActionSingleController extends Controller
      */
     public function store(ActionSingleRequest $request)
     {
-        $action = ActionSingle::create(array_merge($request->validated(), ['owner_id' => Auth::id()]));
-        return $this->sendResponse($action, 'Single actions created!', 201);
+        $actionSingle = ActionSingle::create(array_merge($request->validated(), ['owner_id' => Auth::id()]));
+        return $this->sendResponse(new ActionResource($actionSingle), 'Single actions created!', 201);
     }
 
     /**
@@ -40,7 +42,7 @@ class ActionSingleController extends Controller
      */
     public function show(Announcement $announcement, ActionSingle $actionSingle)
     {
-        return $this->sendResponse($actionSingle, 'Single action returned');
+        return $this->sendResponse(new ActionResource($actionSingle), 'Single action returned');
     }
 
     /**
@@ -52,7 +54,7 @@ class ActionSingleController extends Controller
     public function update(ActionSingleRequest $request, Announcement $announcement,  ActionSingle $actionSingle)
     {
         $actionSingle->update($request->validated());
-        return $this->sendResponse($actionSingle, 'Single action updated');
+        return $this->sendResponse(new ActionResource($actionSingle), 'Single action updated');
     }
 
     /**

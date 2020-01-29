@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api\Announcement;
 
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\Announcement\UpdateService;
-use App\Http\Resources\Announcement\AnnouncementService as ServiceResources;
+use App\Http\Resources\BaseResourceCollection;
+use App\Http\Resources\Announcement\Service\Service as ServiceResources;
 use App\Models\Announcement\Announcement;
 use App\Models\Announcement\Service\Service;
 use Exception;
@@ -23,7 +24,7 @@ class ServiceController extends Controller
     public function index(Announcement $announcement)
     {
         $service = Service::where('announcement_id', $announcement->id)->paginate(10);
-        return $this->sendResponse(new ServiceResources($service), 'All services from announcement returned!');
+        return $this->sendResponse(new BaseResourceCollection($service), 'All services from announcement returned!');
     }
 
     /**

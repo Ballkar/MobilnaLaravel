@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Resources\User as UserResource;
+use App\Http\Resources\User\User as UserResource;
 use App\Models\User\User;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use App\Http\Resources\BaseResourceCollection;
+use App\Http\Resources\Blog\Image as ImageResource;
 
 class ImagesController extends Controller
 {

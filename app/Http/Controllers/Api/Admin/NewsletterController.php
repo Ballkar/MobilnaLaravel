@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\Newsletter\UpdateNewsletterRequest;
+use App\Http\Resources\BaseResourceCollection;
+use App\Http\Resources\Newsletter as NewsletterResource;
 use App\Models\Newsletter;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -18,8 +20,8 @@ class NewsletterController extends Controller
      */
     public function index()
     {
-        $announcements = Newsletter::paginate(10);
-        return $this->sendResponse($announcements, 'All newsletters returned', 200);
+        $newsletters = Newsletter::paginate(10);
+        return $this->sendResponse(new BaseResourceCollection($newsletters), 'All newsletters returned', 200);
 
     }
 
@@ -32,7 +34,7 @@ class NewsletterController extends Controller
     {
         $newsletter->update($request->validated());
 
-        return $this->sendResponse($newsletter, 'Update newsletter Success!', 200);
+        return $this->sendResponse(new NewsletterResource($newsletter), 'Update newsletter Success!', 200);
 
     }
 
