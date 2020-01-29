@@ -13,9 +13,6 @@ use Illuminate\Support\Facades\Storage;
 class Announcement extends Model
 {
     protected $guarded = [];
-    protected $appends = ['image', 'city_name', 'owner_name'];
-    protected $with = ['services'];
-    protected $hidden = ['images', 'city', 'user'];
 
     public function getImageAttribute()
     {
@@ -24,20 +21,6 @@ class Announcement extends Model
         return $url;
     }
 
-    public function getOwnerNameAttribute()
-    {
-        return $this->user->name;
-    }
-
-    public function getCityNameAttribute()
-    {
-        return $this->city->name;
-    }
-//
-//    public function getServicesAttribute()
-//    {
-//        return $this->services;
-//    }
     /**
      * Get the user that owns the announcement.
      */

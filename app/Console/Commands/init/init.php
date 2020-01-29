@@ -38,6 +38,7 @@ class init extends Command
      */
     public function handle()
     {
+        $this->call('telescope:install');
         $this->info('Migration start');
         $this->call('migrate:fresh');
         $this->info('Migration complete');

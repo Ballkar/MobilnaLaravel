@@ -7,6 +7,7 @@ use App\Http\Requests\Api\Announcement\SearchAnnouncementRequest;
 use App\Http\Requests\Api\Announcement\StoreAnnouncementRequest;
 use App\Http\Requests\Api\Announcement\UpdateAnnouncementRequest;
 use App\Http\Resources\Announcement\Announcement as AnnouncementResource;
+use App\Http\Resources\Announcement\AnnouncementCollection;
 use App\Models\Announcement\Announcement;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -33,7 +34,7 @@ class AnnouncementController extends Controller
         } else {
             $announcements = Announcement::active()->paginate(10);
         }
-        return $this->sendResponse(new AnnouncementResource($announcements), 'All announcement returned');
+        return $this->sendResponse(new AnnouncementCollection($announcements), 'All announcement returned');
     }
 
     /**
