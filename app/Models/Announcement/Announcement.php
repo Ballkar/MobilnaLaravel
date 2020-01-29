@@ -24,7 +24,7 @@ class Announcement extends Model
     /**
      * Get the user that owns the announcement.
      */
-    public function user()
+    public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id');
     }
