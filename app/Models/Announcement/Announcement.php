@@ -14,7 +14,7 @@ class Announcement extends Model
 {
     protected $guarded = [];
 
-    public function getImageAttribute()
+    public function getMainImageAttribute()
     {
         $imageMain = $this->images->where('main', 1)->first();
         $url = $imageMain ? $imageMain->path : Storage::disk('public')->url('default.jpg');

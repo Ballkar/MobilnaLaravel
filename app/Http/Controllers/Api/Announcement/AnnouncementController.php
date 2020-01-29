@@ -34,6 +34,7 @@ class AnnouncementController extends Controller
         } else {
             $announcements = Announcement::active()->paginate(10);
         }
+
         return $this->sendResponse(new AnnouncementCollection($announcements), 'All announcement returned');
     }
 

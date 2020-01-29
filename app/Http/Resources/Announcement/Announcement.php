@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Announcement;
 
+use App\Models\Announcement\Service\Service;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,7 +21,7 @@ class Announcement extends JsonResource
             'description' => $this->description,
             'city' => $this->city->name,
             'owner_name' => $this->owner->name,
-            'main_photo' => $this->image,
+            'main_photo' => $this->main_image,
             'is_active' => $this->is_active,
             'is_local' => $this->is_local,
             'is_mobile' => $this->is_mobile,
@@ -33,6 +34,7 @@ class Announcement extends JsonResource
                 'house_number' => $this->house_number,
                 'flat_number' => $this->flat_number,
             ]),
+            'services' => $this->services,
         ];
     }
 }

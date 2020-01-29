@@ -2,18 +2,22 @@
 
 namespace App\Http\Resources\Announcement;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use App\Http\Resources\BaseResourceCollection;
+use Illuminate\Http\Request;
 
-class AnnouncementCollection extends ResourceCollection
+class AnnouncementCollection extends BaseResourceCollection
 {
     /**
      * Transform the resource collection into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'items' => $this->collection,
+            'pagination' => $this->pagination,
+        ];
     }
 }
