@@ -33,6 +33,9 @@ class BaseResourceCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'items' => $this->collection,
+            'pagination' => $this->pagination,
+        ];
     }
 }

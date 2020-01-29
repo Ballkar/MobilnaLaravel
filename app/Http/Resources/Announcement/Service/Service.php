@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Resources\Blog;
+namespace App\Http\Resources\Announcement\Service;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Post extends JsonResource
+class Service extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
-     * @param  Request  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function toArray($request)
