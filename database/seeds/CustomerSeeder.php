@@ -15,10 +15,12 @@ class CustomerSeeder extends Seeder
         Customer::create([
             'name' => 'Ania',
             'phone' => '515414768',
+            'owner_id' => '2',
         ]);
 
         Customer::create([
             'user_id' => '3',
+            'owner_id' => '2',
         ]);
 
     }

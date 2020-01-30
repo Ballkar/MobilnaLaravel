@@ -5,24 +5,29 @@ namespace App\Http\Controllers\Api\Announcement;
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\Announcement\StoreCustomerRequest;
 use App\Http\Requests\Api\Announcement\UpdateCustomerRequest;
-use App\Http\Resources\BaseResourceCollection;
 use App\Http\Resources\Announcement\Customer as CustomerResource;
+use App\Http\Resources\Announcement\CustomerCollection;
 use App\Models\Announcement\Customer;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
     use ApiCommunication;
 
     /**
+     * @param Request $request
      * @return JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::paginate(15);
-        return $this->sendResponse(new BaseResourceCollection($customers), 'All customers returned');
+        $limit = $request->limit ? $request->limit : 10;
+        $customers = Customer::paginate($limit);
+
+        return $this->sendResponse(new CustomerCollection($customers), 'All customers returned');
     }
 
     /**
@@ -31,7 +36,9 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
-        $customer = Customer::create($request->validated());
+        $customer = Customer::create(array_merge($request->validated(), [
+            'owner_id' => Auth::id(),
+        ]));
         return $this->sendResponse(new CustomerResource($customer), 'Customer Added', 201);
     }
 

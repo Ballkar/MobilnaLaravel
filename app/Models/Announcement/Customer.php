@@ -19,6 +19,14 @@ class Customer extends Model
     }
 
     /**
+     * Get the user that owns the action.
+     */
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
+
+    /**
      * Get the action single for the announcement.
      */
     public function action()

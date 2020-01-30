@@ -2,13 +2,13 @@
 
 namespace App\Http\Resources\Announcement;
 
+use App\Http\Resources\BaseResourceCollection;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class Image extends JsonResource
+class AnnouncementCollection extends BaseResourceCollection
 {
     /**
-     * Transform the resource into an array.
+     * Transform the resource collection into an array.
      *
      * @param  Request  $request
      * @return array

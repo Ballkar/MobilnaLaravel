@@ -20,8 +20,8 @@ class ImagesController extends Controller
 
     public function index(Announcement $announcement)
     {
-        $images = $announcement->images()->paginate(10);
-        return $this->sendResponse(new BaseResourceCollection($images), 'Images returned');
+        $images = $announcement->images;
+        return $this->sendResponse(ImageResource::collection($images), 'Images returned');
     }
 
     public function store(Request $request, Announcement $announcement)
@@ -36,14 +36,13 @@ class ImagesController extends Controller
             $image = Image::make($photo);
             Storage::disk('local')->put('public/'.$path.$photoName, (string) $image->encode());
 
-            AnnouncementImage::create([
+            $image = AnnouncementImage::create([
                 'name' => $photoName,
                 'announcement_id' => $announcement->id,
                 'main' => $announcement->images->isEmpty() ? true : false,
             ]);
 
-            $announcement = $announcement->find($announcement->id);
-            return $this->sendResponse(new BaseResourceCollection($announcement->images()->paginate(10)), 'New image added', 201);
+            return $this->sendResponse(new ImageResource($image), 'New image added', 201);
         } catch (Exception $e) {
             return $this->sendError( $e->getMessage(), 500);
         }
@@ -59,9 +58,9 @@ class ImagesController extends Controller
 
         $image = AnnouncementImage::where('id', $request->get('main_id'))->first();
         $image->update(['main' => true]);
+        $image = AnnouncementImage::where('id', $request->get('main_id'))->first();
 
-        $announcement = $announcement->find($announcement->id);
-        return $this->sendResponse(new BaseResourceCollection($announcement->images()->paginate(10)), 'Main image changed');
+        return $this->sendResponse(new ImageResource($image), 'Main image changed');
     }
 
     public function delete(Request $request, Announcement $announcement, AnnouncementImage $image)

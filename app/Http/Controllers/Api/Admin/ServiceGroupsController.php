@@ -51,7 +51,7 @@ class ServiceGroupsController extends Controller
      */
     public function show(ServiceGroup $serviceGroup)
     {
-        return $this->sendResponse(new ServiceGroupResource($group), 'Announcement service group returned');
+        return $this->sendResponse(new ServiceGroupResource($serviceGroup), 'Announcement service group returned');
     }
 
     /**

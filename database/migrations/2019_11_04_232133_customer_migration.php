@@ -16,6 +16,9 @@ class CustomerMigration extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->bigInteger('owner_id')->unsigned();
+            $table->foreign('owner_id')->references('id')->on('users');
+
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('name')->nullable();
