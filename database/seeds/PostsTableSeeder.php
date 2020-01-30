@@ -19,7 +19,7 @@ class PostsTableSeeder extends Seeder
             'title' => 'Pierwsze Kroki',
             'text' => $faker->text(200),
             'user_id' => 1,
-            'active' => '1',
+            'active' => true,
             'category_id' => 1
         ]);
 
@@ -27,7 +27,7 @@ class PostsTableSeeder extends Seeder
             'title' => 'Drugi wpis',
             'text' => $faker->text(200),
             'user_id' => 1,
-            'active' => '1',
+            'active' => true,
             'category_id' => 1
         ]);
 
@@ -35,7 +35,7 @@ class PostsTableSeeder extends Seeder
             'title' => 'Trzeci wpis',
             'text' => $faker->text(200),
             'user_id' => 1,
-            'active' => '1',
+            'active' => true,
             'category_id' => 3
         ]);
 
@@ -43,21 +43,21 @@ class PostsTableSeeder extends Seeder
             'title' => 'Czwarty wpis',
             'text' => $faker->text(200),
             'user_id' => 1,
-            'active' => '1',
+            'active' => true,
             'category_id' => 2
         ]);
         Post::create([
             'title' => 'piąty',
             'text' => $faker->text(200),
             'user_id' => 1,
-            'active' => '1',
+            'active' => true,
             'category_id' => 3
         ]);
         Post::create([
             'title' => 'six',
             'text' => $faker->text(250),
             'user_id' => 1,
-            'active' => '1',
+            'active' => true,
             'category_id' => 2
         ]);
         Post::create([
@@ -71,7 +71,7 @@ class PostsTableSeeder extends Seeder
             'title' => 'Ostatni',
             'text' => $faker->text(200),
             'user_id' => 1,
-            'active' => '1',
+            'active' => true,
             'category_id' => 1
         ]);
     }
