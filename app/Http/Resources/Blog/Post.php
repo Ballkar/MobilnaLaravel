@@ -21,6 +21,7 @@ class Post extends JsonResource
             'text' => $this->text,
             'image' => $this->image,
             'category_name' => $this->category->name,
+            'category_id' => $this->category->id,
             'owner_id' => $this->owner->id,
             'active' => $this->active,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
