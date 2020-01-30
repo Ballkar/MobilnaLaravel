@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Announcement;
 
+use App\Http\Resources\Announcement\Service\Service as ServiceResource;
+use App\Http\Resources\Announcement\Service\ServiceCollection;
 use App\Models\Announcement\Service\Service;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -25,6 +27,8 @@ class Announcement extends JsonResource
             'is_active' => $this->is_active,
             'is_local' => $this->is_local,
             'is_mobile' => $this->is_mobile,
+            'services' => ServiceResource::collection($this->services),
+
             $this->mergeWhen($this->is_mobile, [
                 'mobile_price' => $this->mobile_price,
                 'mobile_distance' => $this->mobile_distance,
