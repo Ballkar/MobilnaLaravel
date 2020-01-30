@@ -3,8 +3,6 @@
 namespace App\Http\Resources\Announcement;
 
 use App\Http\Resources\Announcement\Service\Service as ServiceResource;
-use App\Http\Resources\Announcement\Service\ServiceCollection;
-use App\Models\Announcement\Service\Service;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 

@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\Announcement\UpdateAnnouncementRequest;
 use App\Http\Resources\Announcement\Announcement as AnnouncementResource;
+use App\Http\Resources\Announcement\AnnouncementCollection;
 use App\Models\Announcement\Announcement;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\BaseResourceCollection;
 
 class AnnouncementController extends Controller
 {
@@ -20,7 +20,7 @@ class AnnouncementController extends Controller
     public function index()
     {
         $announcements = Announcement::paginate(10);
-        return $this->sendResponse(new BaseResourceCollection($announcements), 'All announcement returned', 200);
+        return $this->sendResponse(new AnnouncementCollection($announcements), 'All announcement returned', 200);
     }
 
     /**
