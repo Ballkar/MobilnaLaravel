@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\User;
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\User\UpdateUserDetailsRequest;
 use App\Http\Resources\User\User as UserResource;
+use App\Http\Resources\User\UserCollection;
 use App\Models\User\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -16,13 +17,12 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::all();
-        return $this->sendResponse(new BaseResourceCollection($users), 'All users returned!');
+        $users = User::paginate(5);
+        return $this->sendResponse(new UserCollection($users), 'All users returned!');
     }
 
     public function user()
     {
-//        return $this->sendResponse(Auth::user(), 'User data');
         return $this->sendResponse(new UserResource(Auth::user()), 'User data returned');
     }
 

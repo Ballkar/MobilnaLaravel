@@ -7,7 +7,6 @@ use App\Models\Blog\Image as PostImage;
 use App\Models\Blog\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\BaseResourceCollection;
 use App\Http\Resources\Blog\Image as ImageResource;
 
 class PostImagesController extends Controller
@@ -18,7 +17,7 @@ class PostImagesController extends Controller
     public function index(Post $post)
     {
         $images = $post->images;
-        return $this->sendResponse(new BaseResourceCollection($images), 'Images returned');
+        return $this->sendResponse(ImageResource::collection($images), 'Images returned');
     }
 
     public function show(Request $request, Post $post, PostImage $image)

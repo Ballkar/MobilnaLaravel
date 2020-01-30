@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
-use App\Http\Resources\BaseResourceCollection;
 use App\Http\Resources\Blog\Image as ImageResource;
 use App\Http\Resources\Blog\Post as PostResource;
 
@@ -31,14 +30,13 @@ class PostImagesController extends Controller
             Storage::disk('local')->put('public/'.$path.$photoName, (string) $image->encode());
 
 
-            PostImage::create([
+            $image = PostImage::create([
                 'name' => $photoName,
                 'post_id' => $post->id,
                 'main' => $post->images->isEmpty() ? true : false,
             ]);
 
-            $post = $post->find($post->id);
-            return $this->sendResponse(new ImageResource($post->images), 'New image added', 201);
+            return $this->sendResponse(new ImageResource($image), 'New image added', 201);
         } catch (Exception $e) {
             return $this->sendError( $e->getMessage(), 500);
         }

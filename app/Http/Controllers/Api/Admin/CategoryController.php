@@ -6,7 +6,6 @@ use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\Blog\StoreCategoryRequest;
 use App\Http\Requests\Api\Blog\UpdateCategoryRequest;
 use App\Http\Resources\Blog\Category as CategoryResource;
-use App\Http\Resources\BaseResourceCollection;
 use App\Models\Blog\Category;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -25,7 +24,7 @@ class CategoryController extends Controller
             'name' => $request->name
         ]);
 
-        return $this->sendResponse(new BaseResourceCollection($category), 'Category created', 201);
+        return $this->sendResponse(new CategoryResource($category), 'Category created', 201);
     }
 
     /**

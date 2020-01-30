@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Storage;
 class Post extends Model
 {
     protected $table = 'blog_posts';
-    protected $appends = ['image', 'category_name'];
-    protected $hidden = ['images', 'category'];
     protected $guarded = [];
 
     public function getImageAttribute()
@@ -20,19 +18,14 @@ class Post extends Model
         return $url;
     }
 
-    public function getCategoryNameAttribute()
-    {
-        return $this->category->name;
-    }
-
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function user()
+    public function owner()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function images()

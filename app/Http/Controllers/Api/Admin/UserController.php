@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\User\StoreUserRequest;
 use App\Http\Requests\Api\User\UpdateUserRequest;
+use App\Http\Resources\User\UserCollection;
 use App\Models\User\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -22,7 +23,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::paginate(10);
-        return $this->sendResponse(new BaseResourceCollection($users), 'All users returned!', 200);
+        return $this->sendResponse(new UserCollection($users), 'All users returned!', 200);
     }
 
     /**

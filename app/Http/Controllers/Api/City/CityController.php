@@ -7,6 +7,7 @@ use App\Models\City;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\City as CityResource;
+use App\Http\Resources\BaseResourceCollection;
 
 class CityController extends Controller
 {
@@ -15,17 +16,19 @@ class CityController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'city' => 'required'
+            'city' => 'required',
+            'per_page' => 'integer',
         ]);
-        $cities = City::where('name', 'LIKE', "{$request->city}%")->limit(5)->get();
+        $cities = City::where('name', 'LIKE', "{$request->city}%")->paginate($request->per_page ?? 5);
 
-        return $this->sendResponse(new CityResource($cities), 'Cities returned!');
+//        dd($cities);
+        return $this->sendResponse(new BaseResourceCollection($cities), 'Cities returned!');
     }
 
     public function getByCoordinates(Request $request)
     {
-        $cities = City::location($request->lat, $request->lon, $request->distance)->get();
+        $cities = City::location($request->lat, $request->lon, $request->distance)->paginate($request->per_page ?? 5);
 
-        return $this->sendResponse(new CityResource($cities), 'Cities returned!');
+        return $this->sendResponse(new BaseResourceCollection($cities), 'Cities returned!');
     }
 }

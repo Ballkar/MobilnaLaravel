@@ -6,6 +6,7 @@ use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\Blog\StorePostRequest;
 use App\Http\Requests\Api\Blog\UpdatePostRequest;
 use App\Http\Resources\Blog\Post as PostResource;
+use App\Http\Resources\Blog\PostCollection;
 use App\Models\Blog\Post;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -20,7 +21,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::latest()->paginate(10);
-        return $this->sendResponse(new BaseResourceCollection($posts), 'Posts returned');
+        return $this->sendResponse(new PostCollection($posts), 'Posts returned');
     }
 
     public function store(StorePostRequest $request)

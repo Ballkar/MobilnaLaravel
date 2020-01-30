@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Blog;
 
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Resources\Blog\Post as PostResource;
-use App\Http\Resources\BaseResourceCollection;
+use App\Http\Resources\Blog\PostCollection;
 use App\Models\Blog\Post;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -31,7 +31,7 @@ class PostController extends Controller
         } else {
             $posts = Post::latest()->active()->paginate($limit);
         }
-        return $this->sendResponse(new BaseResourceCollection($posts), 'Posts returned', 200);
+        return $this->sendResponse(new PostCollection($posts), 'Posts returned', 200);
     }
 
     /**
