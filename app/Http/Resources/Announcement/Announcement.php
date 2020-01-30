@@ -20,6 +20,7 @@ class Announcement extends JsonResource
             'id' => $this->id,
             'description' => $this->description,
             'city' => $this->city->name,
+            'city_id' => $this->city->id,
             'owner_name' => $this->owner->name,
             'main_photo' => $this->main_image,
             'is_active' => $this->is_active,
