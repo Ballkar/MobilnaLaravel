@@ -36,7 +36,6 @@ class Announcement extends JsonResource
                 'house_number' => $this->house_number,
                 'flat_number' => $this->flat_number,
             ]),
-            'services' => $this->services,
         ];
     }
 }
