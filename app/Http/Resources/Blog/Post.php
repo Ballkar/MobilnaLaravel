@@ -23,6 +23,7 @@ class Post extends JsonResource
             'category_name' => $this->category->name,
             'owner_id' => $this->owner->id,
             'active' => $this->active,
+            'created_at' => $this->created_at,
         ];
     }
 }
