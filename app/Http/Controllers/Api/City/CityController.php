@@ -23,6 +23,11 @@ class CityController extends Controller
         return $this->sendResponse(CityResource::collection($cities), 'Cities returned!');
     }
 
+    public function show(City $city)
+    {
+        return $this->sendResponse(new CityResource($city), 'City returned!');
+    }
+
     public function getByCoordinates(Request $request)
     {
         $cities = City::location($request->lat, $request->lon, $request->distance)->get();

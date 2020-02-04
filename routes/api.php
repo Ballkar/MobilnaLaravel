@@ -64,6 +64,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
     Route::get('user/user/{user}/phone', 'User\UserController@getPhone');
     Route::get('user/user/{user}', 'User\UserController@show');
     Route::get('cities', 'City\CityController@index')->name('cities');
+    Route::get('cities/{city}', 'City\CityController@show')->name('cities.show');
     Route::get('citiesCoordinates', 'City\CityController@getByCoordinates')->name('cities');
     Route::post('newsletter', 'NewsletterController@store')->name('newsletter.store');
     Route::delete('newsletter/{newsletter}', 'NewsletterController@destroy')->name('newsletter.destroy');
