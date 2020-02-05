@@ -29,13 +29,28 @@ class AnnouncementController extends Controller
      */
     public function index(SearchAnnouncementRequest $request)
     {
+        $per_page = $request->per_page ?? 10;
+        $announcements = Announcement::active();
+
         if($request->city_id) {
-            $announcements = Announcement::where('city_id', $request->city_id)->active()->paginate(10);
-        } else {
-            $announcements = Announcement::active()->paginate(10);
+            $announcements = $announcements->where('city_id', $request->city_id);
         }
 
-        return $this->sendResponse(new AnnouncementCollection($announcements), 'All announcement returned');
+        if($request->service_group_id) {
+            $announcements = $announcements->whereHas('services', function($q) use ($request) {
+                $q->where('group_id', $request->service_group_id);
+            });
+        }
+
+        if($request->is_mobile) {
+            $announcements = $announcements->where('is_mobile', true);
+        }
+
+        if($request->is_local) {
+            $announcements = $announcements->where('is_local', true);
+        }
+
+        return $this->sendResponse(new AnnouncementCollection($announcements->paginate($per_page)), 'All announcement returned');
     }
 
     /**

@@ -132,5 +132,13 @@ chętnie doradzam swoim klientom.
             'time_hours' => 1,
             'time_minutes' => 30,
         ]);
+        Service::create([
+            'announcement_id' => 3,
+            'group_id' => 3,
+            'name' => 'Przedłużanie rzęs 2:1',
+            'price' => 5,
+            'time_hours' => 1,
+            'time_minutes' => 30,
+        ]);
     }
 }
