@@ -13,10 +13,12 @@ bootstrap/compiled.php
 app/storage/
 
 # Laravel 5 & Lumen specific
+public/vendor/
 public/storage
 public/hot
 storage/*.key
 .env
+.rnd
 Homestead.yaml
 Homestead.json
 /.vagrant

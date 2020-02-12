@@ -14,7 +14,7 @@ class Post extends Model
     public function getImageAttribute()
     {
         $imageMain = $this->images->where('main', 1)->first();
-        $url = $imageMain ? $imageMain->path : Storage::disk('public')->url('default.jpg');
+        $url = $imageMain ? $imageMain->path : asset('images/default/postImage.jpg');
         return $url;
     }
 
