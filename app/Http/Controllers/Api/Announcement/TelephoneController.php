@@ -13,9 +13,7 @@ class TelephoneController extends Controller
 
     public function show(Announcement $announcement)
     {
-        $announcement->update([
-            'number_taken' => $announcement->number_taken + 1
-        ]);
-        return $this->sendResponse($announcement->owner()->phone, 'Phone returned!');
+        $announcement->update(['number_taken' => $announcement->number_taken+1]);
+        return $this->sendResponse($announcement->owner->phone, 'Phone returned!');
     }
 }
