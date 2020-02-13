@@ -38,7 +38,7 @@ class Announcement extends JsonResource
                 'house_number' => $this->house_number,
                 'flat_number' => $this->flat_number,
             ]),
-            $this->mergeWhen(Auth::guard('api')->user()->isAdmin() || Auth::guard('api')->check() && $this->owner->id == Auth::guard('api')->id(), [
+            $this->mergeWhen(Auth::guard('api')->check() && (Auth::guard('api')->user()->isAdmin() || $this->owner->id == Auth::guard('api')->id()), [
                 'phone' => $this->owner->phone,
             ]),
             $this->mergeWhen($this->owner->id !== Auth::guard('api')->id(), [
