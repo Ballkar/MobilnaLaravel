@@ -48,6 +48,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
 
     Route::group(['namespace' => 'Announcement'], function () {
         Route::apiResource('announcement', 'AnnouncementController')->only('index', 'show');
+        Route::get('announcement/{announcement}/phone', 'TelephoneController@show');
         Route::apiResource('announcement.service', 'ServiceController')->only('index', 'show');
         Route::apiResource('announcement.actionPeriodic', 'ActionPeriodicController')->only('index', 'show');
         Route::apiResource('announcement.actionSingle', 'ActionSingleController')->only('index', 'show');

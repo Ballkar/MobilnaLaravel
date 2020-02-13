@@ -25,6 +25,7 @@ class AnnouncementsTable extends Migration
             $table->boolean('is_mobile')->default(false);
             $table->integer('mobile_price')->default(0);
             $table->integer('mobile_distance')->nullable();
+            $table->integer('number_taken')->default(0);
             $table->string('road')->nullable();
             $table->string('house_number')->nullable();
             $table->string('flat_number')->nullable();
