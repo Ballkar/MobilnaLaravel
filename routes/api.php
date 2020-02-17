@@ -27,7 +27,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
 
         Route::group(['namespace' => 'Announcement'], function () {
             Route::post('announcement/{announcement}/image', 'ImagesController@store');
-            Route::get('announcement/{announcement}/image', 'ImagesController@index');
             Route::delete('announcement/{announcement}/image/{image}', 'ImagesController@delete');
             Route::post('announcement/{announcement}/changeMainImage', 'ImagesController@changeMainImage');
             Route::get('announcement/{announcement}/calendar', 'CalendarController@show');
@@ -47,6 +46,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
     });
 
     Route::group(['namespace' => 'Announcement'], function () {
+        Route::get('announcement/{announcement}/image', 'ImagesController@index');
         Route::apiResource('announcement', 'AnnouncementController')->only('index', 'show');
         Route::get('announcement/{announcement}/phone', 'TelephoneController@show');
         Route::apiResource('announcement.service', 'ServiceController')->only('index', 'show');

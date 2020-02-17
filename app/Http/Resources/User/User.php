@@ -16,6 +16,7 @@ class User extends JsonResource
     public function toArray($request)
     {
         $authUser = $request->user('api');
+
         return [
             'id' => $this->id,
             'email' => $this->email,
@@ -29,7 +30,9 @@ class User extends JsonResource
             'avatar' => env('APP_URL').'/storage/users/'.$this->id.'/avatar/'.$this->avatar,
             'avatar_thumbnail' => env('APP_URL').'/storage/users/'.$this->id.'/avatar/'.$this->avatar_thumbnail,
 
-            $this->mergeWhen((!$authUser || !$authUser->isAdmin()) && $authUser->id !== $this->id, [
+            $this->mergeWhen((
+                !$authUser || $authUser && (!$authUser->isAdmin() && $authUser->id !== $this->id)
+            ), [
                 'phone' => substr($this->phone, 0, 3).preg_replace("/[0-9]/", '*', substr($this->phone, 3)),
             ]),
 
