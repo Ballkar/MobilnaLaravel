@@ -13,7 +13,7 @@ class Image extends BaseImage
 
     public function getPathAttribute()
     {
-        return Storage::disk('public')->url('announcements/' . $this->announcement_id . '/' . $this->name);
+        return asset('storage/announcements/' . $this->announcement_id . '/' . $this->name);
     }
 
     /**
