@@ -10,8 +10,8 @@ class Calendar extends Model
 {
     public $start;
     public $end;
-    public $single_actions;
-    public $periodic_actions;
+    public $actions;
+    public $workTimes;
     public $daysDifference;
 
     public function __construct(string $start_date, string $end_date, $user_id)
@@ -22,8 +22,8 @@ class Calendar extends Model
 
         $user = User::where('id', $user_id)->first();
 
-        $this->single_actions = $user->actions()->betweenDates($this->start, $this->end)->get();
-        $this->periodic_actions = $user->work_times()->betweenDates($this->start, $this->end)->get();
+        $this->actions = $user->actions()->betweenDates($this->start, $this->end)->get();
+        $this->workTimes = $user->work_times()->betweenDates($this->start, $this->end)->get();
     }
 
     public function getActions()
@@ -36,10 +36,10 @@ class Calendar extends Model
             $date = clone($this->start);
             $date->addDays($dayCount);
 
-            $singleActions = $this->single_actions->filter(function ($value) use ($date) {
+            $singleActions = $this->actions->filter(function ($value) use ($date) {
                 return $value['start_date']->toDateString() === $date->toDateString();
             });
-            $periodicActions = $this->periodic_actions->filter(function ($value) use ($date) {
+            $periodicActions = $this->workTimes->filter(function ($value) use ($date) {
                 return $value['week_day'] == $date->dayOfWeekIso;
             });
 

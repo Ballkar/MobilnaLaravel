@@ -3,6 +3,7 @@
 namespace App\Models\Announcement;
 
 use App\Models\Announcement\Announcement;
+use App\Models\Announcement\Service\Service;
 use App\Models\BaseAction;
 use App\Models\Announcement\Customer;
 use App\Models\User\User;
@@ -38,6 +39,11 @@ class Action extends BaseAction
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class);
     }
 
     public function scopeBetweenDates($query, $startDate, $endDate)

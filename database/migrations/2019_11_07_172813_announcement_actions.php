@@ -40,7 +40,6 @@ class AnnouncementActions extends Migration
             $table->boolean('is_mobile')->default(false);
             $table->boolean('done')->default(false);
 
-            $table->json('services');
             $table->integer('income');
 
             $table->timestamp('start_date')->nullable();
