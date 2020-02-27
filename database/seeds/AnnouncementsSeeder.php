@@ -5,6 +5,7 @@ use App\Models\Announcement\Service\Service;
 use App\Models\Announcement\Service\ServiceGroup;
 use App\Models\Announcement\Service\ServiceType;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class AnnouncementsSeeder extends Seeder
 {

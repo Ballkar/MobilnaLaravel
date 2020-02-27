@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CalendarActionSingle extends Migration
+class AnnouncementActions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,35 @@ class CalendarActionSingle extends Migration
      */
     public function up()
     {
-        Schema::create('calendar_action_single', function(Blueprint $table) {
+        Schema::create('announcement_actions', function(Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->bigInteger('type_id')->unsigned();
-            $table->foreign('type_id')->references('id')->on('calendar_action_types');
+            $table->foreign('type_id')->references('id')->on('announcement_action_types');
 
             $table->bigInteger('announcement_id')->unsigned();
-
-            $table->bigInteger('customer_id')->unsigned();
-            $table->foreign('customer_id')->references('id')->on('customers');
-
             $table->foreign('announcement_id')->references('id')->on('announcements');
 
             $table->bigInteger('owner_id')->unsigned();
             $table->foreign('owner_id')->references('id')->on('users');
+
+            $table->bigInteger('customer_id')->unsigned()->nullable();
+            $table->foreign('customer_id')->references('id')->on('customers');
+
+            $table->string('phone')->nullable();
+            $table->string('name')->nullable();
+            $table->string('road')->nullable();
+            $table->string('house_number')->nullable();
+            $table->string('flat_number')->nullable();
+
+            $table->text('additional_info')->nullable();
+
+
+            $table->boolean('is_mobile')->default(false);
+            $table->boolean('done')->default(false);
+
+            $table->json('services');
+            $table->integer('income');
 
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();

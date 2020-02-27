@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Announcement\Calendar\ActionPeriodic;
-use App\Models\Announcement\Calendar\ActionSingle;
+use App\Models\Announcement\WorkTime;
+use App\Models\Announcement\Action;
 use Illuminate\Database\Seeder;
 
 class ActionsSeeder extends Seeder
@@ -13,8 +13,7 @@ class ActionsSeeder extends Seeder
      */
     public function run()
     {
-        ActionPeriodic::create([
-            'type_id' => 1,
+        WorkTime::create([
             'announcement_id' => 1,
             'owner_id' => 2,
             'week_day' => 2,
@@ -24,20 +23,24 @@ class ActionsSeeder extends Seeder
             'end_minute' => '00',
         ]);
 
-        ActionSingle::create([
+        Action::create([
             'type_id' => 2,
             'announcement_id' => 1,
             'customer_id' => 1,
             'owner_id' => 2,
+            'services' => '["make-up"]',
+            'income' => 100,
 
             'start_date' => '2019-01-06 12:00:00',
             'end_date' => '2019-01-06 13:00:00',
         ]);
-        ActionSingle::create([
+        Action::create([
             'type_id' => 2,
             'announcement_id' => 1,
             'customer_id' => 1,
             'owner_id' => 2,
+            'services' => '["Manicure hybrydowy", "Ściąganie hybrydy"]',
+            'income' => 135,
 
             'start_date' => '2019-01-05 11:00:00',
             'end_date' => '2019-01-05 13:00:00',

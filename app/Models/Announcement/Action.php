@@ -1,17 +1,20 @@
 <?php
 
-namespace App\Models\Announcement\Calendar;
+namespace App\Models\Announcement;
 
 use App\Models\Announcement\Announcement;
 use App\Models\BaseAction;
 use App\Models\Announcement\Customer;
 use App\Models\User\User;
 
-class ActionSingle extends BaseAction
+class Action extends BaseAction
 {
-    protected $table = 'calendar_action_single';
+    protected $table = 'announcement_actions';
     protected $guarded = [];
     protected $dates = ['start_date', 'end_date'];
+    protected $casts = [
+        'services' => 'array'
+    ];
 
     /**
      * Get the announcement that owns the action.

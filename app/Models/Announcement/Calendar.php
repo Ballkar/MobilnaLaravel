@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Announcement\Calendar;
+namespace App\Models\Announcement;
 
 use App\Models\User\User;
 use Carbon\Carbon;

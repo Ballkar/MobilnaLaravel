@@ -24,7 +24,7 @@ class StoreService extends FormRequest
     public function rules()
     {
         return [
-            'service_group_id' => 'required|exists:announcements,id',
+            'group_id' => 'required|exists:announcements,id',
             'name' => 'required|min:3|max:200',
             'price' => 'required|numeric',
             'time_hours' => 'required|numeric',

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Models\Announcement\Calendar;
+namespace App\Models\Announcement;
 
 use App\Models\Announcement\Announcement;
 use App\Models\BaseAction;
 use App\Models\User\User;
 use Carbon\Carbon;
 
-class ActionPeriodic extends BaseAction
+class WorkTime extends BaseAction
 {
-    protected $table = 'calendar_action_periodic';
+    protected $table = 'announcement_work_time';
     protected $guarded = [];
 
     /**

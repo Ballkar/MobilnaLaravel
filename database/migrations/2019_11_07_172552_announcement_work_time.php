@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CalendarActionPeriodic extends Migration
+class AnnouncementWorkTime extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CalendarActionPeriodic extends Migration
      */
     public function up()
     {
-        Schema::create('calendar_action_periodic', function(Blueprint $table) {
+        Schema::create('announcement_work_time', function(Blueprint $table) {
             $table->bigIncrements('id');
-
-            $table->bigInteger('type_id')->unsigned();
-            $table->foreign('type_id')->references('id')->on('calendar_action_types');
 
             $table->bigInteger('announcement_id')->unsigned();
             $table->foreign('announcement_id')->references('id')->on('announcements');

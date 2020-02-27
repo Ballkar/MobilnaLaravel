@@ -33,8 +33,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
             Route::apiResource('customer', 'CustomerController');
             Route::apiResource('announcement', 'AnnouncementController')->except('index', 'show');
             Route::apiResource('announcement.service', 'ServiceController')->except('index', 'show');
-            Route::apiResource('announcement.actionPeriodic', 'ActionPeriodicController')->except('index', 'show');
-            Route::apiResource('announcement.actionSingle', 'ActionSingleController')->except('index', 'show');
+            Route::apiResource('announcement.workTime', 'WorkTimeController')->except('index', 'show');
+            Route::apiResource('announcement.action', 'ActionsController')->except('index', 'show');
         });
     });
 
@@ -50,8 +50,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::apiResource('announcement', 'AnnouncementController')->only('index', 'show');
         Route::get('announcement/{announcement}/phone', 'TelephoneController@show');
         Route::apiResource('announcement.service', 'ServiceController')->only('index', 'show');
-        Route::apiResource('announcement.actionPeriodic', 'ActionPeriodicController')->only('index', 'show');
-        Route::apiResource('announcement.actionSingle', 'ActionSingleController')->only('index', 'show');
+        Route::apiResource('announcement.actionPeriodic', 'WorkTimeController')->only('index', 'show');
+        Route::apiResource('announcement.actionSingle', 'ActionsController')->only('index', 'show');
     });
 
     Route::group(['namespace' => 'Auth'], function () {

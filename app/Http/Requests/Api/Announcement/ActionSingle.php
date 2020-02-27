@@ -30,6 +30,12 @@ class ActionSingle extends FormRequest
             'customer_id' => 'required|exists:customers,id',
             'start_date' => 'required|date_format:Y-m-d H:i:s',
             'end_date' => 'required|date_format:Y-m-d H:i:s',
+
+            'phone' => '',
+            'is_mobile' => '',
+            'street' => '',
+            'house_number' => '',
+            'flat_number' => '',
         ];
     }
 }

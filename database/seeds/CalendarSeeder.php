@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CalendarActionTypesSeeder extends Seeder
+class CalendarSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,14 +12,14 @@ class CalendarActionTypesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('calendar_action_types')->insert(
+        DB::table('announcement_action_types')->insert(
             [
-                'name' => 'FREE_TIME',
+                'name' => 'REQUEST',
             ]
         );
-        DB::table('calendar_action_types')->insert(
+        DB::table('announcement_action_types')->insert(
             [
-                'name' => 'CLIENT',
+                'name' => 'APPOINTMENT',
             ]
         );
     }
