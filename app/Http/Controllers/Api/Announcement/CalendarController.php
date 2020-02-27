@@ -8,7 +8,6 @@ use App\Models\Announcement\Announcement;
 use App\Http\Controllers\Controller;
 use App\Models\Announcement\Calendar;
 use App\Http\Resources\BaseResourceCollection;
-use App\Http\Resources\Announcement\Calendar\Calendar as CalendarResource;
 use Illuminate\Support\Facades\Auth;
 
 class CalendarController extends Controller

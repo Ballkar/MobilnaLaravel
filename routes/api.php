@@ -34,7 +34,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
             Route::apiResource('announcement', 'AnnouncementController')->except('index', 'show');
             Route::apiResource('announcement.service', 'ServiceController')->except('index', 'show');
             Route::apiResource('announcement.workTime', 'WorkTimeController')->except('index', 'show');
-            Route::apiResource('announcement.action', 'ActionsController')->except('index', 'show');
+            Route::group(['namespace' => 'Action'], function (){
+                Route::apiResource('announcement.action', 'ActionsController')->except('index', 'show');
+//                Route::apiResource('action.service', 'ActionsController');
+            });
         });
     });
 
@@ -51,7 +54,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::get('announcement/{announcement}/phone', 'TelephoneController@show');
         Route::apiResource('announcement.service', 'ServiceController')->only('index', 'show');
         Route::apiResource('announcement.workTime', 'WorkTimeController')->only('index', 'show');
-        Route::apiResource('announcement.action', 'ActionsController')->only('index', 'show');
+        Route::group(['namespace' => 'Action'], function (){
+            Route::apiResource('announcement.action', 'ActionsController')->only('index', 'show');
+            Route::apiResource('action.service', 'ServiceController');
+        });
     });
 
     Route::group(['namespace' => 'Auth'], function () {

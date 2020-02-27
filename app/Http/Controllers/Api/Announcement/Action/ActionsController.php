@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Announcement;
+namespace App\Http\Controllers\Api\Announcement\Action;
 
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\Announcement\Actions as ActionRequest;
