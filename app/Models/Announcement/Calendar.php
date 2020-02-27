@@ -22,8 +22,8 @@ class Calendar extends Model
 
         $user = User::where('id', $user_id)->first();
 
-        $this->single_actions = $user->actions_single()->betweenDates($this->start, $this->end)->get();
-        $this->periodic_actions = $user->actions_periodic()->betweenDates($this->start, $this->end)->get();
+        $this->single_actions = $user->actions()->betweenDates($this->start, $this->end)->get();
+        $this->periodic_actions = $user->work_times()->betweenDates($this->start, $this->end)->get();
     }
 
     public function getActions()

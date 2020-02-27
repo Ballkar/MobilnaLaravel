@@ -5,10 +5,9 @@ namespace App\Models\User;
 use App\Events\User\UserWasRegistered;
 use App\Http\Controllers\Constants\Roles;
 use App\Models\Announcement\Announcement;
-use App\Models\Announcement\Calendar\ActionPeriodic;
-use App\Models\Announcement\Calendar\ActionSingle;
+use App\Models\Announcement\WorkTime;
+use App\Models\Announcement\Action;
 use App\Models\Announcement\Customer;
-use App\Models\Blog\Comment as BlogComments;
 use App\Models\Blog\Post;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
@@ -71,10 +70,10 @@ class User extends Authenticatable
         return $this->attributes['password'] = Hash::make($password);
     }
 
-    public function blogComments()
-    {
-        return $this->hasMany(BlogComments::class);
-    }
+//    public function blogComments()
+//    {
+//        return $this->hasMany(BlogComments::class);
+//    }
 
     public function blogPosts()
     {
@@ -91,14 +90,14 @@ class User extends Authenticatable
         return $this->hasMany(Customer::class);
     }
 
-    public function actions_single()
+    public function actions()
     {
-        return $this->hasMany(ActionSingle::class, 'owner_id', 'id');
+        return $this->hasMany(Action::class, 'owner_id', 'id');
     }
 
-    public function actions_periodic()
+    public function work_times()
     {
-        return $this->hasMany(ActionPeriodic::class, 'owner_id', 'id');
+        return $this->hasMany(WorkTime::class, 'owner_id', 'id');
     }
 
     public function isAdmin()

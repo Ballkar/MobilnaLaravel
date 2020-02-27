@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\Announcement;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Api\Announcement\ActionSingle as ActionSingleRequest;
+use App\Http\Requests\Api\Announcement\Actions as ActionRequest;
 use App\Http\Resources\BaseResourceCollection;
-use App\Http\Resources\Announcement\Calendar\ActionSingle as ActionResource;
+use App\Http\Resources\Announcement\Action as ActionResource;
 use App\Models\Announcement\Announcement;
 use App\Models\Announcement\Action;
 use Exception;
@@ -26,18 +26,18 @@ class ActionsController extends Controller
     }
 
     /**
-     * @param ActionSingleRequest $request
+     * @param ActionRequest $request
      * @return JsonResponse
      */
-    public function store(ActionSingleRequest $request)
+    public function store(ActionRequest $request)
     {
         $action = Action::create(array_merge($request->validated(), ['owner_id' => Auth::id()]));
-        return $this->sendResponse(new ActionResource($action), 'Actions created!', 201);
+        return $this->sendResponse(new ActionResource($action), 'Action created!', 201);
     }
 
     /**
      * @param Announcement $announcement
-     * @param ActionSingle $action
+     * @param Action $action
      * @return JsonResponse
      */
     public function show(Announcement $announcement, Action $action)
@@ -46,12 +46,12 @@ class ActionsController extends Controller
     }
 
     /**
-     * @param ActionSingleRequest $request
+     * @param ActionRequest $request
      * @param Announcement $announcement
-     * @param ActionSingle $action
+     * @param Action $action
      * @return JsonResponse
      */
-    public function update(ActionSingleRequest $request, Announcement $announcement,  Action $action)
+    public function update(ActionRequest $request, Announcement $announcement,  Action $action)
     {
         $action->update($request->validated());
         return $this->sendResponse(new ActionResource($action), 'Action updated');

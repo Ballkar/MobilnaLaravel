@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Announcement\Calendar;
+namespace App\Http\Resources\Announcement;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ActionPeriodic extends JsonResource
+class Action extends JsonResource
 {
     /**
      * Transform the resource into an array.

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\Announcement;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Api\Announcement\ActionPeriodic as ActionPeriodicRequest;
+use App\Http\Requests\Api\Announcement\WorkTime as ActionPeriodicRequest;
 use App\Http\Resources\BaseResourceCollection;
-use App\Http\Resources\Announcement\Calendar\ActionPeriodic as ActionResource;
+use App\Http\Resources\Announcement\WorkTime as WorkTimeResource;
 use App\Models\Announcement\WorkTime;
 use App\Models\Announcement\Announcement;
 use Exception;
@@ -22,8 +22,8 @@ class WorkTimeController extends Controller
      */
     public function index()
     {
-        $actions = WorkTime::paginate(10);
-        return $this->sendResponse(new BaseResourceCollection($actions), 'All periodic actions returned!');
+        $workTimes = WorkTime::paginate(10);
+        return $this->sendResponse(new BaseResourceCollection($workTimes), 'All work time returned!');
     }
 
     /**
@@ -34,7 +34,7 @@ class WorkTimeController extends Controller
     public function store(Announcement $announcement, ActionPeriodicRequest $request)
     {
         $workTime = WorkTime::create(array_merge($request->validated(), ['owner_id' => Auth::id()]));
-        return $this->sendResponse(new ActionResource($workTime), 'Periodic action created', 201);
+        return $this->sendResponse(new WorkTimeResource($workTime), 'Work time created', 201);
     }
 
     /**
@@ -44,7 +44,7 @@ class WorkTimeController extends Controller
      */
     public function show(Announcement $announcement, WorkTime $workTime)
     {
-        return $this->sendResponse(new ActionResource($workTime), 'Periodic action returned');
+        return $this->sendResponse(new WorkTimeResource($workTime), 'Work time returned');
     }
 
     /**
@@ -56,7 +56,7 @@ class WorkTimeController extends Controller
     public function update(Announcement $announcement, ActionPeriodicRequest $request, WorkTime $workTime)
     {
         $workTime->update($request->validated());
-        return $this->sendResponse(new ActionResource($workTime), 'Periodic action updated!');
+        return $this->sendResponse(new WorkTimeResource($workTime), 'Work time updated!');
     }
 
     /**
@@ -68,6 +68,6 @@ class WorkTimeController extends Controller
     public function destroy(Announcement $announcement, WorkTime $workTime)
     {
         $workTime->delete();
-        return $this->sendResponse(null, 'Periodic actions deleted successfully!', 204);
+        return $this->sendResponse(null, 'Work time deleted successfully!', 204);
     }
 }

@@ -28,7 +28,7 @@ class ActionsSeeder extends Seeder
             'announcement_id' => 1,
             'customer_id' => 1,
             'owner_id' => 2,
-            'services' => '["make-up"]',
+            'services' => '[make-up]',
             'income' => 100,
 
             'start_date' => '2019-01-06 12:00:00',
@@ -39,7 +39,7 @@ class ActionsSeeder extends Seeder
             'announcement_id' => 1,
             'customer_id' => 1,
             'owner_id' => 2,
-            'services' => '["Manicure hybrydowy", "Ściąganie hybrydy"]',
+            'services' => '[Manicure hybrydowy, Ściąganie hybrydy]',
             'income' => 135,
 
             'start_date' => '2019-01-05 11:00:00',

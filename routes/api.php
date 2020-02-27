@@ -50,8 +50,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::apiResource('announcement', 'AnnouncementController')->only('index', 'show');
         Route::get('announcement/{announcement}/phone', 'TelephoneController@show');
         Route::apiResource('announcement.service', 'ServiceController')->only('index', 'show');
-        Route::apiResource('announcement.actionPeriodic', 'WorkTimeController')->only('index', 'show');
-        Route::apiResource('announcement.actionSingle', 'ActionsController')->only('index', 'show');
+        Route::apiResource('announcement.workTime', 'WorkTimeController')->only('index', 'show');
+        Route::apiResource('announcement.action', 'ActionsController')->only('index', 'show');
     });
 
     Route::group(['namespace' => 'Auth'], function () {

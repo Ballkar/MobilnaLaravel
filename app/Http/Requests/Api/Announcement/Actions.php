@@ -5,7 +5,7 @@ namespace App\Http\Requests\Api\Announcement;
 use App\Http\Controllers\Constants\WeekDays;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ActionPeriodic extends FormRequest
+class Actions extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,11 +27,15 @@ class ActionPeriodic extends FormRequest
         return [
             'announcement_id' => 'required|exists:announcements,id',
             'type_id' => 'required|exists:calendar_action_types,id',
-            'week_day' => 'required|numeric|in:'.implode(',', WeekDays::returnAll()),
-            'start_hour' => 'required|numeric',
-            'start_minute' => 'required|numeric',
-            'end_hour' => 'required|numeric',
-            'end_minute' => 'required|numeric',
+            'customer_id' => 'required|exists:customers,id',
+            'start_date' => 'required|date_format:Y-m-d H:i:s',
+            'end_date' => 'required|date_format:Y-m-d H:i:s',
+
+            'phone' => '',
+            'is_mobile' => '',
+            'street' => '',
+            'house_number' => '',
+            'flat_number' => '',
         ];
     }
 }
