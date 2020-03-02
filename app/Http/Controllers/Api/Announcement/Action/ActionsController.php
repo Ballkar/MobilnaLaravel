@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Announcement\Action;
 
+use App\Events\Announcement\ActionCreated;
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\Announcement\Action as ActionRequest;
 use App\Http\Resources\BaseResourceCollection;
@@ -41,6 +42,7 @@ class ActionsController extends Controller
 
         $action = Action::create(array_merge($request->validated(), ['owner_id' => Auth::id() || $announcement->owner->id, 'income' => $income]));
         $action->services()->attach($request->get('services'));
+        event(new ActionCreated($action));
         return $this->sendResponse(new ActionResource($action), 'Action created!', 201);
     }
 

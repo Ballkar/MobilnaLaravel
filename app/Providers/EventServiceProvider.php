@@ -2,11 +2,12 @@
 
 namespace App\Providers;
 
+use App\Events\Announcement\ActionCreated;
+use App\Events\Announcement\ActionWasApproved;
 use App\Events\User\UserWasRegistered;
+use App\Listeners\Announcement\NotifyCustomer;
+use App\Listeners\Announcement\NotifyOwner;
 use App\Listeners\User\SendEmailAfterRegistration;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -19,6 +20,12 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         UserWasRegistered::class => [
             SendEmailAfterRegistration::class,
+        ],
+        ActionCreated::class => [
+            NotifyOwner::class,
+        ],
+        ActionWasApproved::class => [
+            NotifyCustomer::class,
         ],
     ];
 
