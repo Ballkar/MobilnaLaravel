@@ -34,7 +34,8 @@ class AnnouncementActions extends Migration
             $table->string('house_number')->nullable();
             $table->string('flat_number')->nullable();
 
-            $table->text('additional_info')->nullable();
+            
+            $table->text('additional')->nullable();
 
 
             $table->boolean('is_mobile')->default(false);

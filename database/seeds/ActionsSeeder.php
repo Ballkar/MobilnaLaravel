@@ -2,7 +2,9 @@
 
 use App\Models\Announcement\WorkTime;
 use App\Models\Announcement\Action;
+use App\Models\Announcement\ActionType;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ActionsSeeder extends Seeder
 {
@@ -13,18 +15,43 @@ class ActionsSeeder extends Seeder
      */
     public function run()
     {
+        ActionType::create([
+            'name' => 'PROPOSITION',
+        ]);
+        ActionType::create([
+            'name' => 'MEET',
+        ]);
+
         WorkTime::create([
             'announcement_id' => 1,
             'owner_id' => 2,
             'week_day' => 2,
-            'start_hour' => '12',
+            'start_hour' => '10',
             'start_minute' => '30',
             'end_hour' => '14',
             'end_minute' => '00',
         ]);
+        WorkTime::create([
+            'announcement_id' => 1,
+            'owner_id' => 2,
+            'week_day' => 3,
+            'start_hour' => '10',
+            'start_minute' => '30',
+            'end_hour' => '16',
+            'end_minute' => '00',
+        ]);
+        WorkTime::create([
+            'announcement_id' => 1,
+            'owner_id' => 2,
+            'week_day' => 4,
+            'start_hour' => '12',
+            'start_minute' => '30',
+            'end_hour' => '18',
+            'end_minute' => '00',
+        ]);
 
         $action1 = Action::create([
-            'type_id' => 2,
+            'type_id' => 1,
             'announcement_id' => 1,
             'customer_id' => 1,
             'owner_id' => 2,

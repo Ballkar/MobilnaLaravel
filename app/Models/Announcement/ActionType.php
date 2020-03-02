@@ -7,4 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class ActionType extends Model
 {
     protected $table = 'announcement_action_types';
+    public $timestamps = false;
 }

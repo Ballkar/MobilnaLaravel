@@ -55,7 +55,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::apiResource('announcement.service', 'ServiceController')->only('index', 'show');
         Route::apiResource('announcement.workTime', 'WorkTimeController')->only('index', 'show');
         Route::group(['namespace' => 'Action'], function (){
-            Route::apiResource('announcement.action', 'ActionsController')->only('index', 'show');
+            Route::apiResource('announcement.action', 'ActionsController')->only('index', 'show', 'store');
             Route::apiResource('action.service', 'ServiceController');
         });
     });
