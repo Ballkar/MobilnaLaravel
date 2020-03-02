@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Announcement\Action;
 
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\Announcement\UpdateService;
+use App\Http\Resources\Announcement\Action;
 use App\Http\Resources\Announcement\Service\ServiceCollection;
 use App\Http\Resources\BaseResourceCollection;
 use App\Http\Resources\Announcement\Service\Service as ServiceResources;
@@ -19,54 +20,54 @@ class ServiceController extends Controller
     use ApiCommunication;
 
     /**
-     * @param Announcement $announcement
+     * @param Action $action
      * @return JsonResponse
      */
-    public function index(Announcement $announcement)
+    public function index(Action $action)
     {
-        return $this->sendResponse(ServiceResources::collection($announcement->services), 'All services from announcement returned!');
+        return $this->sendResponse(ServiceResources::collection($action->services), 'All services from action returned!');
     }
 
     /**
      * @param StoreService $request
-     * @param Announcement $announcement
+     * @param Action $action
      * @return JsonResponse
      */
-    public function store(StoreService $request, Announcement $announcement)
+    public function store(StoreService $request, Action $action)
     {
-        $service = Service::create(array_merge($request->validated(), ['announcement_id' => $announcement->id]));
+        $service = Service::create(array_merge($request->validated(), ['announcement_id' => $action->id]));
         return $this->sendResponse(new ServiceResources($service), 'Services added!', 203);
     }
 
     /**
-     * @param Announcement $announcement
+     * @param Action $action
      * @param Service $service
      * @return JsonResponse
      */
-    public function show(Announcement $announcement, Service $service)
+    public function show(Action $action, Service $service)
     {
         return $this->sendResponse(new ServiceResources($service), 'Service returned!');
     }
 
     /**
      * @param UpdateService $request
-     * @param Announcement $announcement
+     * @param Action $action
      * @param Service $service
      * @return JsonResponse
      */
-    public function update(UpdateService $request, Announcement $announcement, Service $service)
+    public function update(UpdateService $request, Action $action, Service $service)
     {
         $service->update($request->validated());
         return $this->sendResponse(new ServiceResources($service), 'Service updated');
     }
 
     /**
-     * @param Announcement $announcement
+     * @param Action $action
      * @param Service $service
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(Announcement $announcement, Service $service)
+    public function destroy(Action $action, Service $service)
     {
         $service->delete();
         return $this->sendResponse(null, 'Service deleted', 204);
