@@ -30,7 +30,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
             Route::delete('announcement/{announcement}/image/{image}', 'ImagesController@delete');
             Route::post('announcement/{announcement}/changeMainImage', 'ImagesController@changeMainImage');
             Route::get('announcement/{announcement}/calendar', 'CalendarController@show');
-            Route::apiResource('customer', 'CustomerController');
+            Route::apiResource('customers', 'CustomerController');
             Route::apiResource('announcement', 'AnnouncementController')->except('index', 'show');
             Route::apiResource('announcement.service', 'ServiceController')->except('index', 'show');
             Route::apiResource('announcement.workTime', 'WorkTimeController')->except('index', 'show');

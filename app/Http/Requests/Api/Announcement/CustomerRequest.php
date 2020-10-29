@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\Announcement;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCustomerRequest extends FormRequest
+class CustomerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,14 +28,13 @@ class StoreCustomerRequest extends FormRequest
             'surname' => 'string|min:4',
             'phone' => 'required_without:user_id|string|min:4',
 
-            'city_id' => 'exists:cities,id',
-            'road' => 'string|min:4',
-            'house_number' => 'string|min:1',
-            'flat_number' => 'string|min:1',
-            'additional_info' => 'string|min:4',
-            'birth_date' => 'date|nullable',//
-
-            'user_id' => 'required_without_all:name,phone|exists:users,id',
+            // 'city_id' => 'exists:cities,id',
+            // 'road' => 'string|min:4',
+            // 'house_number' => 'string|min:1',
+            // 'flat_number' => 'string|min:1',
+            // 'additional_info' => 'string|min:4',
+            // 'birth_date' => 'date|nullable',//
+            // 'user_id' => 'required_without_all:name,phone|exists:users,id',
         ];
     }
 }

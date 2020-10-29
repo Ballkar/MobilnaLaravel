@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Api\Announcement;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Api\Announcement\StoreCustomerRequest;
-use App\Http\Requests\Api\Announcement\UpdateCustomerRequest;
+use App\Http\Requests\Api\Announcement\CustomerRequest;
 use App\Http\Resources\Announcement\Customer as CustomerResource;
 use App\Http\Resources\Announcement\CustomerCollection;
 use App\Models\Announcement\Customer;
@@ -31,10 +30,10 @@ class CustomerController extends Controller
     }
 
     /**
-     * @param StoreCustomerRequest $request
+     * @param CustomerRequest $request
      * @return JsonResponse
      */
-    public function store(StoreCustomerRequest $request)
+    public function store(CustomerRequest $request)
     {
         $customer = Customer::create(array_merge($request->validated(), [
             'owner_id' => Auth::id(),
@@ -52,11 +51,11 @@ class CustomerController extends Controller
     }
 
     /**
-     * @param UpdateCustomerRequest $request
+     * @param CustomerRequest $request
      * @param Customer $customer
      * @return JsonResponse
      */
-    public function update(UpdateCustomerRequest $request, Customer $customer)
+    public function update(CustomerRequest $request, Customer $customer)
     {
         $customer->update($request->validated());
         return $this->sendResponse(new CustomerResource($customer), 'Customer updated');
