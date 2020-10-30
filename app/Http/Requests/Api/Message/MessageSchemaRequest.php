@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\Message;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MessageRequest extends FormRequest
+class MessageSchemaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Message;
 
 use Illuminate\Database\Eloquent\Model;
 
 class MessageSchema extends Model
 {
+    protected $table = 'message_schemas';
     protected $guarded = [];
 
     public function messages()
