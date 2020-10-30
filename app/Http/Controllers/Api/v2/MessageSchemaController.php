@@ -35,40 +35,40 @@ class MessageSchemaController extends Controller
      */
     public function store(MessageSchemaRequest $request)
     {
-        $schema = MessageSchema::create(array_merge($request->validated(), [
+        $messageSchema = MessageSchema::create(array_merge($request->validated(), [
             'owner_id' => Auth::id(),
         ]));
-        return $this->sendResponse(new MessageSchemaResource($schema), 'MessageSchema Added', 201);
+        return $this->sendResponse(new MessageSchemaResource($messageSchema), 'MessageSchema Added', 201);
     }
 
     /**
-     * @param MessageSchema $schema
+     * @param MessageSchema $messageSchema
      * @return JsonResponse
      */
-    public function show(MessageSchema $schema)
+    public function show(MessageSchema $messageSchema)
     {
-        return $this->sendResponse(new MessageSchemaResource($schema), 'MessageSchema returned');
+        return $this->sendResponse(new MessageSchemaResource($messageSchema), 'MessageSchema returned');
     }
 
     /**
      * @param MessageSchemaRequest $request
-     * @param MessageSchema $schema
+     * @param MessageSchema $messageSchema
      * @return JsonResponse
      */
-    public function update(MessageSchemaRequest $request, MessageSchema $schema)
+    public function update(MessageSchemaRequest $request, MessageSchema $messageSchema)
     {
-        $schema->update($request->validated());
-        return $this->sendResponse(new MessageSchemaResource($schema), 'MessageSchema updated');
+        $messageSchema->update($request->validated());
+        return $this->sendResponse(new MessageSchemaResource($messageSchema), 'MessageSchema updated');
     }
 
     /**
-     * @param MessageSchema $schema
+     * @param MessageSchema $messageSchema
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(MessageSchema $schema)
+    public function destroy(MessageSchema $messageSchema)
     {
-        $schema->delete();
+        $messageSchema->delete();
         return $this->sendResponse(null, 'Schema deleted', 204);
     }
 }

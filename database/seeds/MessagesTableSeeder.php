@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\MessageSchema;
-use App\Models\Message;
+use App\Models\Message\MessageSchema;
+use App\Models\Message\Message;
 
 class MessagesTableSeeder extends Seeder
 {
