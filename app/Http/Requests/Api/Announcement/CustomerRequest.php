@@ -27,12 +27,12 @@ class CustomerRequest extends FormRequest
             'name' => 'required_without:user_id|string|min:4',
             'surname' => 'string|min:4',
             'phone' => 'required_without:user_id|string|min:4',
+            'additional_info' => 'string|min:4',
 
             // 'city_id' => 'exists:cities,id',
             // 'road' => 'string|min:4',
             // 'house_number' => 'string|min:1',
             // 'flat_number' => 'string|min:1',
-            // 'additional_info' => 'string|min:4',
             // 'birth_date' => 'date|nullable',//
             // 'user_id' => 'required_without_all:name,phone|exists:users,id',
         ];
