@@ -19,12 +19,8 @@ class Messages extends Migration
             $table->bigInteger('owner_id')->unsigned();
             $table->foreign('owner_id')->references('id')->on('users');
 
-            $table->bigInteger('schema_id')->unsigned();
-            $table->foreign('schema_id')->references('id')->on('message_schemas');
-
             $table->bigInteger('customer_id')->unsigned();
             $table->foreign('customer_id')->references('id')->on('customers');
-
 
             $table->string('name')->nullable();
             $table->string('text')->nullable();
