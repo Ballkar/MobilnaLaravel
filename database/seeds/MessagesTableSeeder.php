@@ -29,12 +29,14 @@ class MessagesTableSeeder extends Seeder
             'customer_id' => '1',
             'name' => 'Odmowa wiyzty',
             'text' => 'sory no nie dam rady dziś',
+            'customer_id' => '1',
         ]);
         Message::create([
             'owner_id' => '2',
             'customer_id' => '2',
             'name' => 'Odmowa wiyzty',
             'text' => 'sory no nie dam rady dziś',
+            'customer_id' => '2',
         ]);
     }
 }
