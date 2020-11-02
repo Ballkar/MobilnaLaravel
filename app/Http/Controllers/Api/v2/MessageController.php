@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Api\v2;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Api\Message\MessageSchema;
-use App\Http\Resources\Announcement\Customer as CustomerResource;
-use App\Http\Resources\Announcement\MessageSchemaCollection;
-use App\Models\Announcement\Customer;
+use App\Http\Resources\Message\Message as MessageResource;
+use App\Http\Resources\Message\MessageCollection;
+use App\Models\Message\Message;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -24,51 +23,51 @@ class MessageController extends Controller
     public function index(Request $request)
     {
         $limit = $request->limit ? $request->limit : 10;
-        $customers = Customer::paginate($limit);
+        $messages = Message::paginate($limit);
 
-        return $this->sendResponse(new MessageSchemaCollection($customers), 'All customers returned');
+        return $this->sendResponse(new MessageCollection($messages), 'All messages returned');
     }
 
     /**
      * @param CustomerRequest $request
      * @return JsonResponse
      */
-    public function store(CustomerRequest $request)
+    public function store(Request $request)
     {
-        $customer = Customer::create(array_merge($request->validated(), [
+        $message = Message::create(array_merge($request->validated(), [
             'owner_id' => Auth::id(),
         ]));
-        return $this->sendResponse(new CustomerResource($customer), 'Customer Added', 201);
+        return $this->sendResponse(new MessageResource($message), 'Message Added', 201);
     }
 
     /**
-     * @param Customer $customer
+     * @param Message $message
      * @return JsonResponse
      */
-    public function show(Customer $customer)
+    public function show(Message $message)
     {
-        return $this->sendResponse(new CustomerResource($customer), 'Customer returned');
+        return $this->sendResponse(new MessageResource($message), 'Message returned');
     }
 
     /**
      * @param CustomerRequest $request
-     * @param Customer $customer
+     * @param Message $message
      * @return JsonResponse
      */
-    public function update(CustomerRequest $request, Customer $customer)
+    public function update(Request $request, Message $message)
     {
-        $customer->update($request->validated());
-        return $this->sendResponse(new CustomerResource($customer), 'Customer updated');
+        $message->update($request->validated());
+        return $this->sendResponse(new MessageResource($message), 'Message updated');
     }
 
     /**
-     * @param Customer $customer
+     * @param Message $message
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(Customer $customer)
+    public function destroy(Message $message)
     {
-        $customer->delete();
-        return $this->sendResponse(null, 'Category deleted', 204);
+        $message->delete();
+        return $this->sendResponse(null, 'Message deleted', 204);
     }
 }
