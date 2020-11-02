@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v2;
 
 use App\Http\Controllers\ApiCommunication;
+use App\Http\Requests\Api\Message\MessageInitRequest;
 use App\Http\Resources\Message\Message as MessageResource;
 use App\Http\Resources\Message\MessageCollection;
 use App\Models\Message\Message;
@@ -29,10 +30,10 @@ class MessageController extends Controller
     }
 
     /**
-     * @param CustomerRequest $request
+     * @param MessageInitRequest $request
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(MessageInitRequest $request)
     {
         $message = Message::create(array_merge($request->validated(), [
             'owner_id' => Auth::id(),
