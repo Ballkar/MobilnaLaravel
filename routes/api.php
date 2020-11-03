@@ -86,7 +86,7 @@ Route::group(['prefix' => 'v2', 'namespace' => 'Api\v2'], function () {
             Route::apiResource('customers', 'CustomerController');
         });
         Route::apiResource('messageSchemas', 'MessageSchemaController');
-        Route::apiResource('messages', 'MessageController');
+        Route::apiResource('messages', 'MessageController')->except('update', 'destroy');
     });
 
     Route::group(['namespace' => 'Auth'], function () {
