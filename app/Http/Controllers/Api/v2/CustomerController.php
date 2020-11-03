@@ -23,8 +23,16 @@ class CustomerController extends Controller
      */
     public function index(Request $request)
     {
-        $limit = $request->limit ? $request->limit : 10;
-        $customers = Customer::paginate($limit);
+        $limit = $request->get('limit') ? $request->get('limit') : 10;
+        $query = $request->get('query');
+        if(isset($query)) {
+            $customers = Customer::where('name', 'like', '%' . $query . '%')
+                ->orWhere('surname', 'like', '%' . $query . '%')
+                ->orWhere('phone', 'like', '%' . $query . '%')
+                ->paginate($limit);
+        } else {
+            $customers = Customer::paginate($limit);
+        }
 
         return $this->sendResponse(new CustomerCollection($customers), 'All customers returned');
     }

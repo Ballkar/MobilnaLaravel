@@ -24,8 +24,12 @@ class MessageSchemaController extends Controller
     public function index(Request $request)
     {
         $limit = $request->limit ? $request->limit : 10;
-        $schemas = MessageSchema::paginate($limit);
-
+        $query = $request->get('query');
+        if(isset($query)) {
+            $schemas = MessageSchema::where('name', 'like', '%' . $query . '%')->paginate($limit);
+        } else {
+            $schemas = MessageSchema::paginate($limit);
+        }
         return $this->sendResponse(new MessageSchemaCollection($schemas), 'All message schema returned');
     }
 

@@ -24,7 +24,18 @@ class MessageController extends Controller
     public function index(Request $request)
     {
         $limit = $request->limit ? $request->limit : 10;
-        $messages = Message::paginate($limit);
+        $query = $request->get('query');
+        if(isset($query)) {
+            $messages = Message::where('name', 'like', '%' . $query . '%')
+                ->orWhereHas('customer', function ($messages) use ( $query ) {
+                    $messages->where('name', 'like', '%' . $query . '%')
+                        ->orWhere('surname', 'like', '%' . $query . '%')
+                        ->orWhere('phone', 'like', '%' . $query . '%');
+                })
+                ->paginate($limit);
+        } else {
+            $messages = Message::paginate($limit);
+        }
 
         return $this->sendResponse(new MessageCollection($messages), 'All messages returned');
     }
