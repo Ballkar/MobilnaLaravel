@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\v1\Admin;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Api\Newsletter\UpdateNewsletterRequest;
+use App\Http\Requests\Api\Api\Newsletter\UpdateNewsletterRequest;
 use App\Http\Resources\BaseResourceCollection;
 use App\Http\Resources\Newsletter as NewsletterResource;
 use App\Models\Newsletter;

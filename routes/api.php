@@ -81,12 +81,10 @@ Route::group(['prefix' => 'v2', 'namespace' => 'Api\v2'], function () {
 
     Route::group(['middleware' => ['auth:api']], function () {
 
-        Route::group(['namespace' => 'Announcement'], function () {
-            Route::apiResource('customers', 'CustomerController');
-        });
         Route::group(['namespace' => 'Calendar'], function () {
             Route::apiResource('calendarWorks', 'CalendarWorksController')->only('index');
         });
+        Route::apiResource('customers', 'CustomerController');
         Route::apiResource('messageSchemas', 'MessageSchemaController');
         Route::apiResource('messages', 'MessageController')->except('update', 'destroy');
     });

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\v1\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Auth\SendPasswordLinkRequest;
-use App\Http\Requests\Api\Auth\StoreNewPasswordRequest;
+use App\Http\Requests\Api\Api\Auth\SendPasswordLinkRequest;
+use App\Http\Requests\Api\Api\Auth\StoreNewPasswordRequest;
 //use App\Jobs\Users\GenerateUserTokenForPasswordLink;
 use App\Models\User\User;
 use Illuminate\Contracts\Hashing\Hasher;

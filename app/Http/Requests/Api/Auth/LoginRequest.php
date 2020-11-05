@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Requests\Api\Auth;
+namespace App\Http\Requests\Api\Api\Auth;
 
 use App\Http\Controllers\Constants\Roles;
-use App\Http\Requests\ApiFormRequest;
+use App\Http\Requests\Api\ApiFormRequest;
 
 class LoginRequest extends ApiFormRequest
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api\Newsletter;
+namespace App\Http\Requests\Api\Api\Newsletter;
 
 use Illuminate\Foundation\Http\FormRequest;
 

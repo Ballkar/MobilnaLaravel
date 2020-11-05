@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api\Announcement;
+namespace App\Http\Requests\Api\Api\Announcement;
 
 use App\Http\Controllers\Constants\AnnouncementTypes;
 use Illuminate\Foundation\Http\FormRequest;

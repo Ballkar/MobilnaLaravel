@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\v1\Admin;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Api\Blog\StoreCategoryRequest;
-use App\Http\Requests\Api\Blog\UpdateCategoryRequest;
+use App\Http\Requests\Api\Api\Blog\StoreCategoryRequest;
+use App\Http\Requests\Api\Api\Blog\UpdateCategoryRequest;
 use App\Http\Resources\Blog\Category as CategoryResource;
 use App\Models\Blog\Category;
 use Exception;

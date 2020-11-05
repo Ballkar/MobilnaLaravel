@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\v1\Announcement;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Api\Announcement\GetCalendarRequest;
+use App\Http\Requests\Api\Api\Announcement\GetCalendarRequest;
 use App\Models\Announcement\Announcement;
 use App\Http\Controllers\Controller;
 use App\Models\Announcement\Calendar;

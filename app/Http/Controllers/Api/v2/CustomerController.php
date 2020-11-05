@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api\v2\Announcement;
+namespace App\Http\Controllers\Api\v2;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Api\Announcement\CustomerRequest;
+use App\Http\Requests\Api\Api\Announcement\CustomerRequest;
 use App\Http\Resources\Announcement\Customer as CustomerResource;
 use App\Http\Resources\Announcement\CustomerCollection;
 use App\Models\Announcement\Customer;

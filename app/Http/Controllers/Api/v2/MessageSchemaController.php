@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\v2;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Api\Message\MessageSchemaRequest;
+use App\Http\Requests\Api\Api\Message\MessageSchemaRequest;
 use App\Http\Resources\Message\MessageSchemaResource;
 use App\Http\Resources\Message\MessageSchemaCollection;
 use App\Models\Message\MessageSchema;

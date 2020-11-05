@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\v1\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Auth\StoreInvitationPasswordRequest;
+use App\Http\Requests\Api\Api\Auth\StoreInvitationPasswordRequest;
 use App\Models\User\User;
 use Illuminate\Config\Repository;
 use Illuminate\Contracts\Hashing\Hasher;

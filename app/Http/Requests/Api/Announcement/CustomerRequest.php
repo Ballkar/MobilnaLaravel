@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api\Announcement;
+namespace App\Http\Requests\Api\Api\Announcement;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -27,7 +27,7 @@ class CustomerRequest extends FormRequest
             'name' => 'required_without:user_id|string|min:4',
             'surname' => 'string|min:4',
             'phone' => 'required_without:user_id|string|min:4',
-            'additional_info' => 'string|min:4',
+            'additional_info' => 'nullable|string|min:4',
 
             // 'city_id' => 'exists:cities,id',
             // 'road' => 'string|min:4',

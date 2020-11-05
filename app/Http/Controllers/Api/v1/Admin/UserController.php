@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\v1\Admin;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Api\User\StoreUserRequest;
-use App\Http\Requests\Api\User\UpdateUserRequest;
+use App\Http\Requests\Api\Api\User\StoreUserRequest;
+use App\Http\Requests\Api\Api\User\UpdateUserRequest;
 use App\Http\Resources\User\UserCollection;
 use App\Models\User\User;
 use Exception;

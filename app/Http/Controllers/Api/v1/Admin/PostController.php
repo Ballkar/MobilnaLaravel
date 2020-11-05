@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\v1\Admin;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Api\Blog\StorePostRequest;
-use App\Http\Requests\Api\Blog\UpdatePostRequest;
+use App\Http\Requests\Api\Api\Blog\StorePostRequest;
+use App\Http\Requests\Api\Api\Blog\UpdatePostRequest;
 use App\Http\Resources\Blog\Post as PostResource;
 use App\Http\Resources\Blog\PostCollection;
 use App\Models\Blog\Post;

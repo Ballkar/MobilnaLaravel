@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\v1\Announcement\Action;
 
 use App\Events\Announcement\ActionCreated;
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Api\Announcement\Action as ActionRequest;
+use App\Http\Requests\Api\Api\Announcement\Action as ActionRequest;
 use App\Http\Resources\BaseResourceCollection;
 use App\Http\Resources\Announcement\Action as ActionResource;
 use App\Models\Announcement\Announcement;

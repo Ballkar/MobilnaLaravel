@@ -13,9 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\Console\Commands\Cities',
-        'App\Console\Commands\Locating',
-        'App\Console\Commands\init',
+        'App\Console\Commands\import\Cities',
+        'App\Console\Commands\import\Locating',
+        'App\Console\Commands\init\init',
     ];
 
     /**

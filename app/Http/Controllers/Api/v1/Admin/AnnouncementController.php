@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\v1\Admin;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Api\Announcement\UpdateAnnouncementRequest;
+use App\Http\Requests\Api\Api\Announcement\UpdateAnnouncementRequest;
 use App\Http\Resources\Announcement\Announcement as AnnouncementResource;
 use App\Http\Resources\Announcement\AnnouncementCollection;
 use App\Models\Announcement\Announcement;

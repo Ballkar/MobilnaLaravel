@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\v1\User;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Api\User\UpdateUserDetailsRequest;
+use App\Http\Requests\Api\Api\User\UpdateUserDetailsRequest;
 use App\Http\Resources\User\User as UserResource;
 use App\Http\Resources\User\UserCollection;
 use App\Models\User\User;

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\v1\Announcement\Action;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Api\Announcement\UpdateService;
+use App\Http\Requests\Api\Api\Announcement\UpdateService;
 use App\Http\Resources\Announcement\Action;
 use App\Http\Resources\Announcement\Service\ServiceCollection;
 use App\Http\Resources\BaseResourceCollection;
@@ -12,7 +12,7 @@ use App\Models\Announcement\Announcement;
 use App\Models\Announcement\Service\Service;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use App\Http\Requests\Api\Announcement\StoreService;
+use App\Http\Requests\Api\Api\Announcement\StoreService;
 use App\Http\Controllers\Controller;
 
 class ServiceController extends Controller

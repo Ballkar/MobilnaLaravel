@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Newsletter\StoreNewsletterRequest;
+use App\Http\Requests\Api\Api\Newsletter\StoreNewsletterRequest;
 use App\Models\Newsletter;
 use App\Http\Resources\Newsletter as NewsletterResource;
 

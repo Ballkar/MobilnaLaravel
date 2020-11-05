@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\v1\Auth;
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Controllers\Constants\Roles;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Auth\LoginRequest;
+use App\Http\Requests\Api\Api\Auth\LoginRequest;
 use App\Http\Resources\User as UserResource;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\import;
 
 use App\Imports\CitiesImport as CitiesImport;
 use App\Models\City;

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\v1\Auth;
 
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Auth\RegisterRequest;
+use App\Http\Requests\Api\Api\Auth\RegisterRequest;
 use App\Http\Resources\User\User as UserResource;
 use App\Models\User\User;
 

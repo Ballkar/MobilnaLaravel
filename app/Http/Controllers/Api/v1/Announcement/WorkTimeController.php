@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\v1\Announcement;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Api\Announcement\WorkTime as ActionPeriodicRequest;
+use App\Http\Requests\Api\Api\Announcement\WorkTime as ActionPeriodicRequest;
 use App\Http\Resources\BaseResourceCollection;
 use App\Http\Resources\Announcement\WorkTime as WorkTimeResource;
 use App\Models\Announcement\WorkTime;
