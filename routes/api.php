@@ -82,7 +82,7 @@ Route::group(['prefix' => 'v2', 'namespace' => 'Api\v2'], function () {
     Route::group(['middleware' => ['auth:api']], function () {
 
         Route::group(['namespace' => 'Calendar'], function () {
-            Route::apiResource('calendarWorks', 'CalendarWorksController')->only('index');
+            Route::apiResource('calendarWorks', 'CalendarWorksController')->except('show');
         });
         Route::apiResource('customers', 'CustomerController');
         Route::apiResource('messageSchemas', 'MessageSchemaController');

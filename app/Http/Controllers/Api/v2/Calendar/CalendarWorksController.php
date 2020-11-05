@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api\v2\Calendar;
 
 use App\Http\Controllers\ApiCommunication;
+use App\Http\Requests\Api\Calendar\WorkRequest;
 use App\Http\Resources\Calendar\Work as WorkResource;
 use App\Http\Resources\Calendar\WorkCollection;
-use App\Models\Calendar\Works;
+use App\Models\Calendar\Work;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -23,22 +24,33 @@ class CalendarWorksController extends Controller
     public function index(Request $request)
     {
         $limit = $request->get('limit') ? $request->get('limit') : 10;
-        $works = Works::paginate($limit);
+        $works = Work::paginate($limit);
 
         return $this->sendResponse(new WorkCollection($works), 'All works returned');
     }
 
-    // /**
-    //  * @param CustomerRequest $request
-    //  * @return JsonResponse
-    //  */
-    // public function store(CustomerRequest $request)
-    // {
-    //     $customer = Customer::create(array_merge($request->validated(), [
-    //         'owner_id' => Auth::id(),
-    //     ]));
-    //     return $this->sendResponse(new CustomerResource($customer), 'Customer Added', 201);
-    // }
+     /**
+      * @param WorkRequest $request
+      * @param Work $calendarWork
+      * @return JsonResponse
+      */
+     public function update(WorkRequest $request, Work $calendarWork)
+     {
+         $calendarWork->update($request->validated());
+         return $this->sendResponse(new WorkResource($calendarWork), 'Work updated');
+     }
+
+     /**
+      * @param WorkRequest $request
+      * @return JsonResponse
+      */
+     public function store(WorkRequest $request)
+     {
+         $calendarWork = Work::create(array_merge($request->validated(), [
+             'owner_id' => Auth::id(),
+         ]));
+         return $this->sendResponse(new WorkResource($calendarWork), 'Work Added', 201);
+     }
 
     // /**
     //  * @param Customer $customer
@@ -49,25 +61,14 @@ class CalendarWorksController extends Controller
     //     return $this->sendResponse(new CustomerResource($customer), 'Customer returned');
     // }
 
-    // /**
-    //  * @param CustomerRequest $request
-    //  * @param Customer $customer
-    //  * @return JsonResponse
-    //  */
-    // public function update(CustomerRequest $request, Customer $customer)
-    // {
-    //     $customer->update($request->validated());
-    //     return $this->sendResponse(new CustomerResource($customer), 'Customer updated');
-    // }
-
-    // /**
-    //  * @param Customer $customer
-    //  * @return JsonResponse
-    //  * @throws Exception
-    //  */
-    // public function destroy(Customer $customer)
-    // {
-    //     $customer->delete();
-    //     return $this->sendResponse(null, 'Category deleted', 204);
-    // }
+     /**
+      * @param Work $calendarWork
+      * @return JsonResponse
+      * @throws Exception
+      */
+     public function destroy(Work $calendarWork)
+     {
+         $calendarWork->delete();
+         return $this->sendResponse(null, 'Work deleted', 204);
+     }
 }

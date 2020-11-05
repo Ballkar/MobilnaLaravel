@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Announcement\Customer;
 use App\Models\User\User;
 
-class Works extends Model
+class Work extends Model
 {
     protected $guarded = [];
     protected $table = 'calendar_works';
