@@ -7,6 +7,7 @@ use App\Http\Requests\Api\Calendar\WorkRequest;
 use App\Http\Resources\Calendar\Work as WorkResource;
 use App\Http\Resources\Calendar\WorkCollection;
 use App\Models\Calendar\Work;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -16,7 +17,6 @@ use Illuminate\Support\Facades\Auth;
 class CalendarWorksController extends Controller
 {
     use ApiCommunication;
-
     /**
      * @param Request $request
      * @return JsonResponse
@@ -24,7 +24,11 @@ class CalendarWorksController extends Controller
     public function index(Request $request)
     {
         $limit = $request->get('limit') ? $request->get('limit') : 10;
-        $works = Work::paginate($limit);
+        $start = $request->get('start') ? $request->get('start') : 10;
+        $stop = $request->get('stop') ? $request->get('stop') : 10;
+        $start = Carbon::make($start);
+        $stop = Carbon::make($stop);
+        $works = Work::where('start', '>=', $start)->where('stop', '<=', $stop)->paginate($limit);
 
         return $this->sendResponse(new WorkCollection($works), 'All works returned');
     }
