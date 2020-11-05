@@ -120,6 +120,7 @@ return [
     */
 
     'key' => env('APP_KEY'),
+    'MESSAGE_KEY' => env('MESSAGE_KEY'),
 
     'cipher' => 'AES-256-CBC',
 
