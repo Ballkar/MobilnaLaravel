@@ -8,35 +8,33 @@ use GuzzleHttp\Psr7\Request;
 
 class MessageController extends Controller
 {
+    public $client;
 
-    public function send($message, $to)
+    public function __construct()
     {
-        $client = new Client();
-        $url = 'https://justsend.pl/api/rest/v2/message/send';
-        $type = 'PRO';
-        $from = 'Mobilna Kosmetyczka';
-        $doubleEncode = false;
-
-
-        $request = new Request('POST', $url, [
+        $this->client = new Client([
+            'base_uri' => 'https://justsend.pl/api/rest/v2/',
             'headers' => [
-                'Content-Type' => 'application/json',
+                'content-type' => 'application/json',
                 'App-Key' => env('MESSAGE_KEY')
-            ],
-            'body' => [
-                'message' => $message,
-                'to' => $to,
-                'bulkVariant' => $type,
-                "doubleEncode" => $doubleEncode,
-                'from' => $from
             ]
         ]);
 
-        $promise = $client->sendAsync($request)->then(function ($response) {
-            echo 'I completed! ' . $response->getBody();
-        });
+    }
 
-        $promise->wait();
+    public function send($message, $from, $to, $doubleEncode = false, $type='PRO')
+    {
+        $url = 'message/send';
+        $body = [
+            'message' => $message,
+            'to' => $to,
+            'bulkVariant' => $type,
+            "doubleEncode" => $doubleEncode,
+            'from' => $from
+        ];
 
+
+        $response = $this->client->request('POST', $url, ['body' => json_encode($body)]);
+//        var_dump(json_decode($response->getBody()->getContents()));
     }
 }

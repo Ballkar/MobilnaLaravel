@@ -16,7 +16,8 @@ class MessageInitRequest extends FormRequest
     {
         return [
             'customer_id' => 'exists:customers,id',
-            'schema_id' => 'exists:message_schemas,id',
+            'schema_id' => 'required_without:text|exists:message_schemas,id',
+            'text' => 'required_without:schema_id|string',
             'date' => 'date',
         ];
     }

@@ -6,7 +6,9 @@ use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Api\Api\Message\MessageInitRequest;
 use App\Http\Resources\Message\Message as MessageResource;
 use App\Http\Resources\Message\MessageCollection;
+use App\Models\Announcement\Customer;
 use App\Models\Message\Message;
+use App\Models\Message\MessageSchema;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -46,10 +48,26 @@ class MessageController extends Controller
      */
     public function store(MessageInitRequest $request)
     {
-        $message = Message::create(array_merge($request->validated(), [
-            'owner_id' => Auth::id(),
-        ]));
-        return $this->sendResponse(new MessageResource($message), 'Message Added', 201);
+        $customer_id = $request->get('customer_id');
+        $schema_id = $request->get('schema_id');
+        $date = $request->get('date');
+        $text = $request->get('text');
+        $schema = MessageSchema::find($schema_id);
+
+        $messageText = $schema ? $schema->text : $text;
+        $to = Customer::find($customer_id)->phone;
+        $from = $request->user('api')->name;
+
+        $controller = new \App\Http\Controllers\MessageController();
+        $controller->send($messageText, $from, $to);
+
+        $messageSended = Message::create([
+            'owner_id' => $request->user('api')->id,
+            'customer_id' => $customer_id,
+            'name' => $schema ? $schema->name : 'Jednorazowa wiadomość',
+            'text' => $messageText,
+        ]);
+        return $this->sendResponse(new MessageResource($messageSended), 'Message sended', 201);
     }
 
     /**

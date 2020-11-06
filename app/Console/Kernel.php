@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         'App\Console\Commands\import\Cities',
         'App\Console\Commands\import\Locating',
         'App\Console\Commands\init\init',
+        'App\Console\Commands\SendMessage',
     ];
 
     /**
