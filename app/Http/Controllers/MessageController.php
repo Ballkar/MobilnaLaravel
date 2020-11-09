@@ -8,6 +8,7 @@ use GuzzleHttp\Psr7\Request;
 
 class MessageController extends Controller
 {
+    private $messageCost = 7;
     public $client;
 
     public function __construct()
@@ -19,7 +20,6 @@ class MessageController extends Controller
                 'App-Key' => env('MESSAGE_KEY')
             ]
         ]);
-
     }
 
     public function send($message, $from, $to, $doubleEncode = false, $type='PRO')
@@ -33,8 +33,16 @@ class MessageController extends Controller
             'from' => $from
         ];
 
+        return $this->client->request('POST', $url, ['body' => json_encode($body)]);
+    }
 
-        $response = $this->client->request('POST', $url, ['body' => json_encode($body)]);
-//        var_dump(json_decode($response->getBody()->getContents()));
+    public function checkMessageCountAvailable()
+    {
+        $url = 'payment/points';
+
+        $response = $this->client->request('GET', $url);
+        $body = json_decode($response->getBody()->getContents());
+        $points = $body->data;
+        return (int)floor($points / $this->messageCost);
     }
 }

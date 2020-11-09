@@ -120,7 +120,9 @@ return [
     */
 
     'key' => env('APP_KEY'),
-    'MESSAGE_KEY' => env('MESSAGE_KEY'),
+    'MESSAGE_CRITICAL_COUNT' => env('MESSAGE_CRITICAL_COUNT'),
+    'ADMIN_PHONE' => env('ADMIN_PHONE'),
+    'PHONE_APP_NAME' => env('PHONE_APP_NAME'),
 
     'cipher' => 'AES-256-CBC',
 
