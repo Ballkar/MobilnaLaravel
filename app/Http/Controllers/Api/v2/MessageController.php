@@ -50,6 +50,8 @@ class MessageController extends Controller
     {
         $customer_id = $request->get('customer_id');
         $schema_id = $request->get('schema_id');
+        $polishChars = $request->get('with_polish_chars') || false;
+
         $date = $request->get('date');
         $text = $request->get('text');
         $schema = MessageSchema::find($schema_id);
@@ -58,16 +60,26 @@ class MessageController extends Controller
         $to = Customer::find($customer_id)->phone;
         $from = $request->user('api')->name;
 
-        $controller = new \App\Http\Controllers\MessageController();
-        $controller->send($messageText, $from, $to);
+        $name = $schema ? $schema->name : 'Jednorazowa wiadomość';
 
-        $messageSended = Message::create([
-            'owner_id' => $request->user('api')->id,
-            'customer_id' => $customer_id,
-            'name' => $schema ? $schema->name : 'Jednorazowa wiadomość',
-            'text' => $messageText,
-        ]);
-        return $this->sendResponse(new MessageResource($messageSended), 'Message sended', 201);
+        return $this->sendResponse([Message::smsCount($messageText, $polishChars), $messageText], 'Message sended', 201);
+
+        try {
+            Message::smsCount($text, $polishChars);
+
+        } catch (\Exception $e) {
+            $this->sendError($e->getMessage(), 422);
+        }
+//        $controller = new \App\Http\Controllers\MessageController();
+//        $controller->send($messageText, $from, $to);
+
+//        $messageSended = Message::create([
+//            'owner_id' => $request->user('api')->id,
+//            'customer_id' => $customer_id,
+//            'name' => $name,
+//            'text' => $messageText,
+//        ]);
+//        return $this->sendResponse(new MessageResource($messageSended), 'Message sended', 201);
     }
 
     /**
