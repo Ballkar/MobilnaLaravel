@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api\Api\Auth;
+namespace App\Http\Requests\Auth;
 
 use App\Http\Controllers\Constants\Roles;
 use App\Http\Requests\Api\ApiFormRequest;

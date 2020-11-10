@@ -2,16 +2,10 @@
 
 namespace App\Http\Controllers\Api\v1\Auth;
 
-use App\Http\Controllers\ApiCommunication;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Api\Auth\SendPasswordLinkRequest;
-use App\Http\Requests\Api\Api\Auth\StoreNewPasswordRequest;
-//use App\Jobs\Users\GenerateUserTokenForPasswordLink;
+use App\Http\Requests\Auth\SendPasswordLinkRequest;
+use App\Http\Requests\Auth\StoreNewPasswordRequest;
 use App\Models\User\User;
-use Illuminate\Contracts\Hashing\Hasher;
-//use Tymon\JWTAuth\JWTAuth as Auth;
-//use Tymon\JWTAuth\Facades\JWTAuth;
-//use Webpatser\Uuid\Uuid;
 
 class PasswordController extends Controller
 {

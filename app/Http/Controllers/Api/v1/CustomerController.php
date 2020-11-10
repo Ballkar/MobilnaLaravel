@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Api\Api\CustomerRequest;
-use App\Http\Resources\Customer as CustomerResource;
-use App\Http\Resources\CustomerCollection;
+use App\Http\Requests\CustomerRequest;
+use App\Http\Resources\Customer\Customer as CustomerResource;
+use App\Http\Resources\Customer\CustomerCollection;
 use App\Models\Announcement\Customer;
 use Exception;
 use Illuminate\Http\Request;

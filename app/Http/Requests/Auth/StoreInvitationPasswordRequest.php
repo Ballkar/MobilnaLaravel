@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\Api\Auth;
+namespace App\Http\Requests\Auth;
 
 use App\Http\Requests\Api\ApiFormRequest;
 
-class StoreNewPasswordRequest extends ApiFormRequest
+class StoreInvitationPasswordRequest extends ApiFormRequest
 {
     public function authorize()
     {

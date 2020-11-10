@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Api\Api\Message;
+namespace App\Http\Requests\Auth;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Controllers\Constants\Roles;
+use App\Http\Requests\Api\ApiFormRequest;
 
-class MessageSchemaRequest extends FormRequest
+class LoginRequest extends ApiFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +25,9 @@ class MessageSchemaRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string|min:4',
-            'text' => 'string|min:4',
+            'email' => 'required|email',
+            'password' => 'required',
+            'acc_type' => 'required|in:'.implode(',', Roles::returnAll()),
         ];
     }
 }

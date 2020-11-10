@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\v1\Calendar;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Api\Calendar\WorkRequest;
+use App\Http\Requests\Calendar\WorkRequest;
 use App\Http\Resources\Calendar\Work as WorkResource;
 use App\Http\Resources\Calendar\WorkCollection;
 use App\Models\Calendar\Work;

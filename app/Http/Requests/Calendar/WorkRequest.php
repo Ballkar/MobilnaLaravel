@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Requests\Api\Calendar;
+namespace App\Http\Requests\Calendar;
 
 use Illuminate\Foundation\Http\FormRequest;
 
