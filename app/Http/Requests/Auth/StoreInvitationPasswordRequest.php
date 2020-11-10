@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
-use App\Http\Requests\Api\ApiFormRequest;
+use App\Http\Requests\ApiFormRequest;
 
 class StoreInvitationPasswordRequest extends ApiFormRequest
 {

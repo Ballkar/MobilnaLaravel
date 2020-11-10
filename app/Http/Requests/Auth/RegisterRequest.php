@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Auth;
 
 use App\Http\Controllers\Constants\Roles;
-use App\Http\Requests\Api\ApiFormRequest;
+use App\Http\Requests\ApiFormRequest;
 
 class RegisterRequest extends ApiFormRequest
 {

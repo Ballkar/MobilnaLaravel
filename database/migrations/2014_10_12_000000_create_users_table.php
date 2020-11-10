@@ -21,13 +21,14 @@ class CreateUsersTable extends Migration
             $table->string('name')->nullable();
             $table->string('surname')->nullable();
             $table->string('phone')->nullable();
+            $table->text('additional_info')->nullable();
+            $table->timestamp('birth_date')->nullable();
+
             $table->bigInteger('city_id')->unsigned()->nullable();
             $table->foreign('city_id')->references('id')->on('cities');
             $table->string('road')->nullable();
             $table->string('house_number')->nullable();
             $table->string('flat_number')->nullable();
-            $table->text('additional_info')->nullable();
-            $table->timestamp('birth_date')->nullable();
 
             $table->bigInteger('role_id')->unsigned();
             $table->foreign('role_id')->references('id')->on('roles');

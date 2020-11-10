@@ -4,16 +4,11 @@ namespace App\Models\User;
 
 use App\Events\User\UserWasRegistered;
 use App\Http\Controllers\Constants\Roles;
-use App\Models\Announcement\Announcement;
-use App\Models\Announcement\WorkTime;
-use App\Models\Announcement\Action;
 use App\Models\Announcement\Customer;
-use App\Models\Blog\Post;
+use App\Models\Message\MessageSetting;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
 
@@ -55,34 +50,9 @@ class User extends Authenticatable
         parent::boot();
     }
 
-//    public function getAvatarAttribute($avatar)
-//    {
-//        return env('APP_URL').$avatar;
-//    }
-//
-//    public function getCityAttribute()
-//    {
-//        return $this->cit;
-//    }
-
     public function setPasswordAttribute($password)
     {
         return $this->attributes['password'] = Hash::make($password);
-    }
-
-//    public function blogComments()
-//    {
-//        return $this->hasMany(BlogComments::class);
-//    }
-
-    public function blogPosts()
-    {
-        return $this->hasMany(Post::class);
-    }
-
-    public function announcements()
-    {
-        return $this->hasMany(Announcement::class, 'owner_id', 'id');
     }
 
     public function customers()
@@ -90,14 +60,9 @@ class User extends Authenticatable
         return $this->hasMany(Customer::class);
     }
 
-    public function actions()
+    public function messageSetting()
     {
-        return $this->hasMany(Action::class, 'owner_id', 'id');
-    }
-
-    public function work_times()
-    {
-        return $this->hasMany(WorkTime::class, 'owner_id', 'id');
+        return $this->hasOne(MessageSetting::class, 'owner_id', 'id');
     }
 
     public function isAdmin()

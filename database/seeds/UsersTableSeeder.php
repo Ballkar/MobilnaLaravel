@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Constants\Roles;
+use App\Models\Message\MessageSetting;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -32,6 +33,9 @@ class UsersTableSeeder extends Seeder
                 'phone' => '508994856',
             ]
         );
+        MessageSetting::create([
+            'owner_id' => 2,
+        ]);
 
         DB::table('users')->insert(
             [
@@ -42,6 +46,9 @@ class UsersTableSeeder extends Seeder
                 'phone' => '508994856',
             ]
         );
+        MessageSetting::create([
+            'owner_id' => 3,
+        ]);
         DB::table('users')->insert(
             [
                 'email' => 'customer@o2.pl',
