@@ -77,7 +77,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
     Route::delete('newsletter/{newsletter}', 'NewsletterController@destroy')->name('newsletter.destroy');
 });
 
-Route::group(['prefix' => 'v2', 'namespace' => 'Api\v2'], function () {
+Route::group(['prefix' => 'v2', 'namespace' => 'Api\v1'], function () {
 
     Route::group(['middleware' => ['auth:api']], function () {
 

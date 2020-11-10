@@ -27,6 +27,13 @@ class CustomerSeeder extends Seeder
         ]);
 
         Customer::create([
+            'name' => 'Arek',
+            'surname' => 'Łatka',
+            'phone' => '608581667',
+            'owner_id' => '2',
+        ]);
+
+        Customer::create([
             'name' => 'Renata',
             'surname' => 'Zwolińska',
             'phone' => '48537966826',

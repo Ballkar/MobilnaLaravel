@@ -29,6 +29,9 @@ class CreateUsersTable extends Migration
             $table->text('additional_info')->nullable();
             $table->timestamp('birth_date')->nullable();
 
+            $table->bigInteger('role_id')->unsigned();
+            $table->foreign('role_id')->references('id')->on('roles');
+
             $table->string('avatar')->nullable();
             $table->string('avatar_thumbnail')->nullable();
 

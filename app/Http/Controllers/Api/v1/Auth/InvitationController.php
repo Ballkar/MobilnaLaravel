@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api\v1\Auth;
 
+use App\Http\Controllers\ApiCommunication;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Api\Auth\StoreInvitationPasswordRequest;
 use App\Models\User\User;
 use Illuminate\Config\Repository;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Contracts\Mail\Mailer;
-use Webpatser\Uuid\Uuid;
 
 class InvitationController extends Controller
 {

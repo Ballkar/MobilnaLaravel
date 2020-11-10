@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1\Auth;
 
+use App\Http\Controllers\ApiCommunication;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Api\Auth\SendPasswordLinkRequest;
 use App\Http\Requests\Api\Api\Auth\StoreNewPasswordRequest;

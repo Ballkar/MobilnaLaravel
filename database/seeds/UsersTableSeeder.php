@@ -28,17 +28,17 @@ class UsersTableSeeder extends Seeder
                 'email' => 'user@o2.pl',
                 'password' => Hash::make('123123'),
                 'role_id' => Roles::ROLE_USER,
-                'name' => 'kosmetyczka',
+                'name' => 'Miss Megi',
                 'phone' => '508994856',
             ]
         );
 
         DB::table('users')->insert(
             [
-                'email' => 'user2@o2.pl',
+                'email' => 'test@o2.pl',
                 'password' => Hash::make('123123'),
                 'role_id' => Roles::ROLE_USER,
-                'name' => 'kosmetyczka 2',
+                'name' => 'Renails',
                 'phone' => '508994856',
             ]
         );
