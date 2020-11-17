@@ -24,8 +24,11 @@ class MessageSettingRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string|min:4',
-            'text' => 'string|min:4',
+            'active' => 'boolean',
+            'hour' => 'required|int',
+            'minute' => 'required|int',
+            'time_type' => 'required|int',
+            'schema_id' => 'exists:message_schemas,id',
         ];
     }
 }

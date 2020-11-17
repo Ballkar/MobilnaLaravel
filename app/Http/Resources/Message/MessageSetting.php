@@ -20,9 +20,8 @@ class MessageSetting extends JsonResource
             'id' => $this->id,
             'hour' => $this->hour,
             'minute' => $this->minute,
-            'dayBefore' => $this->day_before,
-            'sameDay' => $this->same_day,
-            'active' => $this->messages_active,
+            'timeType' => $this->time_type,
+            'active' => $this->active,
             'created_at' => $this->created_at,
             'schema' => [
                 'id' => $schema->id,

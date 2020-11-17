@@ -25,9 +25,8 @@ class MessageSettings extends Migration
             $table->integer('hour');
             $table->integer('minute');
 
-            $table->boolean('day_before');
-            $table->boolean('same_day');
-            $table->boolean('messages_active');
+            $table->string('time_type');
+            $table->boolean('active');
 
             $table->timestamps();
         });

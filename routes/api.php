@@ -13,7 +13,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
         Route::group(['namespace' => 'Message'], function () {
             Route::apiResource('messages/schemas', 'MessageSchemaController');
             Route::apiResource('messages/history', 'MessageController')->except('update', 'destroy');
-            Route::apiResource('messages/plans', 'MessageSettingsController')->only('update', 'index');
+            Route::apiResource('messages/plans', 'MessageSettingsController');
         });
 
         Route::get('user', 'UserController@user')->name('user');
