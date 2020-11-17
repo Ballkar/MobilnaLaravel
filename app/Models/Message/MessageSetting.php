@@ -13,4 +13,9 @@ class MessageSetting extends Model
     {
         return $this->hasOne(User::class, 'id', 'owner_id');
     }
+
+    public function schema()
+    {
+        return $this->hasOne(MessageSchema::class, 'id', 'schema_id');
+    }
 }

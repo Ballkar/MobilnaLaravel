@@ -11,9 +11,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
             Route::apiResource('calendarWorks', 'CalendarWorksController')->except('show');
         });
         Route::group(['namespace' => 'Message'], function () {
-            Route::apiResource('messageSchemas', 'MessageSchemaController');
+            Route::apiResource('messages/schemas', 'MessageSchemaController');
             Route::apiResource('messages/history', 'MessageController')->except('update', 'destroy');
-            Route::apiResource('messages/setting', 'MessageSettingsController')->only('update', 'show');
+            Route::apiResource('messages/plans', 'MessageSettingsController')->only('update', 'index');
         });
 
         Route::get('user', 'UserController@user')->name('user');

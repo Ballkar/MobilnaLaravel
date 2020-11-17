@@ -19,12 +19,15 @@ class MessageSettings extends Migration
             $table->bigInteger('owner_id')->unsigned();
             $table->foreign('owner_id')->references('id')->on('users');
 
-            $table->integer('hour')->default(9);
-            $table->integer('minute')->default(0);
+            $table->bigInteger('schema_id')->unsigned();
+            $table->foreign('schema_id')->references('id')->on('message_schemas');
 
-            $table->boolean('day_before')->default(true);
-            $table->boolean('same_day')->default(false);
-            $table->boolean('messages_active')->default(false);
+            $table->integer('hour');
+            $table->integer('minute');
+
+            $table->boolean('day_before');
+            $table->boolean('same_day');
+            $table->boolean('messages_active');
 
             $table->timestamps();
         });

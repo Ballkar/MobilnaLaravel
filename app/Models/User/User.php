@@ -60,11 +60,6 @@ class User extends Authenticatable
         return $this->hasMany(Customer::class);
     }
 
-    public function messageSetting()
-    {
-        return $this->hasOne(MessageSetting::class, 'owner_id', 'id');
-    }
-
     public function isAdmin()
     {
         return $this->role_id === Roles::ROLE_ADMIN;

@@ -15,20 +15,11 @@ class User extends JsonResource
      */
     public function toArray($request)
     {
-        $messageSettings = $this->messageSetting;
         return [
             'id' => $this->id,
             'name' => $this->name,
             'phone' => $this->phone,
             'email' => $this->email,
-            'messageSettings' => [
-                'id' => $messageSettings->id,
-                'hour' => $messageSettings->hour,
-                'minute' => $messageSettings->minute,
-                'dayBefore' => $messageSettings->day_before,
-                'sameDay' => $messageSettings->same_day,
-                'active' => $messageSettings->messages_active,
-            ],
         ];
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Message\MessageSetting;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Message\MessageSchema;
@@ -21,6 +22,11 @@ class MessagesTableSeeder extends Seeder
         ]);
         MessageSchema::create([
             'owner_id' => '2',
+            'name' => 'Przypomnienie',
+            'text' => 'Przypominam o dzisiejszej wizycie',
+        ]);
+        MessageSchema::create([
+            'owner_id' => '2',
             'name' => 'Odmowa wiyzty',
             'text' => 'sory no nie dam rady dziś',
         ]);
@@ -35,6 +41,16 @@ class MessagesTableSeeder extends Seeder
             'customer_id' => '2',
             'name' => 'Odmowa wiyzty',
             'text' => 'sory no nie dam rady dziś',
+        ]);
+
+        MessageSetting::create([
+            'owner_id' => 2,
+            'schema_id' => 2,
+            'hour' => 9,
+            'minute' => 0,
+            'same_day' => true,
+            'day_before' => false,
+            'messages_active' => true
         ]);
     }
 }
