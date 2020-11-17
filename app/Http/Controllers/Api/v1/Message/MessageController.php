@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1;
+namespace App\Http\Controllers\Api\v1\Message;
 
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Message\MessageInitRequest;
@@ -81,12 +81,12 @@ class MessageController extends Controller
     }
 
     /**
-     * @param Message $message
+     * @param Message $history
      * @return JsonResponse
      */
-    public function show(Message $message)
+    public function show(Message $history)
     {
-        return $this->sendResponse(new MessageResource($message), 'Message returned');
+        return $this->sendResponse(new MessageResource($history), 'Message returned');
     }
 
     // /**

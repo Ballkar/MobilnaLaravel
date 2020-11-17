@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1;
+namespace App\Http\Controllers\Api\v1\Message;
 
 use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Message\MessageSchemaRequest;

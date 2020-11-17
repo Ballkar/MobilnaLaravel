@@ -22,6 +22,7 @@ class User extends JsonResource
             'phone' => $this->phone,
             'email' => $this->email,
             'messageSettings' => [
+                'id' => $messageSettings->id,
                 'hour' => $messageSettings->hour,
                 'minute' => $messageSettings->minute,
                 'dayBefore' => $messageSettings->day_before,
