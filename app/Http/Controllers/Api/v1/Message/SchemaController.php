@@ -13,7 +13,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class MessageSchemaController extends Controller
+class SchemaController extends Controller
 {
     use ApiCommunication;
 

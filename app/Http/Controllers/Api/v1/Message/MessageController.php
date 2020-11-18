@@ -89,26 +89,4 @@ class MessageController extends Controller
     {
         return $this->sendResponse(new MessageResource($history), 'Message returned');
     }
-
-    // /**
-    //  * @param CustomerRequest $request
-    //  * @param Message $message
-    //  * @return JsonResponse
-    //  */
-    // public function update(Request $request, Message $message)
-    // {
-    //     $message->update($request->validated());
-    //     return $this->sendResponse(new MessageResource($message), 'Message updated');
-    // }
-
-    // /**
-    //  * @param Message $message
-    //  * @return JsonResponse
-    //  * @throws Exception
-    //  */
-    // public function destroy(Message $message)
-    // {
-    //     $message->delete();
-    //     return $this->sendResponse(null, 'Message deleted', 204);
-    // }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\v1\Message\MessageSettingsController;
+use App\Http\Controllers\Api\v1\Message\PlansController;
 use App\Models\Message\MessageSetting;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -49,7 +49,7 @@ class MessagesTableSeeder extends Seeder
             'schema_id' => 2,
             'hour' => 9,
             'minute' => 0,
-            'time_type' => MessageSettingsController::$time_type_same_day,
+            'time_type' => PlansController::$time_type_same_day,
             'active' => true
         ]);
     }

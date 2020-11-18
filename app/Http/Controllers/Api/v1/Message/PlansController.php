@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class MessageSettingsController extends Controller
+class PlansController extends Controller
 {
     use ApiCommunication;
     public static $time_type_same_day = 1;
