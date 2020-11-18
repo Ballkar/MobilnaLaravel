@@ -2,9 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Controllers\MessageController;
-use CitiesTableSeeder;
-use DatabaseSeeder;
+
+use App\Services\MessageService;
 use Illuminate\Console\Command;
 
 class SendMessage extends Command
@@ -43,7 +42,7 @@ class SendMessage extends Command
         $to = $this->ask('Type phone number?');
         $message = $this->ask('Type message?');
 
-        $controller = new MessageController();
-        $controller->send($message, $from, $to);
+        $messageService = new MessageService();
+        $messageService->send($message, $from, $to);
     }
 }

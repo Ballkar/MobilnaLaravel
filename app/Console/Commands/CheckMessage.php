@@ -2,9 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Controllers\MessageController;
-use CitiesTableSeeder;
-use DatabaseSeeder;
+use App\Services\MessageService;
 use Illuminate\Console\Command;
 
 class CheckMessage extends Command
@@ -39,8 +37,8 @@ class CheckMessage extends Command
      */
     public function handle()
     {
-        $controller = new MessageController();
-        $count = $controller->checkMessageCountAvailable();
+        $messageService = new MessageService();
+        $count = $messageService->checkMessageCountAvailable();
         $minimumMessagesCount = env('MESSAGE_CRITICAL_COUNT');
 
         $this->info('Message count: '.$count);
@@ -48,7 +46,7 @@ class CheckMessage extends Command
             $this->info('Messages amount below '.$minimumMessagesCount.' message notification sended');
             $message = 'Doładuj wiadomości w systemie. Ilośc wiadomości poniżej '.$minimumMessagesCount;
 
-            $controller->send($message, env('PHONE_APP_NAME'), env('ADMIN_PHONE'));
+            $messageService->send($message, env('PHONE_APP_NAME'), env('ADMIN_PHONE'));
         }
         return (int)$count;
     }

@@ -9,6 +9,7 @@ use App\Http\Resources\Message\MessageCollection;
 use App\Models\Announcement\Customer;
 use App\Models\Message\Message;
 use App\Models\Message\MessageSchema;
+use App\Services\MessageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
@@ -60,24 +61,24 @@ class MessageController extends Controller
 
         $name = $schema ? $schema->name : 'Jednorazowa wiadomość';
 
-        return $this->sendResponse([Message::smsCount($messageText, $polishChars), $messageText], 'Message sended', 201);
 
         try {
+            // TODO: wyrzuć błąd jezeli nie ma więcej smsów na koncie
             Message::smsCount($text, $polishChars);
+            $messageService = new MessageService();
+            $messageService->send($messageText, $from, $to);
 
         } catch (\Exception $e) {
             $this->sendError($e->getMessage(), 422);
         }
-//        $controller = new \App\Http\Controllers\MessageController();
-//        $controller->send($messageText, $from, $to);
 
-//        $messageSended = Message::create([
-//            'owner_id' => $request->user('api')->id,
-//            'customer_id' => $customer_id,
-//            'name' => $name,
-//            'text' => $messageText,
-//        ]);
-//        return $this->sendResponse(new MessageResource($messageSended), 'Message sended', 201);
+        $messageSended = Message::create([
+            'owner_id' => $request->user('api')->id,
+            'customer_id' => $customer_id,
+            'name' => $name,
+            'text' => $messageText,
+        ]);
+        return $this->sendResponse(new MessageResource($messageSended), 'Message sended', 201);
     }
 
     /**

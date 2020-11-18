@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+
+namespace App\Services;
 
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
 
-class MessageController extends Controller
+class MessageService
 {
     private $messageCost = 7;
     public $client;
@@ -45,4 +45,5 @@ class MessageController extends Controller
         $points = $body->data;
         return (int)floor($points / $this->messageCost);
     }
+
 }
