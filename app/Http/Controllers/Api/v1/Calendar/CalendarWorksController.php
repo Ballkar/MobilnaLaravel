@@ -28,7 +28,10 @@ class CalendarWorksController extends Controller
         $stop = $request->get('stop') ? $request->get('stop') : 10;
         $start = Carbon::make($start);
         $stop = Carbon::make($stop);
-        $works = Work::where('start', '>=', $start)->where('stop', '<=', $stop)->paginate($limit);
+        $works = Work::where('owner_id', '=', Auth::id())
+            ->where('start', '>=', $start)
+            ->where('stop', '<=', $stop)
+            ->paginate($limit);
 
         return $this->sendResponse(new WorkCollection($works), 'All works returned');
     }

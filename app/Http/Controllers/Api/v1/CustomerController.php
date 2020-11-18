@@ -26,12 +26,13 @@ class CustomerController extends Controller
         $limit = $request->get('limit') ? $request->get('limit') : 10;
         $query = $request->get('query');
         if(isset($query)) {
-            $customers = Customer::where('name', 'like', '%' . $query . '%')
+            $customers = Customer::where('owner_id', Auth::id())
+                ->where('name', 'like', '%' . $query . '%')
                 ->orWhere('surname', 'like', '%' . $query . '%')
                 ->orWhere('phone', 'like', '%' . $query . '%')
                 ->paginate($limit);
         } else {
-            $customers = Customer::paginate($limit);
+            $customers = Customer::where('owner_id', Auth::id())->paginate($limit);
         }
 
         return $this->sendResponse(new CustomerCollection($customers), 'All customers returned');

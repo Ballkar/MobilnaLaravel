@@ -26,9 +26,12 @@ class SchemaController extends Controller
         $limit = $request->limit ? $request->limit : 10;
         $query = $request->get('query');
         if(isset($query)) {
-            $schemas = MessageSchema::where('name', 'like', '%' . $query . '%')->paginate($limit);
+            $schemas = MessageSchema::where('owner_id', '=', Auth::id())
+                ->where('name', 'like', '%' . $query . '%')
+                ->paginate($limit);
         } else {
-            $schemas = MessageSchema::paginate($limit);
+            $schemas = MessageSchema::where('owner_id', '=', Auth::id())
+                ->paginate($limit);
         }
         return $this->sendResponse(new MessageSchemaCollection($schemas), 'All message schema returned');
     }

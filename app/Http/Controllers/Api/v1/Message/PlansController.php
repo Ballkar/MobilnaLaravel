@@ -25,7 +25,7 @@ class PlansController extends Controller
     public function index(Request $request)
     {
         $limit = $request->limit ? $request->limit : 10;
-        $schemas = MessageSetting::paginate($limit);
+        $schemas = MessageSetting::where('owner_id', '=', Auth::id())->paginate($limit);
         return $this->sendResponse(new MessageSettingCollection($schemas), 'All message plan returned');
     }
 

@@ -13,6 +13,7 @@ use App\Services\MessageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
@@ -27,7 +28,8 @@ class MessageController extends Controller
         $limit = $request->limit ? $request->limit : 10;
         $query = $request->get('query');
         if(isset($query)) {
-            $messages = Message::where('name', 'like', '%' . $query . '%')
+            $messages = Message::where('owner_id', '=', Auth::id())
+                ->where('name', 'like', '%' . $query . '%')
                 ->orWhereHas('customer', function ($messages) use ( $query ) {
                     $messages->where('name', 'like', '%' . $query . '%')
                         ->orWhere('surname', 'like', '%' . $query . '%')
@@ -35,7 +37,7 @@ class MessageController extends Controller
                 })
                 ->paginate($limit);
         } else {
-            $messages = Message::paginate($limit);
+            $messages = Message::where('owner_id', '=', Auth::id())->paginate($limit);
         }
 
         return $this->sendResponse(new MessageCollection($messages), 'All messages returned');
