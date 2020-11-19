@@ -4,7 +4,7 @@ namespace App\Models\Message;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MessageSchema extends Model
+class Schema extends Model
 {
     protected $table = 'message_schemas';
     protected $guarded = [];

@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\v1\Message\PlansController;
-use App\Models\Message\MessageSetting;
+use App\Models\Message\Plan;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\Message\MessageSchema;
+use App\Models\Message\Schema;
 use App\Models\Message\Message;
 
 class MessagesTableSeeder extends Seeder
@@ -16,17 +16,17 @@ class MessagesTableSeeder extends Seeder
      */
     public function run()
     {
-        MessageSchema::create([
+        Schema::create([
             'owner_id' => '2',
             'name' => 'Przywitanie',
             'text' => 'Hejo',
         ]);
-        MessageSchema::create([
+        Schema::create([
             'owner_id' => '2',
             'name' => 'Przypomnienie',
             'text' => 'Przypominam o dzisiejszej wizycie',
         ]);
-        MessageSchema::create([
+        Schema::create([
             'owner_id' => '2',
             'name' => 'Odmowa wiyzty',
             'text' => 'sory no nie dam rady dziś',
@@ -44,7 +44,7 @@ class MessagesTableSeeder extends Seeder
             'text' => 'sory no nie dam rady dziś',
         ]);
 
-        MessageSetting::create([
+        Plan::create([
             'owner_id' => 2,
             'schema_id' => 2,
             'hour' => 9,

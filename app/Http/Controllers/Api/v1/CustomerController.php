@@ -17,6 +17,11 @@ class CustomerController extends Controller
 {
     use ApiCommunication;
 
+    public function __construct()
+    {
+        $this->authorizeResource(Customer::class, 'customer');
+    }
+
     /**
      * @param Request $request
      * @return JsonResponse

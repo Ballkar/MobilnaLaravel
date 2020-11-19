@@ -6,7 +6,8 @@ use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Message\MessageSchemaRequest;
 use App\Http\Resources\Message\MessageSchemaCollection;
 use App\Http\Resources\Message\MessageSchema as MessageSchemaResource;
-use App\Models\Message\MessageSchema;
+use App\Models\Calendar\Work;
+use App\Models\Message\Schema;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -17,6 +18,11 @@ class SchemaController extends Controller
 {
     use ApiCommunication;
 
+    public function __construct()
+    {
+        $this->authorizeResource(Schema::class, 'schema');
+    }
+
     /**
      * @param Request $request
      * @return JsonResponse
@@ -26,11 +32,11 @@ class SchemaController extends Controller
         $limit = $request->limit ? $request->limit : 10;
         $query = $request->get('query');
         if(isset($query)) {
-            $schemas = MessageSchema::where('owner_id', '=', Auth::id())
+            $schemas = Schema::where('owner_id', Auth::id())
                 ->where('name', 'like', '%' . $query . '%')
                 ->paginate($limit);
         } else {
-            $schemas = MessageSchema::where('owner_id', '=', Auth::id())
+            $schemas = Schema::where('owner_id', '=', Auth::id())
                 ->paginate($limit);
         }
         return $this->sendResponse(new MessageSchemaCollection($schemas), 'All message schema returned');
@@ -42,40 +48,40 @@ class SchemaController extends Controller
      */
     public function store(MessageSchemaRequest $request)
     {
-        $messageSchema = MessageSchema::create(array_merge($request->validated(), [
+        $schema = Schema::create(array_merge($request->validated(), [
             'owner_id' => Auth::id(),
         ]));
-        return $this->sendResponse(new MessageSchemaResource($messageSchema), 'MessageSchema Added', 201);
+        return $this->sendResponse(new MessageSchemaResource($schema), 'Schema Added', 201);
     }
 
     /**
-     * @param MessageSchema $messageSchema
+     * @param Schema $schema
      * @return JsonResponse
      */
-    public function show(MessageSchema $messageSchema)
+    public function show(Schema $schema)
     {
-        return $this->sendResponse(new MessageSchemaResource($messageSchema), 'MessageSchema returned');
+        return $this->sendResponse(new MessageSchemaResource($schema), 'Schema returned');
     }
 
     /**
      * @param MessageSchemaRequest $request
-     * @param MessageSchema $messageSchema
+     * @param Schema $schema
      * @return JsonResponse
      */
-    public function update(MessageSchemaRequest $request, MessageSchema $messageSchema)
+    public function update(MessageSchemaRequest $request, Schema $schema)
     {
-        $messageSchema->update($request->validated());
-        return $this->sendResponse(new MessageSchemaResource($messageSchema), 'MessageSchema updated');
+        $schema->update($request->validated());
+        return $this->sendResponse(new MessageSchemaResource($schema), 'Schema updated');
     }
 
     /**
-     * @param MessageSchema $messageSchema
+     * @param Schema $schema
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(MessageSchema $messageSchema)
+    public function destroy(Schema $schema)
     {
-        $messageSchema->delete();
+        $schema->delete();
         return $this->sendResponse(null, 'Schema deleted', 204);
     }
 }

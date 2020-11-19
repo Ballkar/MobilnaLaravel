@@ -8,7 +8,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
 
 
         Route::group(['namespace' => 'Calendar'], function () {
-            Route::apiResource('calendarWorks', 'CalendarWorksController')->except('show');
+            Route::apiResource('calendar/works', 'WorksController')->except('show');
         });
         Route::group(['namespace' => 'Message'], function () {
             Route::apiResource('messages/schemas', 'SchemaController');

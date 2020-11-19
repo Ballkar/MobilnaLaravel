@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class MessageSettings extends Migration
+class MessagePlans extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class MessageSettings extends Migration
      */
     public function up()
     {
-        Schema::create('message_settings', function(Blueprint $table) {
+        Schema::create('message_plans', function(Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->bigInteger('owner_id')->unsigned();

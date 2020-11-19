@@ -5,8 +5,9 @@ namespace App\Models\Message;
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Model;
 
-class MessageSetting extends Model
+class Plan extends Model
 {
+    protected $table = 'message_plans';
     protected $guarded = [];
 
     public function owner()
@@ -16,6 +17,6 @@ class MessageSetting extends Model
 
     public function schema()
     {
-        return $this->hasOne(MessageSchema::class, 'id', 'schema_id');
+        return $this->hasOne(Schema::class, 'id', 'schema_id');
     }
 }

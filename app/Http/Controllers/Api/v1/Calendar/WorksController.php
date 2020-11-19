@@ -14,9 +14,15 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class CalendarWorksController extends Controller
+class WorksController extends Controller
 {
     use ApiCommunication;
+
+    public function __construct()
+    {
+        $this->authorizeResource(Work::class, 'work');
+    }
+
     /**
      * @param Request $request
      * @return JsonResponse
@@ -38,13 +44,13 @@ class CalendarWorksController extends Controller
 
      /**
       * @param WorkRequest $request
-      * @param Work $calendarWork
+      * @param Work $work
       * @return JsonResponse
       */
-     public function update(WorkRequest $request, Work $calendarWork)
+     public function update(WorkRequest $request, Work $work)
      {
-         $calendarWork->update($request->validated());
-         return $this->sendResponse(new WorkResource($calendarWork), 'Work updated');
+         $work->update($request->validated());
+         return $this->sendResponse(new WorkResource($work), 'Work updated');
      }
 
      /**
@@ -53,10 +59,10 @@ class CalendarWorksController extends Controller
       */
      public function store(WorkRequest $request)
      {
-         $calendarWork = Work::create(array_merge($request->validated(), [
+         $work = Work::create(array_merge($request->validated(), [
              'owner_id' => Auth::id(),
          ]));
-         return $this->sendResponse(new WorkResource($calendarWork), 'Work Added', 201);
+         return $this->sendResponse(new WorkResource($work), 'Work Added', 201);
      }
 
     // /**
@@ -69,13 +75,13 @@ class CalendarWorksController extends Controller
     // }
 
      /**
-      * @param Work $calendarWork
+      * @param Work $work
       * @return JsonResponse
       * @throws Exception
       */
-     public function destroy(Work $calendarWork)
+     public function destroy(Work $work)
      {
-         $calendarWork->delete();
+         $work->delete();
          return $this->sendResponse(null, 'Work deleted', 204);
      }
 }

@@ -8,7 +8,7 @@ use App\Http\Resources\Message\Message as MessageResource;
 use App\Http\Resources\Message\MessageCollection;
 use App\Models\Announcement\Customer;
 use App\Models\Message\Message;
-use App\Models\Message\MessageSchema;
+use App\Models\Message\Schema;
 use App\Services\MessageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -28,7 +28,7 @@ class MessageController extends Controller
         $limit = $request->limit ? $request->limit : 10;
         $query = $request->get('query');
         if(isset($query)) {
-            $messages = Message::where('owner_id', '=', Auth::id())
+            $messages = Message::where('owner_id', Auth::id())
                 ->where('name', 'like', '%' . $query . '%')
                 ->orWhereHas('customer', function ($messages) use ( $query ) {
                     $messages->where('name', 'like', '%' . $query . '%')
@@ -55,7 +55,7 @@ class MessageController extends Controller
 
         $date = $request->get('date');
         $text = $request->get('text');
-        $schema = MessageSchema::find($schema_id);
+        $schema = Schema::find($schema_id);
 
         $messageText = $schema ? $schema->text : $text;
         $to = Customer::find($customer_id)->phone;
