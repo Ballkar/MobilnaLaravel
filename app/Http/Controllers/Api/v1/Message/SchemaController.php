@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Api\v1\Message;
 
 use App\Http\Controllers\ApiCommunication;
+use App\Http\Requests\Message\MessagePreviewRequest;
 use App\Http\Requests\Message\MessageSchemaRequest;
+use App\Models\Announcement\Customer;
 use App\Http\Resources\Message\MessageSchemaCollection;
 use App\Http\Resources\Message\MessageSchema as MessageSchemaResource;
+use App\Models\Calendar\Work;
 use App\Models\Message\Schema;
+use App\Models\User\User;
+use App\Services\MessageService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -82,5 +87,22 @@ class SchemaController extends Controller
     {
         $schema->delete();
         return $this->sendResponse(null, 'Schema deleted', 204);
+    }
+
+    /**
+     * @param MessagePreviewRequest $request
+     * @return JsonResponse
+     */
+    public function preview(MessagePreviewRequest $request)
+    {
+        $customer = Customer::find($request->customer_id);
+        $body = $request->body;
+        $owner = User::find(Auth::id());
+        try {
+            $previewRes = MessageService::createTextFromSchema($body, $customer, $owner);
+            return $this->sendResponse($previewRes, 'Preview returned', 200);
+        } catch (Exception $e) {
+            return $this->sendError($e->getMessage(), 422, 'Error during preview Generation');
+        }
     }
 }

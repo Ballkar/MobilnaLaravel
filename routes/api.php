@@ -11,6 +11,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
             Route::apiResource('calendar/works', 'WorksController')->except('show');
         });
         Route::group(['namespace' => 'Message'], function () {
+            Route::post('messages/schemas/preview', 'SchemaController@preview');
             Route::apiResource('messages/schemas', 'SchemaController');
             Route::apiResource('messages/history', 'MessageController')->except('update', 'destroy');
             Route::apiResource('messages/plans', 'PlansController');
