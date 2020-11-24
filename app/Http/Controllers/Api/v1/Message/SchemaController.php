@@ -8,7 +8,6 @@ use App\Http\Requests\Message\MessageSchemaRequest;
 use App\Models\Announcement\Customer;
 use App\Http\Resources\Message\MessageSchemaCollection;
 use App\Http\Resources\Message\MessageSchema as MessageSchemaResource;
-use App\Models\Calendar\Work;
 use App\Models\Message\Schema;
 use App\Models\User\User;
 use App\Services\MessageService;
@@ -17,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Instasent\SMSCounter\SMSCounter;
 
 class SchemaController extends Controller
 {
@@ -100,7 +100,17 @@ class SchemaController extends Controller
         $owner = User::find(Auth::id());
         try {
             $previewRes = MessageService::createTextFromSchema($body, $customer, $owner);
-            return $this->sendResponse($previewRes, 'Preview returned', 200);
+
+            $smsCounter = new SMSCounter();
+            $dataInfo = $smsCounter->count($previewRes);
+
+            return $this->sendResponse([
+                'from' => $owner->name,
+                'preview' => $previewRes,
+                'letter_count' => $dataInfo->length,
+                'letter_next_limit' => $dataInfo->length + $dataInfo->remaining,
+                'sms_count' => $dataInfo->messages,
+            ], 'Preview returned', 200);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage(), 422, 'Error during preview Generation');
         }
