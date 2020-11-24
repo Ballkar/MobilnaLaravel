@@ -29,6 +29,7 @@ class MessageSchemaRequest extends FormRequest
             'body.*.text' => 'required_without:body.*.variable|required_without:body.*.model',
             'body.*.variable' => 'required_with:body.*.model|required_without:body.*.text',
             'body.*.model' => 'required_with:body.*.variable',
+            'clear_diacritics' => 'required',
         ];
     }
 }

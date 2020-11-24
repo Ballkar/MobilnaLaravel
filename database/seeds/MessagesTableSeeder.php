@@ -24,6 +24,7 @@ class MessagesTableSeeder extends Seeder
                     'text' => "Hejo"
                 ]
             ],
+            'clear_diacritics' => true,
         ]);
         Schema::create([
             'owner_id' => '2',
@@ -33,6 +34,7 @@ class MessagesTableSeeder extends Seeder
                     'text' => "Witam, zapraszam na wizytę",
                 ]
             ],
+            'clear_diacritics' => true,
         ]);
         Schema::create([
             'owner_id' => '2',
@@ -49,6 +51,7 @@ class MessagesTableSeeder extends Seeder
                     "text" => " nie dam dziś rady"
                 ]
             ],
+            'clear_diacritics' => false,
         ]);
         Message::create([
             'owner_id' => '2',

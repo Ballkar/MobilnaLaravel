@@ -20,6 +20,7 @@ class MessageSchema extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'body' => $this->body,
+            'clear_diacritics' => $this->clear_diacritics,
             'created_at' => $this->created_at,
         ];
     }

@@ -21,6 +21,7 @@ class MessageSchemas extends Migration
 
             $table->string('name');
             $table->text('body');
+            $table->boolean('clear_diacritics');
             $table->timestamps();
         });
     }

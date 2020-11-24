@@ -17,6 +17,7 @@ class MessagePreviewRequest extends FormRequest
     {
         return [
             'customer_id' => 'exists:customers,id',
+            'clear_diacritics' => 'required',
             'body' => 'array',
             'body.*.text' => ['required_without:body.*.variable', 'required_without:body.*.model'],
             'body.*.variable' => ['required_with:body.*.model', 'required_without:body.*.text'],
