@@ -32,9 +32,11 @@ class CustomerController extends Controller
         $query = $request->get('query');
         if(isset($query)) {
             $customers = Customer::where('owner_id', Auth::id())
-                ->where('name', 'like', '%' . $query . '%')
-                ->orWhere('surname', 'like', '%' . $query . '%')
-                ->orWhere('phone', 'like', '%' . $query . '%')
+                ->where(function($q) use ($query) {
+                    $q->where('name', 'like', '%' . $query . '%')
+                        ->orWhere('surname', 'like', '%' . $query . '%')
+                        ->orWhere('phone', 'like', '%' . $query . '%');
+                })
                 ->paginate($limit);
         } else {
             $customers = Customer::where('owner_id', Auth::id())->paginate($limit);

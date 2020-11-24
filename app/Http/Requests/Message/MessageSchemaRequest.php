@@ -25,7 +25,10 @@ class MessageSchemaRequest extends FormRequest
     {
         return [
             'name' => 'string|min:4',
-            'text' => 'string|min:4',
+            'body' => 'array',
+            'body.*.text' => 'required_without:body.*.variable|required_without:body.*.model',
+            'body.*.variable' => 'required_with:body.*.model|required_without:body.*.text',
+            'body.*.model' => 'required_with:body.*.variable',
         ];
     }
 }

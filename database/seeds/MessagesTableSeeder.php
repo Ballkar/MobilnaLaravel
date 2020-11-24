@@ -19,17 +19,36 @@ class MessagesTableSeeder extends Seeder
         Schema::create([
             'owner_id' => '2',
             'name' => 'Przywitanie',
-            'text' => 'Hejo',
+            'body' => [
+                [
+                    'text' => "Hejo"
+                ]
+            ],
         ]);
         Schema::create([
             'owner_id' => '2',
             'name' => 'Przypomnienie',
-            'text' => 'Przypominam o dzisiejszej wizycie',
+            'body' => [
+                [
+                    'text' => "Witam, zapraszam na wizytę",
+                ]
+            ],
         ]);
         Schema::create([
             'owner_id' => '2',
             'name' => 'Odmowa wiyzty',
-            'text' => 'sory no nie dam rady dziś',
+            'body' => [
+                [
+                    'text' => "Sory, "
+                ],
+                [
+                    "model" => "customer",
+                    "variable" => "name",
+                ],
+                [
+                    "text" => " nie dam dziś rady"
+                ]
+            ],
         ]);
         Message::create([
             'owner_id' => '2',

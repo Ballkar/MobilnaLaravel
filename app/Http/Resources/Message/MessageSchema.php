@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Message;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class MessageSchema extends JsonResource
@@ -18,7 +19,7 @@ class MessageSchema extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'text' => $this->text,
+            'body' => $this->body,
             'created_at' => $this->created_at,
         ];
     }

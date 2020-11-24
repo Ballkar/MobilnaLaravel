@@ -6,7 +6,6 @@ use App\Http\Controllers\ApiCommunication;
 use App\Http\Requests\Message\MessageSchemaRequest;
 use App\Http\Resources\Message\MessageSchemaCollection;
 use App\Http\Resources\Message\MessageSchema as MessageSchemaResource;
-use App\Models\Calendar\Work;
 use App\Models\Message\Schema;
 use Exception;
 use Illuminate\Http\Request;

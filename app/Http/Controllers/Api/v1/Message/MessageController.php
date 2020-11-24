@@ -29,11 +29,13 @@ class MessageController extends Controller
         $query = $request->get('query');
         if(isset($query)) {
             $messages = Message::where('owner_id', Auth::id())
-                ->where('name', 'like', '%' . $query . '%')
-                ->orWhereHas('customer', function ($messages) use ( $query ) {
-                    $messages->where('name', 'like', '%' . $query . '%')
-                        ->orWhere('surname', 'like', '%' . $query . '%')
-                        ->orWhere('phone', 'like', '%' . $query . '%');
+                ->where(function($q) use ($query) {
+                    $q->where('name', 'like', '%' . $query . '%')
+                    ->orWhereHas('customer', function ($messages) use ( $query ) {
+                        $messages->where('name', 'like', '%' . $query . '%')
+                            ->orWhere('surname', 'like', '%' . $query . '%')
+                            ->orWhere('phone', 'like', '%' . $query . '%');
+                    });
                 })
                 ->paginate($limit);
         } else {

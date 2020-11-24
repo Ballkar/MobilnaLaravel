@@ -19,8 +19,8 @@ class MessageSchemas extends Migration
             $table->bigInteger('owner_id')->unsigned();
             $table->foreign('owner_id')->references('id')->on('users');
 
-            $table->string('name')->nullable();
-            $table->string('text')->nullable();
+            $table->string('name');
+            $table->text('body');
             $table->timestamps();
         });
     }

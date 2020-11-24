@@ -8,6 +8,9 @@ class Schema extends Model
 {
     protected $table = 'message_schemas';
     protected $guarded = [];
+    protected $casts = [
+        'body' => 'json',
+    ];
 
     public function messages()
     {
