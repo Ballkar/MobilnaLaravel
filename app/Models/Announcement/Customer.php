@@ -2,7 +2,6 @@
 
 namespace App\Models\Announcement;
 
-use App\Models\Announcement\Calendar\ActionSingle;
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,14 +23,6 @@ class Customer extends Model
     public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id');
-    }
-
-    /**
-     * Get the action single for the announcement.
-     */
-    public function action()
-    {
-        return $this->hasMany(ActionSingle::class);
     }
 
 }

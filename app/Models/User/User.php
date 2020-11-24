@@ -60,6 +60,11 @@ class User extends Authenticatable
         return $this->hasMany(Customer::class);
     }
 
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class, 'owner_id');
+    }
+
     public function isAdmin()
     {
         return $this->role_id === Roles::ROLE_ADMIN;
