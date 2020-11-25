@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\sms;
 
 use App\Services\MessageService;
 use Illuminate\Console\Command;
@@ -44,7 +44,7 @@ class CheckMessage extends Command
         $this->info('Message count: '.$count);
         if($count < $minimumMessagesCount) {
             $this->info('Messages amount below '.$minimumMessagesCount.' message notification sended');
-            $message = 'Doładuj wiadomości w systemie. Ilośc wiadomości poniżej '.$minimumMessagesCount;
+            $message = 'Doladuj wiadomosci w systemie. Ilosc wiadomosci ponizej '.$minimumMessagesCount;
 
             $messageService->send($message, env('PHONE_APP_NAME'), env('ADMIN_PHONE'));
         }

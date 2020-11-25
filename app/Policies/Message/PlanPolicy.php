@@ -41,7 +41,7 @@ class PlanPolicy
      */
     public function create(User $user)
     {
-        return $user->id === $plan->owner_id;
+        return $user->isUser();
     }
 
     /**

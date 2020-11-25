@@ -97,11 +97,11 @@ class SchemaController extends Controller
     {
         $customer = Customer::find($request->customer_id);
         $body = $request->body;
-        $clearPolish = $request->clear_diacritics;
+        $clearDiacritics = $request->clear_diacritics;
         $owner = User::find(Auth::id());
         try {
             $smsCounter = new SMSCounter();
-            $previewRes = MessageService::createTextFromSchema($body, $clearPolish, $customer, $owner);
+            $previewRes = MessageService::createTextFromSchema($body, $clearDiacritics, $customer, $owner);
             $dataInfo = $smsCounter->count($previewRes);
 
             return $this->sendResponse([

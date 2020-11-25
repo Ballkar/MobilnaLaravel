@@ -11,11 +11,10 @@ use Carbon\Carbon;
 use Exception;
 use GuzzleHttp\Client;
 use Instasent\SMSCounter\SMSCounter;
-use phpDocumentor\Reflection\Types\Boolean;
 
 class MessageService
 {
-    private $messageCost = 7;
+    public static $messageCost = 10;
     public $client;
 
     public function __construct()
@@ -55,14 +54,14 @@ class MessageService
 
     /**
      * @param $body
-     * @param bool $clearPolish
+     * @param bool $clearDiacritics
      * @param Customer $customer
      * @param User $owner
      * @param Work|null $work
      * @return string
      * @throws Exception
      */
-    public static function createTextFromSchema($body, bool $clearPolish , Customer $customer, User $owner, Work $work = null) : string
+    public static function createTextFromSchema($body, bool $clearDiacritics , Customer $customer, User $owner, Work $work = null) : string
     {
         $res = '';
         $startDate = Carbon::now()->hour(14)->minute(30)->second(0);
@@ -88,7 +87,7 @@ class MessageService
             }
         }
         $smsCounter = new SMSCounter();
-        return $clearPolish ? $smsCounter->sanitizeToGSM($res) : $res;
+        return $clearDiacritics ? $smsCounter->sanitizeToGSM($res) : $res;
     }
 
     /**

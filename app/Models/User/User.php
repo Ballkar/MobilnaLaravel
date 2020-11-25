@@ -57,6 +57,11 @@ class User extends Authenticatable
         return $this->role_id === Roles::ROLE_ADMIN;
     }
 
+    public function isUser()
+    {
+        return $this->role_id === Roles::ROLE_USER;
+    }
+
     public function returnNewToken($remember = false)
     {
         $tokenRes = $this->createToken('Personal Access Token');

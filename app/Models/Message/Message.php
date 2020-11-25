@@ -4,7 +4,7 @@ namespace App\Models\Message;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Announcement\Customer;
-use Exception;use Instasent\SMSCounter\SMSCounter;
+use Instasent\SMSCounter\SMSCounter;
 
 class Message extends Model
 {
