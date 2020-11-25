@@ -17,27 +17,27 @@ class UsersTableSeeder extends Seeder
     {
         User::create([
             'email' => 'admin@o2.pl',
-            'password' => Hash::make('123123'),
+            'password' => '123123',
             'role_id' => Roles::ROLE_ADMIN,
             'name' => ''
         ]);
         User::create([
             'email' => 'user@o2.pl',
-            'password' => Hash::make('123123'),
+            'password' => '123123',
             'role_id' => Roles::ROLE_USER,
             'name' => 'Miss Megi',
             'phone' => '508994856',
         ]);
         User::create([
             'email' => 'test@o2.pl',
-            'password' => Hash::make('123123'),
+            'password' => '123123',
             'role_id' => Roles::ROLE_USER,
             'name' => 'Renails',
             'phone' => '508994856',
         ]);
         User::create([
             'email' => 'customer@o2.pl',
-            'password' => Hash::make('123123'),
+            'password' => '123123',
             'role_id' => Roles::ROLE_CLIENT,
             'name' => '',
             'phone' => '508994856',
