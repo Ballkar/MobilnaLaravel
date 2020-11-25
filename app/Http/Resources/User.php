@@ -23,7 +23,7 @@ class User extends JsonResource
             'phone' => $this->phone,
             'email' => $this->email,
             'wallet' => [
-                'money' => $wallet->money
+                'money' => $wallet->money / 100
             ]
         ];
     }

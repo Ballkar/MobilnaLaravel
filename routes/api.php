@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
 
     Route::group(['middleware' => ['auth:api']], function () {
-
+        Route::group(['middleware' => ['auth:api'], 'namespace' => 'Admin'], function () {
+            Route::post('admin/wallet', 'WalletTransactionController@add');
+        });
 
         Route::group(['namespace' => 'Calendar'], function () {
             Route::apiResource('calendar/works', 'WorksController')->except('show');

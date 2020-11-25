@@ -7,6 +7,10 @@ use App\Models\Calendar\Work;
 use App\Models\Message\Message;
 use App\Models\Message\Plan;
 use App\Models\Message\Schema;
+use App\Models\User\Wallet;
+use App\Models\User\WalletTransaction;
+use App\Policies\Admin\WalletPolicy;
+use App\Policies\Admin\WalletTransactionPolicy;
 use App\Policies\Calendar\WorkPolicy;
 use App\Policies\CustomerPolicy;
 use App\Policies\Message\MessagePolicy;
@@ -28,6 +32,8 @@ class AuthServiceProvider extends ServiceProvider
         Schema::class => SchemaPolicy::class,
         Customer::class => CustomerPolicy::class,
         Work::class => WorkPolicy::class,
+        Wallet::class => WalletPolicy::class,
+        WalletTransaction::class => WalletTransactionPolicy::class,
     ];
 
     /**

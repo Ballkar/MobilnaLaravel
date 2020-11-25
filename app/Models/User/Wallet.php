@@ -14,4 +14,16 @@ class Wallet extends Model
     {
         return $this->hasOne(User::class, 'id', 'owner_id');
     }
+
+    public function add(int $amount)
+    {
+        $this->money = $this->money + $amount;
+        $this->update();
+    }
+
+    public function subtract(int $amount)
+    {
+        $this->money = $this->money - $amount;
+        $this->update();
+    }
 }
