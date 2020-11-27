@@ -20,7 +20,7 @@ class LoginController extends Controller
         $credentials = request(['email', 'password']);
 
         if(!Auth::attempt($credentials))
-            return $this->sendError('Invalid credentials',  401);
+            return $this->sendError('Nieprawidłowy email lub hasło',  401);
 
         $user = $request->user();
 
