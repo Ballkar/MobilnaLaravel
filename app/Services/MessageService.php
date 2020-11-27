@@ -57,6 +57,20 @@ class MessageService
         return (int)floor($points / MessageService::$messageCost);
     }
 
+    public static function checkUserIsAbleToSendSMS(User $user, string $messageText)
+    {
+        $smsCounter = new SMSCounter();
+        $userMoney = $user->wallet->money;
+        $cost = MessageService::$messageCost;
+        $sms_count = $smsCounter->count($messageText)->messages;
+        $sms_cost = $sms_count * $cost;
+        if($userMoney < $sms_cost) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     /**
      * @param $body
      * @param bool $clearDiacritics

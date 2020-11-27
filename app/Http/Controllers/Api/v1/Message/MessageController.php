@@ -76,12 +76,7 @@ class MessageController extends Controller
         $to = $customer->phone;
         $from = $request->user('api')->name;
 
-        $smsCounter = new SMSCounter();
-        $userMoney = $user->wallet->money;
-        $cost = MessageService::$messageCost;
-        $sms_count = $smsCounter->count($text)->messages;
-        $sms_cost = $sms_count * $cost;
-        if($userMoney < $sms_cost) {
+        if(!MessageService::checkUserIsAbleToSendSMS($user, $messageText)) {
             return $this->sendError(null, 402, 'Not enough money');
         }
 

@@ -83,28 +83,27 @@ class SendMessagePlans extends Command
         $schema = $plan->schema;
         $owner = User::find($plan->owner->id);
         $userWallet = $owner->wallet;
-        $userMoney = $userWallet->money;
 
         foreach ($works as $work) {
             $customer = Customer::find($work->customer_id);
-
-            $text = MessageService::createTextFromSchema($schema->body, $schema->clear_diacritics, $customer, $owner, $work);
-            $sms_count = $this->smsCounter->count($text)->messages;
+            $messageText = MessageService::createTextFromSchema($schema->body, $schema->clear_diacritics, $customer, $owner, $work);
+            $sms_count = $this->smsCounter->count($messageText)->messages;
             $sms_cost = $sms_count * $this->smsCost;
-            if($userMoney < $sms_cost) {
+
+            if(!MessageService::checkUserIsAbleToSendSMS($owner, $messageText)) {
                 Log::channel('sendMessagePlans')->alert('Not enough money wallet id: ' . $userWallet->id . ' user owner id: ' . $owner->id);
                 $this->notificationService->sendNotification($owner->id, 'Wiadomość nie została wysłana', 'Posiadasz zbyt mało środków na koncie', NotificationService::$NOTIFICATION_TYPE_ERROR);
                 return false;
             }
-            echo 'sprawdzam dla user: ' . $owner->id;
+
             try {
-                $this->messageService->send($text, $owner->name, $customer->phone);
+                $this->messageService->send($messageText, $owner->name, $customer->phone);
                 $userWallet->subtract($sms_cost);
                 Message::create([
                     'owner_id' => $owner->id,
                     'customer_id' => $customer->id,
                     'name' => $schema->name,
-                    'text' => $text,
+                    'text' => $messageText,
                 ]);
             } catch (Exception $e) {
                 Log::channel('sendMessagePlans')->error('Error sending during sms! userID:' . $owner->id . ' message cost: '. $sms_cost);
