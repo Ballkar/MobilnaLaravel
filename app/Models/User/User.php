@@ -5,7 +5,6 @@ namespace App\Models\User;
 use App\Events\User\UserWasRegistered;
 use App\Http\Controllers\Constants\Roles;
 use App\Models\Announcement\Customer;
-use App\Models\Message\Plan;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;

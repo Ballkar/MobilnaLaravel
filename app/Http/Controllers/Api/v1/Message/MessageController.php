@@ -10,10 +10,12 @@ use App\Models\Announcement\Customer;
 use App\Models\Message\Message;
 use App\Models\Message\Schema;
 use App\Services\MessageService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Instasent\SMSCounter\SMSCounter;
 
 class MessageController extends Controller
 {
@@ -65,10 +67,17 @@ class MessageController extends Controller
 
         $name = $schema ? $schema->name : 'Jednorazowa wiadomość';
 
+        $user = $request->user('api');
+        $smsCounter = new SMSCounter();
+        $userMoney = $user->wallet->money;
+        $cost = MessageService::$messageCost;
+        $sms_count = $smsCounter->count($text)->messages;
+        $sms_cost = $sms_count * $cost;
+        if($userMoney < $sms_cost) {
+            throw new Exception('not enough money in user account');
+        }
 
         try {
-            // TODO: wyrzuć błąd jezeli nie ma więcej smsów na koncie
-            Message::smsCount($text, $polishChars);
             $messageService = new MessageService();
             $messageService->send($messageText, $from, $to);
 
@@ -77,7 +86,7 @@ class MessageController extends Controller
         }
 
         $messageSended = Message::create([
-            'owner_id' => $request->user('api')->id,
+            'owner_id' => $user->id,
             'customer_id' => $customer_id,
             'name' => $name,
             'text' => $messageText,

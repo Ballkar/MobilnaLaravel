@@ -114,8 +114,6 @@ class SendMessagePlans extends Command
                 'name' => $schema->name,
                 'text' => $text,
             ]);
-            $userWallet->subtract($sms_cost);
-
             $messageService->send($text, $owner->name, $customer->phone);
         }
 
