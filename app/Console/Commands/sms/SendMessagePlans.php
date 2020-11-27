@@ -9,6 +9,7 @@ use App\Models\Message\Message;
 use App\Models\Message\Plan;
 use App\Models\User\User;
 use App\Services\MessageService;
+use App\Services\NotificationService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Console\Command;
@@ -22,6 +23,7 @@ class SendMessagePlans extends Command
     private $messageService;
     private $smsCounter;
     private $smsCost;
+    private $notificationService;
 
 
     public function __construct()
@@ -29,6 +31,7 @@ class SendMessagePlans extends Command
         parent::__construct();
         $this->messageService = new MessageService();
         $this->smsCounter = new SMSCounter();
+        $this->notificationService = new NotificationService();
         $this->smsCost = MessageService::$messageCost;
     }
 
@@ -90,9 +93,10 @@ class SendMessagePlans extends Command
             $sms_cost = $sms_count * $this->smsCost;
             if($userMoney < $sms_cost) {
                 Log::channel('sendMessagePlans')->alert('Not enough money wallet id: ' . $userWallet->id . ' user owner id: ' . $owner->id);
-                return false;  // TODO: add notification
+                $this->notificationService->sendNotification($owner->id, 'Wiadomość nie została wysłana', 'Posiadasz zbyt mało środków na koncie', NotificationService::$NOTIFICATION_TYPE_ERROR);
+                return false;
             }
-
+            echo 'sprawdzam dla user: ' . $owner->id;
             try {
                 $this->messageService->send($text, $owner->name, $customer->phone);
                 $userWallet->subtract($sms_cost);
@@ -104,6 +108,7 @@ class SendMessagePlans extends Command
                 ]);
             } catch (Exception $e) {
                 Log::channel('sendMessagePlans')->error('Error sending during sms! userID:' . $owner->id . ' message cost: '. $sms_cost);
+                $this->notificationService->sendNotificationToAdmin('Problem podczas wysyłki: ' . Carbon::now()->toDateString(), '', NotificationService::$NOTIFICATION_TYPE_ERROR);
                 throw new Exception($e);
             }
 
