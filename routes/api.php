@@ -20,6 +20,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
         });
 
         Route::get('user', 'UserController@user')->name('user');
+        Route::get('notifications/calculate', 'NotificationController@calculate');
+        Route::apiResource('notifications', 'NotificationController')->only(['index', 'show', 'delete']);
         Route::apiResource('customers', 'CustomerController');
     });
 
