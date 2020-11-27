@@ -26,6 +26,7 @@ class MessagesTableSeeder extends Seeder
             ],
             'clear_diacritics' => true,
         ]);
+
         Schema::create([
             'owner_id' => '2',
             'name' => 'Przypomnienie',
@@ -36,6 +37,7 @@ class MessagesTableSeeder extends Seeder
             ],
             'clear_diacritics' => true,
         ]);
+
         Schema::create([
             'owner_id' => '2',
             'name' => 'Odmowa wiyzty',
@@ -52,18 +54,6 @@ class MessagesTableSeeder extends Seeder
                 ]
             ],
             'clear_diacritics' => false,
-        ]);
-        Message::create([
-            'owner_id' => '2',
-            'customer_id' => '1',
-            'name' => 'Odmowa wiyzty',
-            'text' => 'sory no nie dam rady dziś',
-        ]);
-        Message::create([
-            'owner_id' => '2',
-            'customer_id' => '2',
-            'name' => 'Odmowa wiyzty',
-            'text' => 'sory no nie dam rady dziś',
         ]);
 
         Plan::create([

@@ -38,7 +38,7 @@ class SendMessage extends Command
      */
     public function handle()
     {
-        $from = 'Mobilna';
+        $from = env('APP_NAME');
         $to = $this->ask('Type phone number?');
         $message = $this->ask('Type message?');
 

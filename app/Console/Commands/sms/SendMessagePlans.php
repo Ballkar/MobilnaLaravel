@@ -105,16 +105,22 @@ class SendMessagePlans extends Command
             $sms_count = $dataInfo->messages;
             $sms_cost = $sms_count * $cost;
             if($userMoney < $sms_cost) {
-                throw new Exception('not enough money in user account');
+                throw new Exception('not enough money in user account'); // TODO: nie przerywaj wysyłki tylko powiadom o braku keszu
             }
 
-            Message::create([
-                'owner_id' => $owner->id,
-                'customer_id' => $customer->id,
-                'name' => $schema->name,
-                'text' => $text,
-            ]);
-            $messageService->send($text, $owner->name, $customer->phone);
+            try {
+                $messageService->send($text, $owner->name, $customer->phone);
+                $userWallet->subtract(MessageService::$messageCost);
+                Message::create([
+                    'owner_id' => $owner->id,
+                    'customer_id' => $customer->id,
+                    'name' => $schema->name,
+                    'text' => $text,
+                ]);
+            } catch (Exception $e) {
+                throw new Exception($e);
+            }
+
         }
 
 

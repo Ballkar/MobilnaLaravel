@@ -53,44 +53,52 @@ class MessageController extends Controller
      */
     public function store(MessageInitRequest $request)
     {
-        $customer_id = $request->get('customer_id');
         $schema_id = $request->get('schema_id');
-        $polishChars = $request->get('with_polish_chars') || false;
-
-        $date = $request->get('date');
         $text = $request->get('text');
-        $schema = Schema::find($schema_id);
+        $customer = Customer::find($request->get('customer_id'));
+        $user = $request->user('api');
 
-        $messageText = $schema ? $schema->text : $text;
-        $to = Customer::find($customer_id)->phone;
+        if (isset($schema_id)) {
+            $schema = Schema::find($schema_id);
+            $body = $schema->body;
+            $clearDiacritics = $schema->clear_diacritics;
+            $name = $schema->name;
+            try {
+                $messageText = MessageService::createTextFromSchema($body, $clearDiacritics, $customer, $user, null);
+            } catch (Exception $e) {
+                return $this->sendError($e->getMessage(), 422);
+            }
+        } else {
+            $messageText = $text;
+            $name = 'Jednorazowa wiadomość';
+        }
+
+        $to = $customer->phone;
         $from = $request->user('api')->name;
 
-        $name = $schema ? $schema->name : 'Jednorazowa wiadomość';
-
-        $user = $request->user('api');
         $smsCounter = new SMSCounter();
         $userMoney = $user->wallet->money;
         $cost = MessageService::$messageCost;
         $sms_count = $smsCounter->count($text)->messages;
         $sms_cost = $sms_count * $cost;
         if($userMoney < $sms_cost) {
-            throw new Exception('not enough money in user account');
+            return $this->sendError(null, 402, 'Not enough money');
         }
 
         try {
             $messageService = new MessageService();
             $messageService->send($messageText, $from, $to);
-
         } catch (\Exception $e) {
-            $this->sendError($e->getMessage(), 422);
+            return $this->sendError($e->getMessage(), 422);
         }
 
         $messageSended = Message::create([
             'owner_id' => $user->id,
-            'customer_id' => $customer_id,
+            'customer_id' => $customer->id,
             'name' => $name,
             'text' => $messageText,
         ]);
+        $user->wallet->subtract(MessageService::$messageCost);
         return $this->sendResponse(new MessageResource($messageSended), 'Message sended', 201);
     }
 
