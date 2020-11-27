@@ -40,7 +40,11 @@ class MessageService
             'from' => $from
         ];
 
-        return $this->client->request('POST', $url, ['body' => json_encode($body)]);
+        if(env('MESSAGE_SENDING_ENABLED')) {
+            return $this->client->request('POST', $url, ['body' => json_encode($body)]);
+        } else {
+            return null;
+        }
     }
 
     public function checkMessageCountAvailable()

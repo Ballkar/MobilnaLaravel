@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands\sms;
 
-use App\Exceptions\UserNoMoneySmsException;
 use App\Http\Controllers\Api\v1\Message\PlansController;
 use App\Models\Announcement\Customer;
 use App\Models\Calendar\Work;
@@ -87,11 +86,6 @@ class SendMessagePlans extends Command
             $customer = Customer::find($work->customer_id);
 
             $text = MessageService::createTextFromSchema($schema->body, $schema->clear_diacritics, $customer, $owner, $work);
-//            try {
-//            } catch (Exception $e) {
-//                Log::channel('single')->info('Nie było planów');
-//            }
-
             $sms_count = $this->smsCounter->count($text)->messages;
             $sms_cost = $sms_count * $this->smsCost;
             if($userMoney < $sms_cost) {
@@ -100,7 +94,7 @@ class SendMessagePlans extends Command
             }
 
             try {
-//                $this->messageService->send($text, $owner->name, $customer->phone);
+                $this->messageService->send($text, $owner->name, $customer->phone);
                 $userWallet->subtract($sms_cost);
                 Message::create([
                     'owner_id' => $owner->id,
