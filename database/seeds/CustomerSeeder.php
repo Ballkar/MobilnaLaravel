@@ -13,20 +13,6 @@ class CustomerSeeder extends Seeder
     public function run()
     {
         Customer::create([
-            'name' => 'Ania',
-            'surname' => 'Błaszczyk',
-            'phone' => '515414768',
-            'owner_id' => '2',
-        ]);
-
-        Customer::create([
-            'name' => 'Kasia',
-            'surname' => 'Kowalczyk',
-            'phone' => '48608581667',
-            'owner_id' => '2',
-        ]);
-
-        Customer::create([
             'name' => 'Arek',
             'surname' => 'Łatka',
             'phone' => '608581667',
