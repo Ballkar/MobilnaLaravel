@@ -10,6 +10,7 @@ use App\Models\User\User;
 use Carbon\Carbon;
 use Exception;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Log;
 use Instasent\SMSCounter\SMSCounter;
 
 class MessageService
@@ -82,6 +83,7 @@ class MessageService
                 try {
                     $res = $res.MessageService::returnValueModel($element['variable'], $element['model'], $customer, $owner, $work);
                 } catch (Exception $exception) {
+                    Log::channel('single')->error('Not known variable' . $element['variable'] . ' or model ' . $element['model'] . 'in Message Service');
                     throw new Exception($exception);
                 }
             }

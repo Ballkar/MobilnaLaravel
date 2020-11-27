@@ -46,6 +46,12 @@ return [
             'level' => 'debug',
         ],
 
+        'sendMessagePlans' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/message/plan.log'),
+            'level' => 'debug',
+        ],
+
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
