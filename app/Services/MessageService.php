@@ -49,7 +49,7 @@ class MessageService
         $response = $this->client->request('GET', $url);
         $body = json_decode($response->getBody()->getContents());
         $points = $body->data;
-        return (int)floor($points / $this->messageCost);
+        return (int)floor($points / MessageService::$messageCost);
     }
 
     /**
