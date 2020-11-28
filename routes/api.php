@@ -21,6 +21,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
 
         Route::group(['namespace' => 'User'], function () {
             Route::get('user', 'UserController@user')->name('user');
+            Route::post('user', 'UserController@update')->name('user.update');
             Route::get('notifications/calculate', 'NotificationController@calculate');
             Route::apiResource('notifications', 'NotificationController')->only(['index', 'show', 'delete']);
         });

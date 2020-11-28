@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\User;
 
-use App\Models\User\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,6 +21,7 @@ class User extends JsonResource
             'name' => $this->name,
             'phone' => $this->phone,
             'email' => $this->email,
+//            'avatar' => $this->avatar,
             'wallet' => [
                 'money' => $wallet->money / 100
             ]
