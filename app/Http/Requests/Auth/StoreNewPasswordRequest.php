@@ -14,17 +14,14 @@ class StoreNewPasswordRequest extends ApiFormRequest
     public function rules()
     {
         return [
-            'password' => 'required|min:6|confirmed',
-            'token' => 'required'
+            'password' => 'required',
+            'new_password' => 'required|min:6|confirmed',
         ];
     }
 
     public function messages()
     {
         return [
-            'password.required' => 'Pole hasło jest wymagane.',
-            'password.min' => 'Pole hasło musi mieć przynajmniej :min znaków.',
-            'password.confirmed' => 'Wpisane hasła się różnią.',
         ];
     }
 }
