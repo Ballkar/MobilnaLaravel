@@ -17,7 +17,7 @@ class CreateWalletTransactionsTable extends Migration
             $table->bigIncrements('id');
 
             $table->integer('money')->unsigned();
-            $table->string('money_flow_type');
+            $table->string('type');
 
             $table->bigInteger('wallet_id')->unsigned();
             $table->foreign('wallet_id')->references('id')->on('wallets');

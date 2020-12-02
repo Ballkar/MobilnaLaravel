@@ -26,7 +26,7 @@ class WalletTransactionRequest extends ApiFormRequest
     public function rules()
     {
         return [
-            'money_flow_type' => ['required', Rule::in(['ADD', 'SUBTRACT'])],
+            'type' => ['required', Rule::in(['ADD', 'SUBTRACT'])],
             'money' => 'required|integer',
             'user_id' => 'exists:users,id',
         ];

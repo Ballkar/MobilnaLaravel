@@ -18,7 +18,7 @@ class WalletTransactionController extends Controller
 
         $user = User::find($request->get('user_id'));
         $transaction = WalletTransaction::create([
-            'money_flow_type' => $request->get('money_flow_type'),
+            'type' => $request->get('type'),
             'money' => $request->get('money'),
             'wallet_id' => $user->wallet->id,
         ]);

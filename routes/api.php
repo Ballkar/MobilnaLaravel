@@ -23,6 +23,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
             Route::get('user', 'UserController@user')->name('user');
             Route::post('user', 'UserController@update')->name('user.update');
             Route::post('user/password', 'UserController@passwordChange')->name('user.passwordChange');
+            Route::get('user/wallet', 'WalletController@get')->name('user.wallet');
             Route::get('notifications/calculate', 'NotificationController@calculate');
             Route::apiResource('notifications', 'NotificationController')->only(['index', 'show', 'delete']);
         });

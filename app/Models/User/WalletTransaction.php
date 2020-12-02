@@ -16,10 +16,10 @@ class WalletTransaction extends Model
 
         static::created(function (WalletTransaction $transaction) {
             $wallet = $transaction->wallet;
-            if ($transaction->money_flow_type === 'ADD') {
+            if ($transaction->type === 'ADD') {
                 $wallet->add($transaction->money);
             }
-            if ($transaction->money_flow_type === 'SUBTRACT') {
+            if ($transaction->type === 'SUBTRACT') {
                 $wallet->subtract($transaction->money);
             }
         });
