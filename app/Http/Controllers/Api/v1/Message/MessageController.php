@@ -51,7 +51,7 @@ class MessageController extends Controller
      * @param MessageInitRequest $request
      * @return JsonResponse
      */
-    public function store(MessageInitRequest $request)
+    public function initMessage(MessageInitRequest $request)
     {
         $schema_id = $request->get('schema_id');
         $text = $request->get('text');
@@ -77,7 +77,7 @@ class MessageController extends Controller
         $from = $request->user('api')->name;
 
         if(!MessageService::checkUserIsAbleToSendSMS($user, $messageText)) {
-            return $this->sendError(null, 402, 'Not enough money');
+            return $this->sendError('Brak wystarczających środków na koncie', 402);
         }
 
         try {
