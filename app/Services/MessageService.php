@@ -10,6 +10,7 @@ use App\Models\User\User;
 use Carbon\Carbon;
 use Exception;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Log;
 use Instasent\SMSCounter\SMSCounter;
 
 class MessageService
@@ -39,7 +40,11 @@ class MessageService
             'from' => $from
         ];
 
-        return $this->client->request('POST', $url, ['body' => json_encode($body)]);
+        if(env('MESSAGE_SENDING_ENABLED')) {
+            return $this->client->request('POST', $url, ['body' => json_encode($body)]);
+        } else {
+            return null;
+        }
     }
 
     public function checkMessageCountAvailable()
@@ -50,6 +55,20 @@ class MessageService
         $body = json_decode($response->getBody()->getContents());
         $points = $body->data;
         return (int)floor($points / MessageService::$messageCost);
+    }
+
+    public static function checkUserIsAbleToSendSMS(User $user, string $messageText)
+    {
+        $smsCounter = new SMSCounter();
+        $userMoney = $user->wallet->money;
+        $cost = MessageService::$messageCost;
+        $sms_count = $smsCounter->count($messageText)->messages;
+        $sms_cost = $sms_count * $cost;
+        if($userMoney < $sms_cost) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -82,6 +101,7 @@ class MessageService
                 try {
                     $res = $res.MessageService::returnValueModel($element['variable'], $element['model'], $customer, $owner, $work);
                 } catch (Exception $exception) {
+                    Log::channel('single')->error('Not known variable' . $element['variable'] . ' or model ' . $element['model'] . 'in Message Service');
                     throw new Exception($exception);
                 }
             }

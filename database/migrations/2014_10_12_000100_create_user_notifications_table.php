@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWalletTransactionsTable extends Migration
+class CreateUserNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,17 @@ class CreateWalletTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('wallet_transactions', function (Blueprint $table) {
+        Schema::create('user_notifications', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->integer('money')->unsigned();
-            $table->string('type');
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
 
-            $table->bigInteger('wallet_id')->unsigned();
-            $table->foreign('wallet_id')->references('id')->on('wallets');
+            $table->string('type');
+            $table->string('title');
+            $table->string('message')->nullable();
+            $table->boolean('is_read')->default(false);
+
             $table->timestamps();
         });
     }

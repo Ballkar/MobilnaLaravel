@@ -9,35 +9,30 @@ use App\Models\Message\Message;
 use App\Models\Message\Plan;
 use App\Models\User\User;
 use App\Services\MessageService;
+use App\Services\NotificationService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Instasent\SMSCounter\SMSCounter;
 
 class SendMessagePlans extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'sendMessagePlans';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Sending sms messages from active plans';
+    private $messageService;
+    private $smsCounter;
+    private $smsCost;
+    private $notificationService;
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
+
     public function __construct()
     {
         parent::__construct();
+        $this->messageService = new MessageService();
+        $this->smsCounter = new SMSCounter();
+        $this->notificationService = new NotificationService();
+        $this->smsCost = MessageService::$messageCost;
     }
 
     /**
@@ -53,7 +48,8 @@ class SendMessagePlans extends Command
             ->get();
 
         if(!isset($plans[0])) {
-            echo 'No plans active';
+            Log::channel('sendMessagePlans')->error('No active plans');
+            return false;
         }
 
         foreach ($plans as $plan) {
@@ -65,7 +61,7 @@ class SendMessagePlans extends Command
             try {
                 $this->sendMessagesForWorks($plan, $works);
             } catch (Exception $e) {
-                echo $e->getMessage();
+                Log::channel('sendMessagePlans')->error($e->getMessage());
             }
 
         }
@@ -84,40 +80,35 @@ class SendMessagePlans extends Command
 
     public function sendMessagesForWorks(Plan $plan, $works)
     {
-        $messageService = new MessageService();
-        $smsCounter = new SMSCounter();
         $schema = $plan->schema;
-        $body = $schema->body;
-        $clearDiacritics = $schema->clear_diacritics;
         $owner = User::find($plan->owner->id);
+        $userWallet = $owner->wallet;
 
         foreach ($works as $work) {
             $customer = Customer::find($work->customer_id);
-            $userWallet = $owner->wallet;
-            $userMoney = $userWallet->money;
-            $cost = MessageService::$messageCost;
-            try {
-                $text = MessageService::createTextFromSchema($body, $clearDiacritics, $customer, $owner, $work);
-            } catch (Exception $e) {
-                echo $e->getMessage();
-            }
-            $dataInfo = $smsCounter->count($text);
-            $sms_count = $dataInfo->messages;
-            $sms_cost = $sms_count * $cost;
-            if($userMoney < $sms_cost) {
-                throw new Exception('not enough money in user account'); // TODO: nie przerywaj wysyłki tylko powiadom o braku keszu
+            $messageText = MessageService::createTextFromSchema($schema->body, $schema->clear_diacritics, $customer, $owner, $work);
+            $sms_count = $this->smsCounter->count($messageText)->messages;
+            $sms_cost = $sms_count * $this->smsCost;
+
+            if(!MessageService::checkUserIsAbleToSendSMS($owner, $messageText)) {
+                Log::channel('sendMessagePlans')->alert('Not enough money wallet id: ' . $userWallet->id . ' user owner id: ' . $owner->id);
+                $this->notificationService->sendNotification($owner->id, 'Wiadomość nie została wysłana', 'Posiadasz zbyt mało środków na koncie', NotificationService::$NOTIFICATION_TYPE_ERROR);
+                return false;
             }
 
             try {
-                $messageService->send($text, $owner->name, $customer->phone);
-                $userWallet->subtract(MessageService::$messageCost);
+                $this->messageService->send($messageText, $owner->name, $customer->phone);
+                $userWallet->subtract($sms_cost);
                 Message::create([
                     'owner_id' => $owner->id,
                     'customer_id' => $customer->id,
                     'name' => $schema->name,
-                    'text' => $text,
+                    'text' => $messageText,
                 ]);
+                throw new Exception();
             } catch (Exception $e) {
+                Log::channel('sendMessagePlans')->error('Error sending during sms! userID:' . $owner->id . ' message cost: '. $sms_cost);
+                $this->notificationService->sendNotificationToAdmin('Problem podczas wysyłki Planów: ' . Carbon::now()->toDateString(), '', NotificationService::$NOTIFICATION_TYPE_ERROR);
                 throw new Exception($e);
             }
 

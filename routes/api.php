@@ -15,11 +15,19 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
         Route::group(['namespace' => 'Message'], function () {
             Route::post('messages/schemas/preview', 'SchemaController@preview');
             Route::apiResource('messages/schemas', 'SchemaController');
-            Route::apiResource('messages/history', 'MessageController')->except('update', 'destroy');
+            Route::post('messages/init', 'MessageController@initMessage');
+            Route::apiResource('messages/history', 'MessageController')->except('store', 'update', 'destroy');
             Route::apiResource('messages/plans', 'PlansController');
         });
 
-        Route::get('user', 'UserController@user')->name('user');
+        Route::group(['namespace' => 'User'], function () {
+            Route::get('user', 'UserController@user')->name('user');
+            Route::post('user', 'UserController@update')->name('user.update');
+            Route::post('user/password', 'UserController@passwordChange')->name('user.passwordChange');
+            Route::get('user/wallet', 'WalletController@get')->name('user.wallet');
+            Route::get('notifications/calculate', 'NotificationController@calculate');
+            Route::apiResource('notifications', 'NotificationController')->only(['index', 'show', 'delete']);
+        });
         Route::apiResource('customers', 'CustomerController');
     });
 

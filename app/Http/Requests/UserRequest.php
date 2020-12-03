@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests;
 
-use App\Http\Controllers\Constants\Roles;
-use App\Http\Requests\ApiFormRequest;
-use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
-class WalletTransactionRequest extends ApiFormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,9 +24,8 @@ class WalletTransactionRequest extends ApiFormRequest
     public function rules()
     {
         return [
-            'type' => ['required', Rule::in(['ADD', 'SUBTRACT'])],
-            'money' => 'required|integer',
-            'user_id' => 'exists:users,id',
+            'name' => 'required|string|min:4',
+            'phone' => 'required|string|min:4',
         ];
     }
 }

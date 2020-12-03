@@ -22,13 +22,6 @@ class UsersTableSeeder extends Seeder
             'name' => ''
         ]);
         User::create([
-            'email' => 'user@o2.pl',
-            'password' => '123123',
-            'role_id' => Roles::ROLE_USER,
-            'name' => 'Miss Megi',
-            'phone' => '508994856',
-        ]);
-        User::create([
             'email' => 'test@o2.pl',
             'password' => '123123',
             'role_id' => Roles::ROLE_USER,

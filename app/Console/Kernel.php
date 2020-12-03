@@ -32,7 +32,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('sendMessagePlans')
             ->everyFifteenMinutes();
         $schedule->command('CheckMessage')
-            ->dailyAt('13:40');
+            ->dailyAt('18');
     }
 
     /**
