@@ -148,10 +148,12 @@ class MessageService
     }
 
     private static function mapValueWorkModel(string $variable, Work $work) {
+        $date = Carbon::createFromFormat('Y-m-d H:i:s', $work->start, 'Europe/Warsaw');
         switch ($variable) {
-            case 'start':
-                $date = Carbon::createFromFormat('Y-m-d H:i:s', $work->start, 'Europe/Warsaw');
-                return $date->hour.':'.$date->minute;
+            case 'start_date':
+                return $date->format('d-m-Y');
+            case 'start_hour':
+                return $date->format('H:i');
             default:
                 throw new Exception('Uknown variable: '.$variable.' in Work Model');
         }
