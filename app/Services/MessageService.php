@@ -15,7 +15,7 @@ use Instasent\SMSCounter\SMSCounter;
 
 class MessageService
 {
-    public static $messageCost = 10;
+    public static $messageCost = 11;
     public $client;
 
     public function __construct()
