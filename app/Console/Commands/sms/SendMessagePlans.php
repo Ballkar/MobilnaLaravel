@@ -90,7 +90,7 @@ class SendMessagePlans extends Command
             $sms_count = $this->smsCounter->count($messageText)->messages;
             $sms_cost = $sms_count * $this->smsCost;
 
-            if(!MessageService::checkUserIsAbleToSendSMS($owner, $messageText)) {
+            if (!MessageService::checkUserIsAbleToSendSMS($owner, $messageText)) {
                 Log::channel('sendMessagePlans')->alert('Not enough money wallet id: ' . $userWallet->id . ' user owner id: ' . $owner->id);
                 $this->notificationService->sendNotification($owner->id, 'Wiadomość nie została wysłana', 'Posiadasz zbyt mało środków na koncie', NotificationService::$NOTIFICATION_TYPE_ERROR);
                 return false;
@@ -106,13 +106,13 @@ class SendMessagePlans extends Command
                     'text' => $messageText,
                 ]);
             } catch (Exception $e) {
-                Log::channel('sendMessagePlans')->error('Error sending during sms! userID:' . $owner->id . ' message cost: '. $sms_cost);
+                Log::channel('sendMessagePlans')->error('Error sending during sms! userID:' . $owner->id . ' message cost: ' . $sms_cost);
                 $this->notificationService->sendNotificationToAdmin('Problem podczas wysyłki Planów: ' . Carbon::now()->toDateString(), '', NotificationService::$NOTIFICATION_TYPE_ERROR);
                 throw new Exception($e);
             }
 
         }
 
-
+        Log::channel('sendMessagePlans')->info('done');
     }
 }
