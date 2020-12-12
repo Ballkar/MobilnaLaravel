@@ -29,15 +29,13 @@ class WorksController extends Controller
      */
     public function index(Request $request)
     {
-        $limit = $request->get('limit') ? $request->get('limit') : 10;
         $start = $request->get('start') ? $request->get('start') : 10;
         $stop = $request->get('stop') ? $request->get('stop') : 10;
         $start = Carbon::make($start);
         $stop = Carbon::make($stop);
         $works = Work::where('owner_id', '=', Auth::id())
             ->where('start', '>=', $start)
-            ->where('stop', '<=', $stop)
-            ->paginate($limit);
+            ->where('stop', '<=', $stop);
 
         return $this->sendResponse(new WorkCollection($works), 'All works returned');
     }
