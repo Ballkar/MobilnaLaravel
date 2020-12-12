@@ -24,8 +24,8 @@ class CustomerRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required_without:user_id|string|min:4',
-            'surname' => 'string|min:4',
+            'name' => 'required_without:user_id|string|min:2',
+            'surname' => 'string|min:2',
             'phone' => 'required_without:user_id|string|min:4',
             'additional_info' => 'nullable|string|min:4',
 
