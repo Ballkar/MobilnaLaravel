@@ -38,7 +38,7 @@ class WorksController extends Controller
             ->where('stop', '<=', $stop)
             ->get();
 
-        return $this->sendResponse(new WorkCollection($works), 'All works returned');
+        return $this->sendResponse($works, 'All works returned');
     }
 
      /**
