@@ -35,7 +35,8 @@ class WorksController extends Controller
         $stop = Carbon::make($stop);
         $works = Work::where('owner_id', '=', Auth::id())
             ->where('start', '>=', $start)
-            ->where('stop', '<=', $stop);
+            ->where('stop', '<=', $stop)
+            ->get();
 
         return $this->sendResponse(new WorkCollection($works), 'All works returned');
     }
