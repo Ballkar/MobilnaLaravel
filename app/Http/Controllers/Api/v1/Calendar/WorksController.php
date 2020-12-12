@@ -29,16 +29,17 @@ class WorksController extends Controller
      */
     public function index(Request $request)
     {
-        $start = $request->get('start') ? $request->get('start') : 10;
-        $stop = $request->get('stop') ? $request->get('stop') : 10;
-        $start = Carbon::make($start);
-        $stop = Carbon::make($stop);
+        $start = $request->get('start') ? $request->get('start') : null;
+        $stop = $request->get('stop') ? $request->get('stop') : null;
+        $start = $start ? Carbon::make($start) : Carbon::now();
+        $stop = $stop ? Carbon::make($stop) : Carbon::now()->addDay();
         $works = Work::where('owner_id', '=', Auth::id())
             ->where('start', '>=', $start)
             ->where('stop', '<=', $stop)
-            ->get();
+            ->paginate(999999999999);
 
-        return $this->sendResponse($works, 'All works returned');
+
+        return $this->sendResponse(new WorkCollection($works), 'All works returned');
     }
 
      /**
