@@ -105,7 +105,6 @@ class SendMessagePlans extends Command
                     'name' => $schema->name,
                     'text' => $messageText,
                 ]);
-                throw new Exception();
             } catch (Exception $e) {
                 Log::channel('sendMessagePlans')->error('Error sending during sms! userID:' . $owner->id . ' message cost: '. $sms_cost);
                 $this->notificationService->sendNotificationToAdmin('Problem podczas wysyłki Planów: ' . Carbon::now()->toDateString(), '', NotificationService::$NOTIFICATION_TYPE_ERROR);
