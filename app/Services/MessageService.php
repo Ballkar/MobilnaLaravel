@@ -41,7 +41,11 @@ class MessageService
         ];
 
         if(env('MESSAGE_SENDING_ENABLED')) {
-            return $this->client->request('POST', $url, ['body' => json_encode($body)]);
+            try {
+                return $this->client->request('POST', $url, ['body' => json_encode($body)]);
+            } catch (Exception $exception) {
+                Log::channel('sendMessagePlans')->error($exception->getMessage());
+            }
         } else {
             return null;
         }
