@@ -37,11 +37,12 @@ class MessageController extends Controller
                         $messages->where('name', 'like', '%' . $query . '%')
                             ->orWhere('surname', 'like', '%' . $query . '%')
                             ->orWhere('phone', 'like', '%' . $query . '%');
-                    });
+                    })
+                    ->orderBy('created_at', 'DESC');
                 })
                 ->paginate($limit);
         } else {
-            $messages = Message::where('owner_id', '=', Auth::id())->paginate($limit);
+            $messages = Message::where('owner_id', '=', Auth::id())->orderBy('created_at', 'DESC')->paginate($limit);
         }
 
         return $this->sendResponse(new MessageCollection($messages), 'All messages returned');
