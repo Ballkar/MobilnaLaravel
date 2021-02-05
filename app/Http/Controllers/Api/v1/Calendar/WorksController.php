@@ -59,6 +59,7 @@ class WorksController extends Controller
         $works = collect($request->get('works'))
             ->each(function ($item) {
                 $work = Work::find($item['id']);
+                $this->authorize('update', $work);
                 $work->update([
                     'start' => $item['start'],
                     'stop' => $item['stop'],
