@@ -11,6 +11,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
 
         Route::group(['namespace' => 'Calendar'], function () {
             Route::apiResource('calendar/works', 'WorksController')->except('show');
+            Route::post('calendar/works/mass-update', 'WorksController@massUpdate');
         });
         Route::group(['namespace' => 'Message'], function () {
             Route::post('messages/schemas/preview', 'SchemaController@preview');

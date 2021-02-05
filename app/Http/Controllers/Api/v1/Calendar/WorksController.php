@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Api\v1\Calendar;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Requests\Calendar\WorkRequest;
+use App\Http\Requests\Calendar\WorkMassUpdateRequest;
+use App\Http\Requests\Calendar\WorkAddUpdateRequest;
 use App\Http\Resources\Calendar\Work as WorkResource;
 use App\Http\Resources\Calendar\WorkCollection;
 use App\Models\Calendar\Work;
@@ -43,21 +44,35 @@ class WorksController extends Controller
     }
 
      /**
-      * @param WorkRequest $request
+      * @param WorkAddUpdateRequest $request
       * @param Work $work
       * @return JsonResponse
       */
-     public function update(WorkRequest $request, Work $work)
+     public function update(WorkAddUpdateRequest $request, Work $work)
      {
          $work->update($request->validated());
          return $this->sendResponse(new WorkResource($work), 'Work updated');
      }
 
+    public function massUpdate(WorkMassUpdateRequest $request)
+    {
+        $works = collect($request->get('works'))
+            ->each(function ($item) {
+                $work = Work::find($item['id']);
+                $work->update([
+                    'start' => $item['start'],
+                    'stop' => $item['stop'],
+                    'customer_id' => $item['customer_id'],
+                ]);
+            });
+        return $this->sendResponse($works, 'Works updated');
+    }
+
      /**
-      * @param WorkRequest $request
+      * @param WorkAddUpdateRequest $request
       * @return JsonResponse
       */
-     public function store(WorkRequest $request)
+     public function store(WorkAddUpdateRequest $request)
      {
          $work = Work::create(array_merge($request->validated(), [
              'owner_id' => Auth::id(),
