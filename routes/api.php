@@ -10,7 +10,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
         });
 
         Route::group(['namespace' => 'Calendar'], function () {
-            Route::apiResource('calendar/works', 'WorksController')->except('show');
+            Route::apiResource('calendar/works', 'WorksController')->except('index', 'show');
+            Route::post('calendar/works/calendar', 'WorksController@index');
             Route::post('calendar/works/mass-update', 'WorksController@massUpdate');
             Route::apiResource('calendar/labels', 'LabelsController');
         });

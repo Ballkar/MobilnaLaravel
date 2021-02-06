@@ -21,6 +21,7 @@ class WorkMassUpdateRequest extends FormRequest
             'works.*.start' => 'required|date',
             'works.*.stop' => 'required|date',
             'works.*.customer_id' => 'required|exists:customers,id',
+            'works.*.label_id' => 'nullable|exists:calendar_labels,id',
         ];
     }
 }

@@ -20,4 +20,9 @@ class Work extends Model
     {
         return $this->hasOne(Customer::class, 'id', 'customer_id');
     }
+
+    public function label()
+    {
+        return $this->hasOne(Label::class, 'id', 'label_id');
+    }
 }

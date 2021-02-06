@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1\Calendar;
 
 use App\Http\Controllers\ApiCommunication;
+use App\Http\Requests\Calendar\GetCalendarWorksRequest;
 use App\Http\Requests\Calendar\WorkMassUpdateRequest;
 use App\Http\Requests\Calendar\WorkAddUpdateRequest;
 use App\Http\Resources\Calendar\Work as WorkResource;
@@ -25,21 +26,32 @@ class WorksController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param GetCalendarWorksRequest $request
      * @return JsonResponse
      */
-    public function index(Request $request)
+    public function index(GetCalendarWorksRequest $request)
     {
+//        dd($request->get('label_ids'));
         $start = $request->get('start') ? $request->get('start') : null;
         $stop = $request->get('stop') ? $request->get('stop') : null;
         $start = $start ? Carbon::make($start) : Carbon::now();
         $stop = $stop ? Carbon::make($stop) : Carbon::now()->addDay();
+
+        $labelsIds = $request->get('label_ids');
+
+        $hasEmpty = in_array(null, $labelsIds);
+
         $works = Work::where('owner_id', '=', Auth::id())
+            ->whereIn('label_id', $labelsIds)->when($hasEmpty, function ($query) {
+                return $query->orWhereNull('label_id');
+            })
+            ->where('start', '>=', $start)
             ->where('start', '>=', $start)
             ->where('stop', '<=', $stop)
             ->paginate(999999999999);
 
 
+//        return $this->sendResponse($request->get('label_ids'), 'All works returned');
         return $this->sendResponse(new WorkCollection($works), 'All works returned');
     }
 
@@ -64,6 +76,7 @@ class WorksController extends Controller
                     'start' => $item['start'],
                     'stop' => $item['stop'],
                     'customer_id' => $item['customer_id'],
+                    'label_id' => $item['label_id'],
                 ]);
             });
         return $this->sendResponse($works, 'Works updated');
