@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1\Calendar;
 
 use App\Http\Controllers\ApiCommunication;
+use App\Http\Requests\Calendar\LabelMassUpdateRequest;
 use App\Http\Requests\Calendar\LabelRequest;
 use App\Http\Resources\Calendar\LabelCollection;
 use App\Http\Resources\Calendar\LabelResource;
@@ -43,6 +44,20 @@ class LabelsController extends Controller
          $label->update($request->validated());
          return $this->sendResponse(new LabelResource($label), 'Label updated');
      }
+
+    public function massUpdate(LabelMassUpdateRequest $request)
+    {
+        $labels = collect($request->get('labels'))
+            ->each(function ($item) {
+                $label = Label::find($item['id']);
+                $this->authorize('update', $label);
+                $label->update([
+                    'name' => $item['name'],
+                    'color' => $item['color'],
+                ]);
+            });
+        return $this->sendResponse($labels, 'Labels updated');
+    }
 
      /**
       * @param LabelRequest $request

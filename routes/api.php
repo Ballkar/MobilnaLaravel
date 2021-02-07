@@ -14,6 +14,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
             Route::post('calendar/works/calendar', 'WorksController@index');
             Route::post('calendar/works/mass-update', 'WorksController@massUpdate');
             Route::apiResource('calendar/labels', 'LabelsController');
+            Route::post('calendar/labels/mass-update', 'LabelsController@massUpdate');
         });
         Route::group(['namespace' => 'Message'], function () {
             Route::post('messages/schemas/preview', 'SchemaController@preview');
