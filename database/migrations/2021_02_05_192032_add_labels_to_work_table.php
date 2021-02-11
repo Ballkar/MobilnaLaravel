@@ -15,7 +15,7 @@ class AddLabelsToWorkTable extends Migration
     {
         Schema::table('calendar_works', function (Blueprint $table) {
             $table->bigInteger('label_id')->unsigned()->nullable();
-            $table->foreign('label_id')->references('id')->on('calendar_labels');
+            $table->foreign('label_id')->references('id')->on('calendar_labels')->onDelete('set null');
         });
     }
 
