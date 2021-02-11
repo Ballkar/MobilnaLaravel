@@ -5,7 +5,7 @@ namespace App\Http\Requests\Calendar;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class WorkAddUpdateRequest extends FormRequest
+class GetCalendarWorksRequest extends FormRequest
 {
 
     /**
@@ -16,10 +16,10 @@ class WorkAddUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'start' => 'required|date',
-            'stop' => 'required|date',
-            'customer_id' => 'required|exists:customers,id',
-            'label_id' => 'nullable|exists:calendar_labels,id',
+            "start"    => "required|date",
+            "stop"    => "required|date",
+            'labels_ids' => 'nullable|array',
+            'labels_ids.*' => 'exists:calendar_labels,id',
         ];
     }
 }
