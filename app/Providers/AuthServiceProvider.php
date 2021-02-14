@@ -9,6 +9,7 @@ use App\Models\Message\Plan;
 use App\Models\Message\Schema;
 use App\Models\User\Wallet;
 use App\Models\User\WalletTransaction;
+use App\Models\Calendar\Label;
 use App\Policies\Admin\WalletPolicy;
 use App\Policies\Admin\WalletTransactionPolicy;
 use App\Policies\Calendar\WorkPolicy;
@@ -16,6 +17,7 @@ use App\Policies\CustomerPolicy;
 use App\Policies\Message\MessagePolicy;
 use App\Policies\Message\PlanPolicy;
 use App\Policies\Message\SchemaPolicy;
+use App\Policies\Calendar\LabelPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
 
@@ -32,6 +34,7 @@ class AuthServiceProvider extends ServiceProvider
         Schema::class => SchemaPolicy::class,
         Customer::class => CustomerPolicy::class,
         Work::class => WorkPolicy::class,
+        Label::class => LabelPolicy::class,
         Wallet::class => WalletPolicy::class,
         WalletTransaction::class => WalletTransactionPolicy::class,
     ];
