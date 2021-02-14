@@ -30,7 +30,7 @@ class LabelsController extends Controller
     public function index(Request $request)
     {
         $limit = $request->limit ? $request->limit : 10;
-        $labels = Label::paginate($limit);
+        $labels = Label::where('owner_id', '=', Auth::id())->paginate($limit);
         return $this->sendResponse(new LabelCollection($labels), 'All labels returned');
     }
 
