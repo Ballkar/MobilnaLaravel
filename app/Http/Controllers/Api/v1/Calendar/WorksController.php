@@ -42,8 +42,11 @@ class WorksController extends Controller
         $hasEmpty = in_array(null, $labelsIds);
 
         $works = Work::where('owner_id', '=', Auth::id())
-            ->whereIn('label_id', $labelsIds)->when($hasEmpty, function ($query) {
-                return $query->orWhereNull('label_id');
+            ->where(function($query) use ($labelsIds,$hasEmpty){
+                $query->whereIn('label_id', $labelsIds);
+                $query->when($hasEmpty, function ($query) {
+                    return $query->orWhereNull('label_id');
+                });
             })
             ->where('start', '>=', $start)
             ->where('start', '>=', $start)
