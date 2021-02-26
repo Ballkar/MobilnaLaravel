@@ -16,4 +16,9 @@ class Schema extends Model
     {
         return $this->hasMany(Message::class, 'schema_id', 'id');
     }
+
+    public function plans()
+    {
+        return $this->hasMany(Plan::class, 'schema_id', 'id');
+    }
 }
