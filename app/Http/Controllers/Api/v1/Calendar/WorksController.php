@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class WorksController extends Controller
@@ -30,7 +31,6 @@ class WorksController extends Controller
      */
     public function index(GetCalendarWorksRequest $request)
     {
-//        dd($request->get('label_ids'));
         $start = $request->get('start') ? $request->get('start') : null;
         $stop = $request->get('stop') ? $request->get('stop') : null;
         $start = $start ? Carbon::make($start) : Carbon::now();
@@ -103,6 +103,9 @@ class WorksController extends Controller
       */
      public function destroy(Work $work)
      {
+         $request = new Request(['start' => Carbon::parse($work->start)->format('Y-m-d H:i:s')]);
+         $request->validate(['start' => 'required|date|after:' . date('Y-m-d H:i:s')]);
+
          $work->delete();
          return $this->sendResponse(null, 'Work deleted', 204);
      }
