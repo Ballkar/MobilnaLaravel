@@ -16,8 +16,8 @@ class WorkAddUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'start' => 'required|date',
-            'stop' => 'required|date',
+            'start' => 'required|date|before:stop|after:' . date('Y-m-d H:i:s'),
+            'stop' => 'required|date|after:start|after:' . date('Y-m-d H:i:s'),
             'customer_id' => 'required|exists:customers,id',
             'label_id' => 'nullable|exists:calendar_labels,id',
         ];

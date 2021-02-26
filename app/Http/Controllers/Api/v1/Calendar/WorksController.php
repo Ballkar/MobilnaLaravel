@@ -11,7 +11,6 @@ use App\Http\Resources\Calendar\WorkCollection;
 use App\Models\Calendar\Work;
 use Carbon\Carbon;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -96,15 +95,6 @@ class WorksController extends Controller
          ]));
          return $this->sendResponse(new WorkResource($work), 'Work Added', 201);
      }
-
-    // /**
-    //  * @param Customer $customer
-    //  * @return JsonResponse
-    //  */
-    // public function show(Customer $customer)
-    // {
-    //     return $this->sendResponse(new CustomerResource($customer), 'Customer returned');
-    // }
 
      /**
       * @param Work $work
