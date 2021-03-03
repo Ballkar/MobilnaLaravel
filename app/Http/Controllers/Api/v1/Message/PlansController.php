@@ -7,6 +7,7 @@ use App\Http\Requests\Message\MessageSettingRequest;
 use App\Http\Resources\Message\MessageSetting as MessageSettingResource;
 use App\Http\Resources\Message\MessageSettingCollection;
 use App\Models\Message\Plan;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -64,5 +65,16 @@ class PlansController extends Controller
             'owner_id' => Auth::id(),
         ]));
         return $this->sendResponse(new MessageSettingResource($messageSchema), 'Message plan Added', 201);
+    }
+
+    /**
+     * @param Plan $plan
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function destroy(Plan $plan)
+    {
+        $plan->delete();
+        return $this->sendResponse(null, 'Plan deleted', 204);
     }
 }
