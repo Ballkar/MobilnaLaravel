@@ -24,11 +24,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
                 Route::post('remind/preview', 'RemindPlanController@preview');
             });
 
-            Route::post('messages/schemas/preview', 'SchemaController@preview');
-            Route::apiResource('messages/schemas', 'SchemaController');
             Route::post('messages/init', 'MessageController@initMessage');
             Route::apiResource('messages/history', 'MessageController')->except('store', 'update', 'destroy');
-//            Route::apiResource('messages/plans', 'PlansController');
         });
 
         Route::group(['namespace' => 'User'], function () {
