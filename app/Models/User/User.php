@@ -5,6 +5,7 @@ namespace App\Models\User;
 use App\Events\User\UserWasRegistered;
 use App\Http\Controllers\Constants\Roles;
 use App\Models\Announcement\Customer;
+use App\Models\Message\Plans\RemindPlan;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -30,6 +31,9 @@ class User extends Authenticatable
             Wallet::create([
                 'owner_id' => $user->id,
                 'money' => 0,
+            ]);
+            RemindPlan::create([
+                'owner_id' => $user->id,
             ]);
         });
 
@@ -59,6 +63,11 @@ class User extends Authenticatable
     public function isUser()
     {
         return $this->role_id === Roles::ROLE_USER;
+    }
+
+    public function remindPlan()
+    {
+        return $this->hasOne(RemindPlan::class, 'owner_id');
     }
 
     public function returnNewToken($remember = false)
