@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Message\Plans;
 
+use App\Models\Message\Plans\RemindPlan;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class RemindPlanRequest extends FormRequest
 {
@@ -34,7 +36,7 @@ class RemindPlanRequest extends FormRequest
             'active' => 'boolean',
             'hour' => 'required|int',
             'minute' => 'required|int',
-            'time_type' => 'required|int',
+            'time_type' => ['required', Rule::in(RemindPlan::$time_type_same_day, RemindPlan::$time_type_day_before)],
         ];
     }
 }

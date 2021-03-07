@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class RemindPlan extends Model
 {
+    public static $time_type_same_day = 1;
+    public static $time_type_day_before = 2;
     protected $table = 'plans_remind';
     public $timestamps = false;
     protected $guarded = [];

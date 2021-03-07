@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('sendMessagePlans')
+        $schedule->command('SendMessageRemindPlans')
             ->everyFifteenMinutes();
         $schedule->command('CheckMessage')
             ->dailyAt('18');

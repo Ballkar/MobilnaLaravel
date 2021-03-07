@@ -70,7 +70,7 @@ class SendMessageRemindPlans extends Command
 
     public function getWorksForPlan(RemindPlan $plan, Carbon $nowDate)
     {
-        $nowDate = $plan->time_type == RemindPlanController::$time_type_same_day ? $nowDate : $nowDate->addDay();
+        $nowDate = $plan->time_type == RemindPlan::$time_type_same_day ? $nowDate : $nowDate->addDay();
         $works = Work::where('owner_id', $plan->owner_id)
             ->whereDate('start', $nowDate->toDateString())
             ->get();
