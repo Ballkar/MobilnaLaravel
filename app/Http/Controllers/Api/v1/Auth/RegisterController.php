@@ -28,6 +28,6 @@ class RegisterController extends Controller
             'reg' => $request->reg
         ]);
 
-        return $this->sendResponse(new UserResource($user), 'Account created', 201);
+        return $this->sendResponse(null, 'Account created', 204);
     }
 }
