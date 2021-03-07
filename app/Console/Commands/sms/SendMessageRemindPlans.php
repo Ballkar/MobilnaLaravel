@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands\sms;
 
-use App\Http\Controllers\Api\v1\Message\PlansController;
+use App\Http\Controllers\Api\v1\Message\Plans\RemindPlanController;
 use App\Models\Announcement\Customer;
 use App\Models\Calendar\Work;
 use App\Models\Message\Message;
-use App\Models\Message\Plan;
+use App\Models\Message\Plans\RemindPlan;
 use App\Models\User\User;
 use App\Services\MessageService;
 use App\Services\NotificationService;
@@ -16,10 +16,10 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Instasent\SMSCounter\SMSCounter;
 
-class SendMessagePlans extends Command
+class SendMessageRemindPlans extends Command
 {
-    protected $signature = 'sendMessagePlans';
-    protected $description = 'Sending sms messages from active plans';
+    protected $signature = 'SendMessageRemindPlans';
+    protected $description = 'Sending sms reminding plans';
     private $messageService;
     private $smsCounter;
     private $smsCost;
@@ -42,13 +42,13 @@ class SendMessagePlans extends Command
     public function handle()
     {
         $date = Carbon::now();
-        $plans = Plan::where('active', true)
+        $plans = RemindPlan::where('active', true)
             ->where('hour', $date->hour)
             ->where('minute', $date->minute)
             ->get();
 
         if(!isset($plans[0])) {
-            Log::channel('sendMessagePlans')->error('No active plans');
+            Log::channel('sendMessagePlans')->info('No active plans');
             return false;
         }
 
@@ -61,16 +61,16 @@ class SendMessagePlans extends Command
             try {
                 $this->sendMessagesForWorks($plan, $works);
             } catch (Exception $e) {
-                Log::channel('sendMessagePlans')->error($e->getMessage());
+                Log::channel('sendMessagePlans')->error($e->getMessage()); // TODO: rename channel
             }
 
         }
-
+        return true;
     }
 
-    public function getWorksForPlan(Plan $plan, Carbon $nowDate)
+    public function getWorksForPlan(RemindPlan $plan, Carbon $nowDate)
     {
-        $nowDate = $plan->time_type == PlansController::$time_type_same_day ? $nowDate : $nowDate->addDay();
+        $nowDate = $plan->time_type == RemindPlanController::$time_type_same_day ? $nowDate : $nowDate->addDay();
         $works = Work::where('owner_id', $plan->owner_id)
             ->whereDate('start', $nowDate->toDateString())
             ->get();
@@ -78,15 +78,14 @@ class SendMessagePlans extends Command
         return $works;
     }
 
-    public function sendMessagesForWorks(Plan $plan, $works)
+    public function sendMessagesForWorks(RemindPlan $plan, $works)
     {
-        $schema = $plan->schema;
         $owner = User::find($plan->owner->id);
         $userWallet = $owner->wallet;
 
         foreach ($works as $work) {
             $customer = Customer::find($work->customer_id);
-            $messageText = MessageService::createTextFromSchema($schema->body, $schema->clear_diacritics, $customer, $owner, $work);
+            $messageText = MessageService::createTextFromSchema($plan->body, $plan->clear_diacritics, $customer, $owner, $work);
             $sms_count = $this->smsCounter->count($messageText)->messages;
             $sms_cost = $sms_count * $this->smsCost;
 
@@ -102,7 +101,7 @@ class SendMessagePlans extends Command
                 Message::create([
                     'owner_id' => $owner->id,
                     'customer_id' => $customer->id,
-                    'name' => $schema->name,
+                    'name' => 'Przypomnienie',
                     'text' => $messageText,
                 ]);
             } catch (Exception $e) {

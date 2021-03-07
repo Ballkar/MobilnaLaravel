@@ -18,6 +18,8 @@ use Instasent\SMSCounter\SMSCounter;
 class RemindPlanController extends Controller
 {
     use ApiCommunication;
+    public static $time_type_same_day = 1;
+    public static $time_type_day_before = 2;
 
     public function __construct()
     {

@@ -53,36 +53,21 @@ class MessageController extends Controller
      */
     public function initMessage(MessageInitRequest $request)
     {
-        $schema_id = $request->get('schema_id');
-        $text = $request->get('text');
         $customer = Customer::find($request->get('customer_id'));
         $user = $request->user('api');
+        $text = $request->get('text');
 
-        if (isset($schema_id)) {
-            $schema = Schema::find($schema_id);
-            $body = $schema->body;
-            $clearDiacritics = $schema->clear_diacritics;
-            $name = $schema->name;
-            try {
-                $messageText = MessageService::createTextFromSchema($body, $clearDiacritics, $customer, $user, null);
-            } catch (Exception $e) {
-                return $this->sendError($e->getMessage(), 422);
-            }
-        } else {
-            $messageText = $text;
-            $name = 'Jednorazowa wiadomość';
-        }
-
+        $name = 'Jednorazowa wiadomość';
         $to = $customer->phone;
-        $from = $request->user('api')->name;
+        $from = $user->name;
 
-        if(!MessageService::checkUserIsAbleToSendSMS($user, $messageText)) {
+        if(!MessageService::checkUserIsAbleToSendSMS($user, $text)) {
             return $this->sendError('Brak wystarczających środków na koncie', 402);
         }
 
         try {
             $messageService = new MessageService();
-            $messageService->send($messageText, $from, $to);
+            $messageService->send($text, $from, $to);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), 422);
         }
@@ -91,7 +76,7 @@ class MessageController extends Controller
             'owner_id' => $user->id,
             'customer_id' => $customer->id,
             'name' => $name,
-            'text' => $messageText,
+            'text' => $text,
         ]);
         $user->wallet->subtract(MessageService::$messageCost);
         return $this->sendResponse(new MessageResource($messageSended), 'Message sended', 201);
