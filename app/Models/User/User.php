@@ -22,6 +22,7 @@ class User extends Authenticatable
     ];
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'tutorials' => 'array',
     ];
 
     public static function boot()
