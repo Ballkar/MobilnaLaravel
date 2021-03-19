@@ -4,6 +4,7 @@ namespace App\Policies\Calendar;
 
 use App\Models\Calendar\Work;
 use App\Models\User\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class WorkPolicy
@@ -53,7 +54,7 @@ class WorkPolicy
      */
     public function update(User $user, Work $work)
     {
-        return $user->id === $work->owner_id;
+        return $user->id === $work->owner_id && Carbon::parse($work->start)->gt(Carbon::now());
     }
 
     /**

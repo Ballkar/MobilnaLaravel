@@ -85,6 +85,8 @@ class SchemaController extends Controller
      */
     public function destroy(Schema $schema)
     {
+//        dd($schema->plans);
+        $schema->plans()->delete();
         $schema->delete();
         return $this->sendResponse(null, 'Schema deleted', 204);
     }

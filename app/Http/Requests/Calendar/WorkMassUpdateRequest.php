@@ -18,8 +18,8 @@ class WorkMassUpdateRequest extends FormRequest
         return [
             "works"    => "required|array",
             'works.*.id' => 'required|exists:calendar_works,id',
-            'works.*.start' => 'required|date',
-            'works.*.stop' => 'required|date',
+            'works.*.start' => 'required|date|before:works.*.stop|after:' . date('Y-m-d H:i:s'),
+            'works.*.stop' => 'required|date|after:works.*.start',
             'works.*.customer_id' => 'required|exists:customers,id',
             'works.*.label_id' => 'nullable|exists:calendar_labels,id',
         ];
