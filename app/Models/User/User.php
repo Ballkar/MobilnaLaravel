@@ -6,6 +6,7 @@ use App\Events\User\UserWasRegistered;
 use App\Http\Controllers\Constants\Roles;
 use App\Models\Announcement\Customer;
 use App\Models\Message\Plans\RemindPlan;
+use App\Services\NotificationService;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -35,7 +36,14 @@ class User extends Authenticatable
             ]);
             RemindPlan::create([
                 'owner_id' => $user->id,
+                'body' => RemindPlan::$defaultBody,
+                'hour' => 17,
+                'minute' => 0,
+                'time_type' => RemindPlan::$time_type_day_before,
             ]);
+
+            $notificationService = new NotificationService();
+            $notificationService->sendNotificationToAdmin('Nowy user!', 'Zarejestrował się user o emailu'. $user->email, NotificationService::$NOTIFICATION_TYPE_INFO);
         });
 
         parent::boot();

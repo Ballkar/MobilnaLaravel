@@ -13,7 +13,7 @@ class CreatePlansRemindTable extends Migration
      */
     public function up()
     {
-        Schema::create('plans_remind', function (Blueprint $table) {
+        Schema::create('message_plans_remind', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('owner_id')->unsigned();
             $table->foreign('owner_id')->references('id')->on('users');

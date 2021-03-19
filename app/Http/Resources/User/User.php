@@ -21,7 +21,7 @@ class User extends JsonResource
             'name' => $this->name,
             'phone' => $this->phone,
             'email' => $this->email,
-            'tutorials_done' => $this->tutorials,
+            'tutorials' => $this->tutorials,
             'wallet' => [
                 'money' => $wallet->money / 100
             ],
