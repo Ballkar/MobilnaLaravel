@@ -7,6 +7,7 @@ use App\Http\Requests\CustomerRequest;
 use App\Http\Resources\Customer\Customer as CustomerResource;
 use App\Http\Resources\Customer\CustomerCollection;
 use App\Models\Announcement\Customer;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -84,6 +85,14 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
+        $works = collect($customer->works);
+        $works->each(function ($work) {
+            $startDate = Carbon::parse($work->start);
+            $actualDate = Carbon::now();
+            if($actualDate->lt($startDate)) {
+                $work->delete();
+            }
+        });
         $customer->delete();
         return $this->sendResponse(null, 'Category deleted', 204);
     }
