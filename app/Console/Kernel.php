@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
         'App\Console\Commands\init\init',
         'App\Console\Commands\sms\SendMessage',
         'App\Console\Commands\sms\CheckMessage',
-        'App\Console\Commands\sms\SendMessagePlans',
+        'App\Console\Commands\sms\SendMessageRemindPlans',
     ];
 
     /**
@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('sendMessagePlans')
+        $schedule->command('SendMessageRemindPlans')
             ->everyFifteenMinutes();
         $schedule->command('CheckMessage')
             ->dailyAt('18');

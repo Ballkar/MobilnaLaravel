@@ -19,7 +19,6 @@ class RegisterController extends Controller
 
     public function register(RegisterRequest $request)
     {
-
         $user = User::create([
             'email' => $request->email,
             'password' => $request->password,
@@ -28,6 +27,6 @@ class RegisterController extends Controller
             'reg' => $request->reg
         ]);
 
-        return $this->sendResponse(new UserResource($user), 'Account created', 201);
+        return $this->sendResponse(null, 'Account created', 204);
     }
 }

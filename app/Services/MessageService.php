@@ -97,11 +97,13 @@ class MessageService
                 $res = $res.$element['text'];
             }
 
-            if(isset($element['variable']) && isset($element['model'])) {
+
+            if(isset($element['variable'])) {
+                $element = $element['variable'];
                 try {
-                    $res = $res.MessageService::returnValueModel($element['variable'], $element['model'], $customer, $owner, $work);
+                    $res = $res.MessageService::returnValueModel($element['name'], $element['model'], $customer, $owner, $work);
                 } catch (Exception $exception) {
-                    Log::channel('single')->error('Not known variable' . $element['variable'] . ' or model ' . $element['model'] . 'in Message Service');
+                    Log::channel('single')->error('Not known variable' . $element['name'] . ' or model ' . $element['model'] . 'in Message Service');
                     throw new Exception($exception);
                 }
             }

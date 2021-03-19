@@ -17,16 +17,21 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
             Route::post('calendar/labels/mass-update', 'LabelsController@massUpdate');
         });
         Route::group(['namespace' => 'Message'], function () {
-            Route::post('messages/schemas/preview', 'SchemaController@preview');
-            Route::apiResource('messages/schemas', 'SchemaController');
+            Route::group(['namespace' => 'Plans', 'prefix' => 'messages/plans'], function () {
+                Route::get('', 'PlansController@index');
+                Route::get('remind', 'RemindPlanController@show');
+                Route::put('remind', 'RemindPlanController@update');
+                Route::post('remind/preview', 'RemindPlanController@preview');
+            });
+
             Route::post('messages/init', 'MessageController@initMessage');
             Route::apiResource('messages/history', 'MessageController')->except('store', 'update', 'destroy');
-            Route::apiResource('messages/plans', 'PlansController');
         });
 
         Route::group(['namespace' => 'User'], function () {
             Route::get('user', 'UserController@user')->name('user');
             Route::post('user', 'UserController@update')->name('user.update');
+            Route::post('user/tutorial', 'UserController@markTutorialDone')->name('user.tutorial');
             Route::post('user/password', 'UserController@passwordChange')->name('user.passwordChange');
             Route::get('user/wallet', 'WalletController@get')->name('user.wallet');
             Route::get('notifications/calculate', 'NotificationController@calculate');
