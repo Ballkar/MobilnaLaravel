@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class CustomerController extends Controller
 {
@@ -52,8 +53,12 @@ class CustomerController extends Controller
      */
     public function store(CustomerRequest $request)
     {
+        $name = trim($request->get('name'));
+        $surname = trim($request->get('surname'));
         $customer = Customer::create(array_merge($request->validated(), [
             'owner_id' => Auth::id(),
+            'name' => $name,
+            'surname' => $surname,
         ]));
         return $this->sendResponse(new CustomerResource($customer), 'Customer Added', 201);
     }
@@ -74,7 +79,12 @@ class CustomerController extends Controller
      */
     public function update(CustomerRequest $request, Customer $customer)
     {
-        $customer->update($request->validated());
+        $name = trim($request->get('name'));
+        $surname = trim($request->get('surname'));
+        $customer->update(array_merge($request->validated(), [
+            'name' => $name,
+            'surname' => $surname,
+        ]));
         return $this->sendResponse(new CustomerResource($customer), 'Customer updated');
     }
 
