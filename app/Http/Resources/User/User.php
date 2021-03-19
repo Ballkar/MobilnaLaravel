@@ -16,12 +16,14 @@ class User extends JsonResource
     public function toArray($request)
     {
         $wallet = $this->wallet;
+        $notifications = $this->notifications();
         return [
             'id' => $this->id,
             'name' => $this->name,
             'phone' => $this->phone,
             'email' => $this->email,
             'tutorials' => $this->tutorials,
+            'unread_notifications' => $notifications->where('is_read', 0)->count(),
             'wallet' => [
                 'money' => $wallet->money / 100
             ],

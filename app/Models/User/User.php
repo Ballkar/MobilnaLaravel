@@ -43,7 +43,7 @@ class User extends Authenticatable
             ]);
 
             $notificationService = new NotificationService();
-            $notificationService->sendNotificationToAdmin('Nowy user!', 'Zarejestrował się user o emailu'. $user->email, NotificationService::$NOTIFICATION_TYPE_INFO);
+            $notificationService->sendNotificationToAdmin('Nowy user!', 'Zarejestrował się user o emailu '. $user->email, NotificationService::$NOTIFICATION_TYPE_INFO);
         });
 
         parent::boot();
@@ -62,6 +62,11 @@ class User extends Authenticatable
     public function wallet()
     {
         return $this->hasOne(Wallet::class, 'owner_id');
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'user_id');
     }
 
     public function isAdmin()
