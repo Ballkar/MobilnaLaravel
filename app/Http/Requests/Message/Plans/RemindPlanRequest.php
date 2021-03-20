@@ -2,7 +2,8 @@
 
 namespace App\Http\Requests\Message\Plans;
 
-use App\Models\Message\Plans\RemindPlan;
+use App\Http\Controllers\Constants\PlanTypes;
+use App\Models\Message\Plans\PlanSchema;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -18,6 +19,14 @@ class RemindPlanRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        $schema = PlanSchema::find($this->get('schema_id'));
+        $this->merge([
+            'schema' => $schema
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -26,7 +35,8 @@ class RemindPlanRequest extends FormRequest
     public function rules()
     {
         return [
-            'schema_id' => 'exists:message_plans_remind_schema,id',
+            'schema_id' => 'required|exists:message_plans_schemas,id',
+            'schema.type' => Rule::in(PlanTypes::REMIND),
             'active' => 'boolean',
         ];
     }
