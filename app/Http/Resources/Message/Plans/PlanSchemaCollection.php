@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources\Message\Plans;
 
+use App\Http\Resources\BaseResourceCollection;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class RemindPlanSchema extends JsonResource
+class PlanSchemaCollection extends BaseResourceCollection
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +15,6 @@ class RemindPlanSchema extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id' => $this->id,
-            'body' => $this->body,
-        ];
+        return parent::toArray($request);
     }
 }

@@ -18,6 +18,6 @@ class RemindPlan extends Model
 
     public function schema()
     {
-        return $this->hasOne(RemindPlanSchema::class, 'id', 'schema_id');
+        return $this->hasOne(PlanSchema::class, 'id', 'schema_id');
     }
 }

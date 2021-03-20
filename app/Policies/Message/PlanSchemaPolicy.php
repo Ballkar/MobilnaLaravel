@@ -1,13 +1,13 @@
 <?php
 
 
-namespace App\Policies\Admin;
+namespace App\Policies\Message;
 
 
 use App\Models\User\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class RemindPlanSchemaPolicy
+class PlanSchemaPolicy
 {
     use HandlesAuthorization;
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlansRemindSchemaTable extends Migration
+class CreatePlansSchemasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreatePlansRemindSchemaTable extends Migration
      */
     public function up()
     {
-        Schema::create('message_plans_remind_schema', function (Blueprint $table) {
+        Schema::create('message_plans_schemas', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('type');
             $table->text('body');
         });
     }
@@ -26,6 +27,6 @@ class CreatePlansRemindSchemaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('message_plans_remind_schema');
+        Schema::dropIfExists('message_plans_schemas');
     }
 }

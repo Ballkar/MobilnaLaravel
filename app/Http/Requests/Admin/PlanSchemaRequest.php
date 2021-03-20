@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests\Admin;
 
-use App\Models\Message\Plans\RemindPlan;
+use App\Http\Controllers\Constants\PlanTypes;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class RemindPlanSchemaRequest extends FormRequest
+class PlanSchemaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,6 +26,7 @@ class RemindPlanSchemaRequest extends FormRequest
     public function rules()
     {
         return [
+            'type' => ['required', Rule::in(PlanTypes::returnAll())],
             'body' => 'required|array',
             'body.*.text' => 'required_without:body.*.variable',
             'body.*.variable' => 'required_without:body.*.text',

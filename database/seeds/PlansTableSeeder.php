@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\Message\Plans\RemindPlanSchema;
+use App\Http\Controllers\Constants\PlanTypes;
+use App\Models\Message\Plans\PlanSchema;
 use Illuminate\Database\Seeder;
 
 class PlansTableSeeder extends Seeder
@@ -12,7 +13,8 @@ class PlansTableSeeder extends Seeder
      */
     public function run()
     {
-        RemindPlanSchema::create([
+        PlanSchema::create([
+            'type' => PlanTypes::REMIND,
             'body' => [
                 ["text" => "Witaj "],
                 [
