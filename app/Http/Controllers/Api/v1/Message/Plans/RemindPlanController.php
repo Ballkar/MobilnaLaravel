@@ -20,9 +20,7 @@ class RemindPlanController extends Controller
     use ApiCommunication;
 
     public function __construct()
-    {
-//        $this->authorizeResource(RemindPlan::class, 'plan');
-    }
+    { }
 
     /**
      * @return JsonResponse

@@ -17,11 +17,9 @@ class RemindPlan extends JsonResource
     {
         return [
             'id' => $this->id,
-            'body' => $this->body,
+            'schema_id' => $this->schema_id,
             'hour' => $this->hour,
             'minute' => $this->minute,
-            'clear_diacritics' => $this->clear_diacritics,
-            'time_type' => $this->time_type,
             'active' => $this->active,
         ];
     }
