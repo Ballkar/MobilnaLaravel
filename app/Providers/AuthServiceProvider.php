@@ -5,9 +5,11 @@ namespace App\Providers;
 use App\Models\Announcement\Customer;
 use App\Models\Calendar\Work;
 use App\Models\Message\Message;
+use App\Models\Message\Plans\RemindPlanSchema;
 use App\Models\User\Wallet;
 use App\Models\User\WalletTransaction;
 use App\Models\Calendar\Label;
+use App\Policies\Admin\RemindPlanSchemaPolicy;
 use App\Policies\Admin\WalletPolicy;
 use App\Policies\Admin\WalletTransactionPolicy;
 use App\Policies\Calendar\WorkPolicy;
@@ -25,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+        RemindPlanSchema::class => RemindPlanSchemaPolicy::class,
         Message::class => MessagePolicy::class,
         Customer::class => CustomerPolicy::class,
         Work::class => WorkPolicy::class,

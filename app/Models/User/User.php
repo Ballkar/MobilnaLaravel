@@ -36,10 +36,7 @@ class User extends Authenticatable
             ]);
             RemindPlan::create([
                 'owner_id' => $user->id,
-                'body' => RemindPlan::$defaultBody,
-                'hour' => 17,
-                'minute' => 0,
-                'time_type' => RemindPlan::$time_type_day_before,
+                'schema_id' => 1,
             ]);
 
             $notificationService = new NotificationService();

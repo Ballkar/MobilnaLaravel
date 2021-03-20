@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Message\Plans;
+namespace App\Http\Requests\Admin;
 
 use App\Models\Message\Plans\RemindPlan;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class RemindPlanRequest extends FormRequest
+class RemindPlanSchemaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,11 @@ class RemindPlanRequest extends FormRequest
     public function rules()
     {
         return [
-            'schema_id' => 'exists:message_plans_remind_schema,id',
-            'active' => 'boolean',
+            'body' => 'required|array',
+            'body.*.text' => 'required_without:body.*.variable',
+            'body.*.variable' => 'required_without:body.*.text',
+            'body.*.variable.name' => 'required_with:body.*.variable',
+            'body.*.variable.model' => 'required_with:body.*.variable',
         ];
     }
 }

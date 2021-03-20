@@ -17,12 +17,7 @@ class RemindPlanPreviewRequest extends FormRequest
     {
         return [
             'customer_id' => 'exists:customers,id',
-            'clear_diacritics' => 'required',
-            'body' => 'required|array',
-            'body.*.text' => 'required_without:body.*.variable',
-            'body.*.variable' => 'required_without:body.*.text',
-            'body.*.variable.name' => 'required_with:body.*.variable',
-            'body.*.variable.model' => 'required_with:body.*.variable',
+            'schema_id' => 'exists:message_plans_remind_schema,id',
         ];
     }
 }
