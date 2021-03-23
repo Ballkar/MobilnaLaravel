@@ -50,12 +50,12 @@ class RemindPlanController extends Controller
     public function preview(RemindPlanPreviewRequest $request)
     {
         $customer = Customer::find($request->customer_id);
-        $body = $request->body;
-        $clearDiacritics = $request->clear_diacritics;
+        $body = $request->schema->body;
         $owner = User::find(Auth::id());
+
         try {
             $smsCounter = new SMSCounter();
-            $previewRes = MessageService::createTextFromSchema($body, $clearDiacritics, $customer, $owner);
+            $previewRes = MessageService::createTextFromSchema($body, false, $customer, $owner);
             $dataInfo = $smsCounter->count($previewRes);
 
             return $this->sendResponse([
