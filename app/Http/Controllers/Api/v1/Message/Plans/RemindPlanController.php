@@ -3,19 +3,15 @@
 namespace App\Http\Controllers\Api\v1\Message\Plans;
 
 use App\Http\Controllers\ApiCommunication;
-use App\Http\Controllers\Constants\PlanTypes;
 use App\Http\Requests\Message\Plans\RemindPlanPreviewRequest;
 use App\Http\Requests\Message\Plans\RemindPlanRequest;
 use App\Http\Resources\Message\Plans\RemindPlan as RemindPlanResource;
 use App\Models\Announcement\Customer;
-use App\Models\Message\Plans\PlanSchema;
-use App\Models\Message\Plans\RemindPlan;
 use App\Models\User\User;
 use App\Services\MessageService;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 use Instasent\SMSCounter\SMSCounter;
 
 class RemindPlanController extends Controller

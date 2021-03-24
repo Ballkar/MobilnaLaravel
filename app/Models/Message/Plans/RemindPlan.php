@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class RemindPlan extends Model
 {
-    protected $table = 'message_plans_remind';
     public $timestamps = false;
+    public static $sendHour = 17;
+    public static $sendMinute = 00;
+    protected $table = 'message_plans_remind';
     protected $guarded = [];
 
     public function owner()

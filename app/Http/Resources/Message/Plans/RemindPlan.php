@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Message\Plans;
 
+use App\Models\Message\Plans\RemindPlan as RemindPlanModel;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,8 +19,8 @@ class RemindPlan extends JsonResource
         return [
             'id' => $this->id,
             'schema_id' => $this->schema_id,
-            'hour' => $this->hour,
-            'minute' => $this->minute,
+            'hour' => RemindPlanModel::$sendHour,
+            'minute' => RemindPlanModel::$sendMinute,
             'active' => $this->active,
         ];
     }
