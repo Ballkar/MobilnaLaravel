@@ -41,11 +41,7 @@ class SendMessageRemindPlans extends Command
      */
     public function handle()
     {
-        $date = Carbon::now();
-        $plans = RemindPlan::where('active', true)
-            ->where('hour', $date->hour)
-            ->where('minute', $date->minute)
-            ->get();
+        $plans = RemindPlan::where('active', true)->get();
 
         if(!isset($plans[0])) {
             Log::channel('sendMessagePlans')->info('No active plans');
@@ -53,7 +49,7 @@ class SendMessageRemindPlans extends Command
         }
 
         foreach ($plans as $plan) {
-            $works = $this->getWorksForPlan($plan, $date);
+            $works = $this->getWorksForPlan($plan);
             if(!isset($works[0])) {
                 continue;
             }
@@ -68,11 +64,11 @@ class SendMessageRemindPlans extends Command
         return true;
     }
 
-    public function getWorksForPlan(RemindPlan $plan, Carbon $nowDate)
+    public function getWorksForPlan(RemindPlan $plan)
     {
-        $nowDate = $plan->time_type == RemindPlan::$time_type_same_day ? $nowDate : $nowDate->addDay();
+        $date = Carbon::now()->addDay();
         $works = Work::where('owner_id', $plan->owner_id)
-            ->whereDate('start', $nowDate->toDateString())
+            ->whereDate('start', $date->toDateString())
             ->get();
 
         return $works;

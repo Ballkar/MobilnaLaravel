@@ -165,6 +165,8 @@ class MessageService
         switch ($variable) {
             case 'name':
                 return $user['name'];
+            case 'phone':
+                return $user['phone'];
             default:
                 throw new Exception('Uknown variable: '.$variable.' in User Model');
         }

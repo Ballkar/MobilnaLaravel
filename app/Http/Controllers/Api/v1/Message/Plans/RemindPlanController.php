@@ -7,7 +7,6 @@ use App\Http\Requests\Message\Plans\RemindPlanPreviewRequest;
 use App\Http\Requests\Message\Plans\RemindPlanRequest;
 use App\Http\Resources\Message\Plans\RemindPlan as RemindPlanResource;
 use App\Models\Announcement\Customer;
-use App\Models\Message\Plans\RemindPlan;
 use App\Models\User\User;
 use App\Services\MessageService;
 use Illuminate\Http\JsonResponse;
@@ -20,9 +19,7 @@ class RemindPlanController extends Controller
     use ApiCommunication;
 
     public function __construct()
-    {
-//        $this->authorizeResource(RemindPlan::class, 'plan');
-    }
+    { }
 
     /**
      * @return JsonResponse
@@ -42,19 +39,19 @@ class RemindPlanController extends Controller
     {
         $user = Auth::user();
         $plan = $user->remindPlan;
-        $plan->update($request->validated());
+        $plan->update($request->only('active', 'schema_id'));
         return $this->sendResponse(new RemindPlanResource($plan), 'Plan updated');
     }
 
     public function preview(RemindPlanPreviewRequest $request)
     {
         $customer = Customer::find($request->customer_id);
-        $body = $request->body;
-        $clearDiacritics = $request->clear_diacritics;
+        $body = $request->schema->body;
         $owner = User::find(Auth::id());
+
         try {
             $smsCounter = new SMSCounter();
-            $previewRes = MessageService::createTextFromSchema($body, $clearDiacritics, $customer, $owner);
+            $previewRes = MessageService::createTextFromSchema($body, false, $customer, $owner);
             $dataInfo = $smsCounter->count($previewRes);
 
             return $this->sendResponse([
