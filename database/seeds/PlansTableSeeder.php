@@ -23,11 +23,38 @@ class PlansTableSeeder extends Seeder
                         "name"=> "name",
                     ],
                 ],
-                ["text" => ", pamiętaj o wizycie w naszym salonie jutro o godzinie: "],
+                ["text" => ", pamietaj o wizycie w naszym salonie jutro o godzinie: "],
                 [
                     "variable" => [
                         "model" => "work",
                         "name"=> "start_hour",
+                    ],
+                ],
+            ]
+        ]);
+
+        PlanSchema::create([
+            'type' => PlanTypes::REMIND,
+            'body' => [
+                ["text" => "Witaj "],
+                [
+                    "variable" => [
+                        "model" => "customer",
+                        "name"=> "name",
+                    ],
+                ],
+                ["text" => ", jutro o "],
+                [
+                    "variable" => [
+                        "model" => "work",
+                        "name"=> "start_hour",
+                    ],
+                ],
+                ["text" => " masz wizyte w naszym salonie. Wrazie problemow prosimy o kontakt: "],
+                [
+                    "variable" => [
+                        "model" => "user",
+                        "name"=> "phone",
                     ],
                 ],
             ]
