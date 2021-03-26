@@ -26,7 +26,7 @@ class RegisterRequest extends ApiFormRequest
     {
         return [
             'email' => 'required|email|max:255|unique:users,email',
-//            'reg' => 'accepted',
+            'reg' => 'accepted',
             'name' => 'required|min:3|max:11',
             'password' => 'required|min:6',
             'acc_type' => 'required|in:'.implode(',', Roles::returnSafe()),

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Message;
+namespace App\Http\Resources\Message\Plans;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MessageSchema extends JsonResource
+class RemindPlan extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,13 +15,14 @@ class MessageSchema extends JsonResource
      */
     public function toArray($request)
     {
-
         return [
             'id' => $this->id,
-            'name' => $this->name,
             'body' => $this->body,
+            'hour' => $this->hour,
+            'minute' => $this->minute,
             'clear_diacritics' => $this->clear_diacritics,
-            'created_at' => $this->created_at,
+            'time_type' => $this->time_type,
+            'active' => $this->active,
         ];
     }
 }

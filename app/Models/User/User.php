@@ -5,6 +5,8 @@ namespace App\Models\User;
 use App\Events\User\UserWasRegistered;
 use App\Http\Controllers\Constants\Roles;
 use App\Models\Announcement\Customer;
+use App\Models\Message\Plans\RemindPlan;
+use App\Services\NotificationService;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,6 +23,7 @@ class User extends Authenticatable
     ];
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'tutorials' => 'array',
     ];
 
     public static function boot()
@@ -31,6 +34,16 @@ class User extends Authenticatable
                 'owner_id' => $user->id,
                 'money' => 0,
             ]);
+            RemindPlan::create([
+                'owner_id' => $user->id,
+                'body' => RemindPlan::$defaultBody,
+                'hour' => 17,
+                'minute' => 0,
+                'time_type' => RemindPlan::$time_type_day_before,
+            ]);
+
+            $notificationService = new NotificationService();
+            $notificationService->sendNotificationToAdmin('Nowy user!', 'Zarejestrował się user o emailu '. $user->email, NotificationService::$NOTIFICATION_TYPE_INFO);
         });
 
         parent::boot();
@@ -51,6 +64,11 @@ class User extends Authenticatable
         return $this->hasOne(Wallet::class, 'owner_id');
     }
 
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'user_id');
+    }
+
     public function isAdmin()
     {
         return $this->role_id === Roles::ROLE_ADMIN;
@@ -59,6 +77,11 @@ class User extends Authenticatable
     public function isUser()
     {
         return $this->role_id === Roles::ROLE_USER;
+    }
+
+    public function remindPlan()
+    {
+        return $this->hasOne(RemindPlan::class, 'owner_id');
     }
 
     public function returnNewToken($remember = false)

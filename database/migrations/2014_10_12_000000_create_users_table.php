@@ -36,6 +36,7 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->nullable();
             $table->string('avatar_thumbnail')->nullable();
 
+            $table->json('tutorials')->default('[]');
 
             $table->rememberToken();
             $table->timestamp('email_verified_at')->nullable();
