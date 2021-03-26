@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Models\Message\Plans\RemindPlan;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -30,7 +31,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('SendMessageRemindPlans')
-            ->everyFifteenMinutes();
+            ->dailyAt(RemindPlan::$sendHour.':'.RemindPlan::$sendMinute);
         $schedule->command('CheckMessage')
             ->dailyAt('18');
     }

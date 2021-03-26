@@ -17,13 +17,10 @@ class CreatePlansRemindTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('owner_id')->unsigned();
             $table->foreign('owner_id')->references('id')->on('users');
-            $table->text('body')->nullable();
 
-            $table->integer('hour')->nullable();
-            $table->integer('minute')->nullable();
-            $table->string('time_type')->nullable();
+            $table->bigInteger('schema_id')->unsigned();
+            $table->foreign('schema_id')->references('id')->on('message_plans_schemas');
 
-            $table->boolean('clear_diacritics')->default(true);
             $table->boolean('active')->default(false);
         });
     }
@@ -35,6 +32,6 @@ class CreatePlansRemindTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('remind_plan');
+        Schema::dropIfExists('message_plans_remind');
     }
 }

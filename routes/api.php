@@ -5,8 +5,9 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
 
     Route::group(['middleware' => ['auth:api']], function () {
-        Route::group(['middleware' => ['auth:api'], 'namespace' => 'Admin'], function () {
-            Route::post('admin/wallet', 'WalletTransactionController@add');
+        Route::group(['middleware' => ['auth:api'], 'namespace' => 'Admin', 'prefix' => 'admin'], function () {
+            Route::post('wallet', 'WalletTransactionController@add');
+            Route::apiResource('messages/plans/schemas', 'Message\Plans\SchemaController')->only('store', 'update');
         });
 
         Route::group(['namespace' => 'Calendar'], function () {
@@ -22,6 +23,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
                 Route::get('remind', 'RemindPlanController@show');
                 Route::put('remind', 'RemindPlanController@update');
                 Route::post('remind/preview', 'RemindPlanController@preview');
+                Route::get('schemas', 'PlanSchemaController@index');
             });
 
             Route::post('messages/init', 'MessageController@initMessage');

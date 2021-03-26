@@ -6,7 +6,6 @@ use App\Http\Controllers\ApiCommunication;
 use App\Http\Resources\Message\Plans\RemindPlan as RemindPlanResource;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PlansController extends Controller
