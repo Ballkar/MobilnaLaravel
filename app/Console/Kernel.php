@@ -17,7 +17,6 @@ class Kernel extends ConsoleKernel
         'App\Console\Commands\import\Cities',
         'App\Console\Commands\import\Locating',
         'App\Console\Commands\init\init',
-        'App\Console\Commands\init\email',
         'App\Console\Commands\sms\SendMessage',
         'App\Console\Commands\sms\CheckMessage',
         'App\Console\Commands\sms\SendMessageRemindPlans',
