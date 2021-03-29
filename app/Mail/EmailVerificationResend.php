@@ -2,11 +2,12 @@
 
 namespace App\Mail;
 
+use App\Models\User\EmailActivationToken;
 use App\Models\User\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Str;
 
 class EmailVerificationResend extends Mailable
 {
@@ -21,8 +22,13 @@ class EmailVerificationResend extends Mailable
      */
     public function __construct(User  $user)
     {
-        $this->urlToVerify = config('app.front_url') . '/auth/verify/';
         $this->user = $user;
+        $tokenModel = EmailActivationToken::updateOrCreate([
+            'email' => $user->email,
+        ], [
+            'token' => Str::random(60),
+        ]);
+        $this->urlToVerify = config('app.front_url') . '/auth/verify/' . $tokenModel->token;
     }
 
     /**
