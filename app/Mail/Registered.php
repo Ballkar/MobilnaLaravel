@@ -2,10 +2,12 @@
 
 namespace App\Mail;
 
+use App\Models\User\ResetPasswordToken;
 use App\Models\User\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Str;
 
 class Registered extends Mailable
 {
@@ -20,13 +22,16 @@ class Registered extends Mailable
      */
     public function __construct(User  $user)
     {
-//        $tokenModel = EmailActivationToken::updateOrCreate([
-//            'email' => $notifiable->email,
-//        ], [
-//            'token' => Str::random(60),
-//        ]);
-        $this->urlToVerify = config('app.front_url') . '/auth/verify/';
-//        . $tokenModel->token
+        $this->user = $user;
+
+        $tokenModel = ResetPasswordToken::updateOrCreate([
+            'email' => $user->email,
+        ], [
+            'token' => Str::random(60),
+        ]);
+
+        $token = $tokenModel->token;
+        $this->urlToVerify = config('app.front_url') . '/auth/verify?token=' . $token;
         $this->user = $user;
     }
 

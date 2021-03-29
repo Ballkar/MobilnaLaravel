@@ -33,7 +33,7 @@ class PasswordResend extends Mailable
         ]);
 
         $token = $tokenModel->token;
-        $this->urlToResend = config('app.front_url') . '/auth/password-reset/' . $token;
+        $this->urlToResend = config('app.front_url') . '/auth/password-reset?token=' . $token;
     }
 
     /**
