@@ -2,15 +2,15 @@
 
 namespace App\Events\User;
 
+use App\Mail\Registered;
 use App\Models\User\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Mail;
 
 class UserWasRegistered extends Event
 {
@@ -24,6 +24,9 @@ class UserWasRegistered extends Event
     public function __construct(User $user)
     {
         $this->user = $user;
+
+        Mail::to($user->email)
+            ->send(new Registered($user));
     }
 
     /**

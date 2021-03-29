@@ -100,4 +100,8 @@ return [
         ],
     ],
 
+    'tokens_expiration_time' => [
+        'register' => 30,
+    ]
+
 ];
