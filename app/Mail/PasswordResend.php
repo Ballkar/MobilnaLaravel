@@ -4,29 +4,26 @@ namespace App\Mail;
 
 use App\Models\User\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class Registered extends Mailable
+class PasswordResend extends Mailable
 {
     use Queueable, SerializesModels;
+
     public $user;
-    public $urlToVerify;
+    public $urlToResend;
 
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param User $user
      */
     public function __construct(User  $user)
     {
-//        $tokenModel = EmailActivationToken::updateOrCreate([
-//            'email' => $notifiable->email,
-//        ], [
-//            'token' => Str::random(60),
-//        ]);
-        $this->urlToVerify = config('app.front_url') . '/auth/verify/';
-//        . $tokenModel->token
+        $token = 'abc';
+        $this->urlToResend = config('app.front_url') . '/auth/password-reset/' . $token;
         $this->user = $user;
     }
 
@@ -37,7 +34,7 @@ class Registered extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.registered')
-            ->subject('Witamy w Mobilna Kosmetyczka');
+        return $this->markdown('emails.PasswordResend')
+            ->subject('Reset hasła');
     }
 }

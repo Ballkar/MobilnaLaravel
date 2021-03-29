@@ -2,7 +2,6 @@
 
 namespace App\Events\User;
 
-use App\EmailActivationToken;
 use App\Mail\Registered;
 use App\Models\User\User;
 use Illuminate\Broadcasting\Channel;
@@ -12,7 +11,6 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 
 class UserWasRegistered extends Event
 {
