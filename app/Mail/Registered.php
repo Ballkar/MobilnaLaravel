@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Models\User\ResetPasswordToken;
+use App\Models\User\EmailActivationToken;
 use App\Models\User\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -24,7 +24,7 @@ class Registered extends Mailable
     {
         $this->user = $user;
 
-        $tokenModel = ResetPasswordToken::updateOrCreate([
+        $tokenModel = EmailActivationToken::updateOrCreate([
             'email' => $user->email,
         ], [
             'token' => Str::random(60),

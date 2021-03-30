@@ -28,7 +28,7 @@ class EmailVerificationResend extends Mailable
         ], [
             'token' => Str::random(60),
         ]);
-        $this->urlToVerify = config('app.front_url') . '/auth/verify/' . $tokenModel->token;
+        $this->urlToVerify = config('app.front_url') . '/auth/verify?token=' . $tokenModel->token;
     }
 
     /**
