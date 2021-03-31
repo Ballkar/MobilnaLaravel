@@ -81,7 +81,7 @@ class SendMessageRemindPlans extends Command
 
         foreach ($works as $work) {
             $customer = Customer::find($work->customer_id);
-            $messageText = MessageService::createTextFromSchema($plan->body, $plan->clear_diacritics, $customer, $owner, $work);
+            $messageText = MessageService::createTextFromSchema($plan->body, false, $customer, $owner, $work);
             $sms_count = $this->smsCounter->count($messageText)->messages;
             $sms_cost = $sms_count * $this->smsCost;
 
