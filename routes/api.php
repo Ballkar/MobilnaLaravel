@@ -4,6 +4,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
 
+    Route::group(['namespace' => 'User'], function () {
+        Route::get('email/verify', 'VerificationController@verify')->name('verification.verify');
+        Route::get('email/resend', 'VerificationController@resend')->name('verification.resend');
+        Route::get('password/resend', 'UserController@sendResetPasswordMail')->name('password.resend');
+        Route::post('password/reset', 'UserController@resetPassword')->name('password.reset');
+    });
+
     Route::group(['middleware' => ['auth:api']], function () {
         Route::group(['middleware' => ['auth:api'], 'namespace' => 'Admin', 'prefix' => 'admin'], function () {
             Route::post('wallet', 'WalletTransactionController@add');
