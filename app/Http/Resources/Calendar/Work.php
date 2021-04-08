@@ -26,8 +26,8 @@ class Work extends JsonResource
                 'name' => $customer->name,
                 'surname' => $customer->surname,
             ],
-            $this->mergeWhen($this->label, ['worker' => new WorkerResource($this->label)]),
-            $this->mergeWhen(!$this->label, ['worker' => null]),
+            $this->mergeWhen($this->worker, ['worker' => new WorkerResource($this->worker)]),
+            $this->mergeWhen(!$this->worker, ['worker' => null]),
         ];
     }
 }

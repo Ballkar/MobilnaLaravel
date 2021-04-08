@@ -24,6 +24,6 @@ class Work extends Model
 
     public function worker()
     {
-        return $this->hasOne(Worker::class, 'id', 'Worker_id');
+        return $this->hasOne(Worker::class, 'id', 'worker_id');
     }
 }
