@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCalendarLabelsTable extends Migration
+class CreateWorkersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCalendarLabelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('calendar_labels', function (Blueprint $table) {
+        Schema::create('workers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('owner_id')->unsigned();
             $table->foreign('owner_id')->references('id')->on('users');
@@ -30,6 +30,6 @@ class CreateCalendarLabelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('calendar_labels');
+        Schema::dropIfExists('workers');
     }
 }

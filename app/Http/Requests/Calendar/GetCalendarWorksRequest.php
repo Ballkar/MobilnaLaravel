@@ -18,8 +18,8 @@ class GetCalendarWorksRequest extends FormRequest
         return [
             "start"    => "required|date",
             "stop"    => "required|date",
-            'labels_ids' => 'nullable|array',
-            'labels_ids.*' => 'exists:calendar_labels,id',
+            'workers_ids' => 'nullable|array',
+            'workers_ids.*' => 'exists:worker,id',
         ];
     }
 }

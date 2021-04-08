@@ -36,15 +36,15 @@ class WorksController extends Controller
         $start = $start ? Carbon::make($start) : Carbon::now();
         $stop = $stop ? Carbon::make($stop) : Carbon::now()->addDay();
 
-        $labelsIds = $request->get('label_ids');
+        $workersIds = $request->get('workers_ids');
 
-        $hasEmpty = in_array(null, $labelsIds);
+        $hasEmpty = in_array(null, $workersIds);
 
         $works = Work::where('owner_id', '=', Auth::id())
-            ->where(function($query) use ($labelsIds,$hasEmpty){
-                $query->whereIn('label_id', $labelsIds);
+            ->where(function($query) use ($workersIds,$hasEmpty){
+                $query->whereIn('worker_id', $workersIds);
                 $query->when($hasEmpty, function ($query) {
-                    return $query->orWhereNull('label_id');
+                    return $query->orWhereNull('worker_id');
                 });
             })
             ->where('start', '>=', $start)
@@ -53,7 +53,7 @@ class WorksController extends Controller
             ->paginate(999999999999);
 
 
-//        return $this->sendResponse($request->get('label_ids'), 'All works returned');
+//        return $this->sendResponse($request->get('worker_ids'), 'All works returned');
         return $this->sendResponse(new WorkCollection($works), 'All works returned');
     }
 
@@ -78,7 +78,7 @@ class WorksController extends Controller
                     'start' => $item['start'],
                     'stop' => $item['stop'],
                     'customer_id' => $item['customer_id'],
-                    'label_id' => $item['label_id'],
+                    'worker_id' => $item['worker_id'],
                 ]);
             });
         return $this->sendResponse($works, 'Works updated');

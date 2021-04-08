@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Models\Calendar;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User\User;
 
-class Label extends Model
+class Worker extends Model
 {
     protected $guarded = [];
-    protected $table = 'calendar_labels';
+    protected $table = 'workers';
 
     public function owner()
     {

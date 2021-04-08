@@ -19,7 +19,7 @@ class WorkAddUpdateRequest extends FormRequest
             'start' => 'required|date|before:stop|after:' . date('Y-m-d H:i:s'),
             'stop' => 'required|date|after:start',
             'customer_id' => 'required|exists:customers,id',
-            'label_id' => 'nullable|exists:calendar_labels,id',
+            'worker_id' => 'nullable|exists:workers,id',
         ];
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Resources\Calendar;
 use App\Http\Resources\BaseResourceCollection;
 use Illuminate\Http\Request;
 
-class LabelCollection extends BaseResourceCollection
+class WorkerCollection extends BaseResourceCollection
 {
     /**
      * Transform the resource collection into an array.
