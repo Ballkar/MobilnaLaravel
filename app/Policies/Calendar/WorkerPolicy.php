@@ -3,10 +3,10 @@
 namespace App\Policies\Calendar;
 
 use App\Models\User\User;
-use App\Models\Calendar\Label;
+use App\Models\Worker;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class LabelPolicy
+class WorkerPolicy
 {
     use HandlesAuthorization;
 
@@ -25,12 +25,12 @@ class LabelPolicy
      * Determine whether the user can view the work.
      *
      * @param User $user
-     * @param Label $label
+     * @param Worker $worker
      * @return mixed
      */
-    public function view(User $user, Label $label)
+    public function view(User $user, Worker $worker)
     {
-        return $user->id === $label->owner_id;
+        return $user->id === $worker->owner_id;
     }
 
     /**
@@ -48,47 +48,47 @@ class LabelPolicy
      * Determine whether the user can update the work.
      *
      * @param User $user
-     * @param Label $label
+     * @param Worker $worker
      * @return mixed
      */
-    public function update(User $user, Label $label)
+    public function update(User $user, Worker $worker)
     {
-        return $user->id === $label->owner_id;
+        return $user->id === $worker->owner_id;
     }
 
     /**
      * Determine whether the user can delete the work.
      *
      * @param User $user
-     * @param Label $label
+     * @param Worker $worker
      * @return mixed
      */
-    public function delete(User $user, Label $label)
+    public function delete(User $user, Worker $worker)
     {
-        return $user->id === $label->owner_id;
+        return $user->id === $worker->owner_id;
     }
 
     /**
      * Determine whether the user can restore the work.
      *
      * @param User $user
-     * @param Label $label
+     * @param Worker $worker
      * @return mixed
      */
-    public function restore(User $user, Label $label)
+    public function restore(User $user, Worker $worker)
     {
-        return $user->id === $label->owner_id;
+        return $user->id === $worker->owner_id;
     }
 
     /**
      * Determine whether the user can permanently delete the work.
      *
      * @param User $user
-     * @param Label $label
+     * @param Worker $worker
      * @return mixed
      */
-    public function forceDelete(User $user, Label $label)
+    public function forceDelete(User $user, Worker $worker)
     {
-        return $user->id === $label->owner_id;
+        return $user->id === $worker->owner_id;
     }
 }

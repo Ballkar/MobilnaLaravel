@@ -21,8 +21,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
             Route::apiResource('calendar/works', 'WorksController')->except('index', 'show');
             Route::post('calendar/works/calendar', 'WorksController@index');
             Route::post('calendar/works/mass-update', 'WorksController@massUpdate');
-            Route::apiResource('calendar/labels', 'LabelsController');
-            Route::post('calendar/labels/mass-update', 'LabelsController@massUpdate');
         });
         Route::group(['namespace' => 'Message'], function () {
             Route::group(['namespace' => 'Plans', 'prefix' => 'messages/plans'], function () {
@@ -47,6 +45,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
             Route::apiResource('notifications', 'NotificationController')->only(['index', 'show', 'delete']);
         });
         Route::apiResource('customers', 'CustomerController');
+
+        Route::apiResource('workers', 'WorkersController');
+        Route::post('workers/mass-update', 'WorkersController@massUpdate');
     });
 
     Route::group(['namespace' => 'Auth'], function () {
