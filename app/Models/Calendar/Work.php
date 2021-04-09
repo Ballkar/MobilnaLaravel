@@ -2,6 +2,7 @@
 
 namespace App\Models\Calendar;
 
+use App\Models\Worker;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Announcement\Customer;
 use App\Models\User\User;
@@ -21,8 +22,8 @@ class Work extends Model
         return $this->hasOne(Customer::class, 'id', 'customer_id')->withTrashed();
     }
 
-    public function label()
+    public function worker()
     {
-        return $this->hasOne(Label::class, 'id', 'label_id');
+        return $this->hasOne(Worker::class, 'id', 'worker_id');
     }
 }

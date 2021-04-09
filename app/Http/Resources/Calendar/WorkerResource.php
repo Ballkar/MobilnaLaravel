@@ -5,7 +5,7 @@ namespace App\Http\Resources\Calendar;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class LabelResource extends JsonResource
+class WorkerResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
