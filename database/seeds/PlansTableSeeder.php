@@ -60,6 +60,40 @@ class PlansTableSeeder extends Seeder
             ]
         ]);
 
+        PlanSchema::create([
+            'type' => PlanTypes::REMIND,
+            'body' => [
+                ["text" => "Witaj "],
+                [
+                    "variable" => [
+                        "model" => "customer",
+                        "name"=> "name",
+                    ],
+                ],
+                ["text" => ", jutro o "],
+                [
+                    "variable" => [
+                        "model" => "work",
+                        "name"=> "start_hour",
+                    ],
+                ],
+                ["text" => " masz wizyte w salonie "],
+                [
+                    "variable" => [
+                        "model" => "user",
+                        "name"=> "name",
+                    ],
+                ],
+                ["text" => ". Wrazie problemow prosimy o kontakt: "],
+                [
+                    "variable" => [
+                        "model" => "user",
+                        "name"=> "phone",
+                    ],
+                ],
+            ]
+        ]);
+
 
     }
 }
