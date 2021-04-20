@@ -23,6 +23,7 @@ class User extends JsonResource
             'role_id' => $this->role_id,
             'phone' => $this->phone,
             'email' => $this->email,
+            'email_verified' => $this->email_verified_at ? true : false,
             'unread_notifications' => $notifications->where('is_read', 0)->count(),
 
             $this->mergeWhen(!$this->isAdmin(), function () use ($wallet) {

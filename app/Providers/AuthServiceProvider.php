@@ -6,9 +6,11 @@ use App\Models\Announcement\Customer;
 use App\Models\Calendar\Work;
 use App\Models\Message\Message;
 use App\Models\Message\Plans\PlanSchema;
+use App\Models\User\User;
 use App\Models\User\Wallet;
 use App\Models\User\WalletTransaction;
 use App\Models\Worker;
+use App\Policies\Admin\UserPolicy;
 use App\Policies\Message\PlanSchemaPolicy;
 use App\Policies\Admin\WalletPolicy;
 use App\Policies\Admin\WalletTransactionPolicy;
@@ -27,6 +29,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+        User::class => UserPolicy::class,
         PlanSchema::class => PlanSchemaPolicy::class,
         Message::class => MessagePolicy::class,
         Customer::class => CustomerPolicy::class,

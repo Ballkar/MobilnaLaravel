@@ -12,7 +12,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
     });
 
     Route::group(['middleware' => ['auth:api']], function () {
+
+
         Route::group(['middleware' => ['auth:api'], 'namespace' => 'Admin', 'prefix' => 'admin'], function () {
+            Route::apiResource('users', 'UsersController')->only('index', 'store', 'show');
             Route::post('wallet', 'WalletTransactionController@add');
             Route::apiResource('messages/plans/schemas', 'Message\Plans\SchemaController')->only('store', 'update');
         });
