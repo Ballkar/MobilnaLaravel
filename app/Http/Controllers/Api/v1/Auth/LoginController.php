@@ -23,10 +23,6 @@ class LoginController extends Controller
             return $this->sendError('Nieprawidłowy email lub hasło',  401);
 
         $user = $request->user();
-
-        if ($request->acc_type == Roles::ROLE_ADMIN && $user->role_id != Roles::ROLE_ADMIN || $request->acc_type != Roles::ROLE_ADMIN && $user->role_id == Roles::ROLE_ADMIN)
-            return $this->sendError('Invalid credentials',  401);
-
         $token = $user->returnNewToken($request->remember_me);
 
         return $this->sendResponse(['token' => $token->accessToken, 'type' => $user->role_id], 'Successfully logged in!', 200);

@@ -27,7 +27,6 @@ class LoginRequest extends ApiFormRequest
         return [
             'email' => 'required|email',
             'password' => 'required',
-            'acc_type' => 'required|in:'.implode(',', Roles::returnAll()),
         ];
     }
 }
