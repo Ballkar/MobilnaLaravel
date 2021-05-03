@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
-use App\Http\Controllers\Constants\Roles;
+use App\Http\Controllers\Constants\UserRoles;
 use App\Http\Requests\ApiFormRequest;
 use Illuminate\Validation\Rule;
 
@@ -30,7 +30,7 @@ class AddUsersRequest extends ApiFormRequest
             'reg' => 'accepted',
             'name' => 'required|min:3|max:11',
             'password' => 'required|min:6',
-            'acc_type' => 'required|in:'.implode(',', Roles::returnSafe()),
+            'acc_type' => 'required|in:'.implode(',', UserRoles::returnSafe()),
         ];
     }
 }

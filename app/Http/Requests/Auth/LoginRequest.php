@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
-use App\Http\Controllers\Constants\Roles;
+use App\Http\Controllers\Constants\UserRoles;
 use App\Http\Requests\ApiFormRequest;
 
 class LoginRequest extends ApiFormRequest

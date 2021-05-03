@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Api\v1\Admin;
 
 use App\Http\Controllers\ApiCommunication;
+use App\Http\Controllers\Constants\UserRoles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AddUsersRequest;
 use App\Http\Requests\Admin\UsersListRequest;
-use App\Http\Resources\User\UsersCollection;
+use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\User as UserResource;
 use App\Models\User\User;
 
@@ -21,9 +22,11 @@ class UsersController extends Controller
 
     public function index(UsersListRequest $request)
     {
-        $users = User::paginate($request->limit);
+        $users = User::where('role_id', UserRoles::ROLE_USER)
+            ->orderBy('created_at', 'DESC')
+            ->paginate($request->limit);
 
-        return $this->sendResponse(new UsersCollection($users), 'Users returned');
+        return $this->sendResponse(new UserCollection($users), 'Users returned');
     }
 
     public function store(AddUsersRequest $request)

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
-use App\Http\Controllers\Constants\Roles;
+use App\Http\Controllers\Constants\UserRoles;
 use App\Http\Requests\ApiFormRequest;
 use Illuminate\Validation\Rule;
 
