@@ -3,7 +3,7 @@
 namespace App\Models\User;
 
 use App\Events\User\UserWasRegistered;
-use App\Http\Controllers\Constants\Roles;
+use App\Http\Controllers\Constants\UserRoles;
 use App\Models\Announcement\Customer;
 use App\Models\Message\Plans\RemindPlan;
 use App\Services\NotificationService;
@@ -68,12 +68,12 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->role_id === Roles::ROLE_ADMIN;
+        return $this->role_id === UserRoles::ROLE_ADMIN;
     }
 
     public function isUser()
     {
-        return $this->role_id === Roles::ROLE_USER;
+        return $this->role_id === UserRoles::ROLE_USER;
     }
 
     public function remindPlan()

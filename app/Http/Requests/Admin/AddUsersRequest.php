@@ -6,7 +6,7 @@ use App\Http\Controllers\Constants\UserRoles;
 use App\Http\Requests\ApiFormRequest;
 use Illuminate\Validation\Rule;
 
-class WalletTransactionRequest extends ApiFormRequest
+class AddUsersRequest extends ApiFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,9 +26,11 @@ class WalletTransactionRequest extends ApiFormRequest
     public function rules()
     {
         return [
-            'type' => ['required', Rule::in(['ADD', 'SUBTRACT'])],
-            'money' => 'required|integer',
-            'user_id' => 'required|exists:users,id',
+            'email' => 'required|email|max:255|unique:users,email',
+            'reg' => 'accepted',
+            'name' => 'required|min:3|max:11',
+            'password' => 'required|min:6',
+            'acc_type' => 'required|in:'.implode(',', UserRoles::returnSafe()),
         ];
     }
 }

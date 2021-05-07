@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Constants\Roles;
+use App\Http\Controllers\Constants\UserRoles;
 use App\Models\User\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -18,20 +18,20 @@ class UsersTableSeeder extends Seeder
         User::create([
             'email' => 'admin@o2.pl',
             'password' => '123123',
-            'role_id' => Roles::ROLE_ADMIN,
+            'role_id' => UserRoles::ROLE_ADMIN,
             'name' => ''
         ]);
         User::create([
             'email' => 'test@o2.pl',
             'password' => '123123',
-            'role_id' => Roles::ROLE_USER,
+            'role_id' => UserRoles::ROLE_USER,
             'name' => 'Renails',
             'phone' => '508994856',
         ]);
         User::create([
             'email' => 'customer@o2.pl',
             'password' => '123123',
-            'role_id' => Roles::ROLE_CLIENT,
+            'role_id' => UserRoles::ROLE_CLIENT,
             'name' => '',
             'phone' => '508994856',
         ]);
