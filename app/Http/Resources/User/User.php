@@ -20,13 +20,26 @@ class User extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'role_id' => $this->role_id,
             'phone' => $this->phone,
             'email' => $this->email,
-            'tutorials' => $this->tutorials,
+            'created_at' => $this->created_at,
+            'email_verified' => $this->email_verified_at ? true : false,
             'unread_notifications' => $notifications->where('is_read', 0)->count(),
+            'tutorials' => $this->tutorials,
             'wallet' => [
                 'money' => $wallet->money / 100
             ],
+
+            $this->mergeWhen(!$this->isAdmin(), function () use ($wallet) {
+                return [
+                ];
+            }),
+
+            $this->mergeWhen($this->isAdmin(), function () {
+                return [
+                ];
+            }),
         ];
     }
 }
